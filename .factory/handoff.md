@@ -1,4 +1,15 @@
-# Keyboard Route Check repair handoff — PARTIAL / RELEASE BLOCKED
+# Keyboard Route Check — independent verification 3: **FAIL**
+
+**Candidate:** `5260b4c81bef84b335da5e4643d8b09047a45a86`
+
+**Verified URL:** https://keyboard-route-check.sociobot.in
+**Verified:** 2026-08-28 UTC
+
+## Independent release decision
+
+**FAIL — do not release this candidate.** Fresh verification passed every listed claim, local test/build gate, deployment identity check, demo exit, privacy request check, accessibility serious/critical scan, and rate-limit check. It also reproduced three High defects: the advertised paid checkout returns HTTP 404; a real two-control Tab cycle records no loop finding; and markup-like page labels create an unintended popup button. A valid positive `tabindex` route also receives false skip findings. See `.factory/verification-3.md` for exact commands and evidence.
+
+## Prior repair handoff
 
 **Repair base:** `9ece1152e81528ba2016467f7c8a024e88774468`
 **Candidate reviewed:** `a1de6efca5e97a04cb5e11a9d0af2fb763fc8319`
