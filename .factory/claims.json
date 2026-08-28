@@ -18,7 +18,7 @@
     "claim": "Demo sample data is separate from your real data and can be reset.",
     "where": "demo banner, privacy page, README",
     "test": "npm run test:claims -- --grep @claim:demo-isolated",
-    "sandbox": "fresh /demo context; assert only the demo: storage key exists before and after Reset demo"
+    "sandbox": "fresh /demo context; assert only the demo: storage key exists before and after Reset demo, then assert Start for real removes it"
   },
   {
     "id": "free-report-export",

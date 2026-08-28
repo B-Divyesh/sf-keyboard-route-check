@@ -26,7 +26,7 @@ function footer() {
   return `<footer><p>Keyboard routes, made reviewable.</p><nav aria-label="Footer"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory</a></nav><small>v1.0.0 · Generated artwork is original to this product.</small></footer>`;
 }
 function demoBanner() {
-  return `<aside class="demo-banner" role="status"><span><b>Demo</b> — sample data, nothing is saved to your real data</span><span><button class="link-button" id="reset-demo">Reset demo</button><a href="/">Start for real</a></span></aside>`;
+  return `<aside class="demo-banner" role="status"><span><b>Demo</b> — sample data, nothing is saved to your real data</span><span><button class="link-button" id="reset-demo">Reset demo</button><a id="start-real" href="/">Start for real</a></span></aside>`;
 }
 function findings() {
   const r = sampleReport;
@@ -48,6 +48,9 @@ function missingPage() { return `${header()}<main id="main" class="missing"><p c
 function enterDemo() {
   localStorage.setItem(sampleKey, JSON.stringify(sampleReport));
   document.querySelector('#reset-demo')?.addEventListener('click', () => { localStorage.removeItem(sampleKey); enterDemo(); live.textContent = 'Demo reset.'; });
+  // Demo data is deliberately ephemeral. Clear it before following the normal
+  // link so a browser navigation cannot leave a stale sample behind.
+  document.querySelector('#start-real')?.addEventListener('click', () => localStorage.removeItem(sampleKey));
   document.querySelector('#export-sample')?.addEventListener('click', exportSample);
 }
 function exportSample() {

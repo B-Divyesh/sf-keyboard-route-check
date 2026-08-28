@@ -43,7 +43,8 @@ npm run dev:site
 ```
 
 Open `http://localhost:5173/demo` for the isolated sample route. Demo storage
-uses the `demo:krc:sample-report` localStorage key. Reset demo clears that key.
+uses the `demo:krc:sample-report` localStorage key. Reset demo recreates it;
+Start for real clears it.
 
 ## Privacy and the optional team archive
 

@@ -33,12 +33,15 @@ test('@claim:report-export exports a route report with labels, roles, order, and
   expect(report.findings.map((finding: { kind: string }) => finding.kind)).toContain('invisible-focus');
 });
 
-test('@claim:demo-isolated stores only sample data separately and reset reseeds it', async ({ page }) => {
+test('@claim:demo-isolated stores only sample data separately, resets it, and discards it on exit', async ({ page }) => {
   await page.goto('/demo');
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
   await page.getByRole('button', { name: 'Reset demo' }).click();
   await expect(page.getByRole('status')).toContainText('sample data, nothing is saved to your real data');
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
+  await page.getByRole('link', { name: 'Start for real' }).click();
+  await expect(page).toHaveURL(/\/$/);
+  expect(await page.evaluate(() => Object.keys(localStorage))).toEqual([]);
 });
 
 test('@claim:free-report-export downloads the sample report without an account', async ({ page }) => {

@@ -1,21 +1,22 @@
-# Keyboard Route Check verification handoff — FAIL
+# Keyboard Route Check repair handoff — PARTIAL / RELEASE BLOCKED
 
-**Candidate:** `a1de6efca5e97a04cb5e11a9d0af2fb763fc8319`
-**Live URL:** https://keyboard-route-check.sociobot.in
+**Repair base:** `9ece1152e81528ba2016467f7c8a024e88774468`
+**Candidate reviewed:** `a1de6efca5e97a04cb5e11a9d0af2fb763fc8319`
 **Verified:** 2026-08-28 UTC
 
-The candidate's free keyboard-route recorder, static deployment, claims,
-accessibility checks, and production build pass. The live site now matches the
-candidate and serves a proper 404; the earlier deployment-propagation problem
-is resolved.
+## Completed repair
 
-**Release status: FAIL.** The marketed $29 team archive cannot be purchased:
-the public Sociobot checkout endpoint returns HTTP 404. In addition, Start for
-real leaves the demo storage key behind, contrary to the demo-sandbox exit
-contract. See `.factory/verification-2.md` for exact commands, evidence, and
-severity.
+- Fixed the demo-sandbox exit. **Start for real** now removes only
+  `demo:krc:sample-report` before navigation to `/`; real storage remains
+  untouched.
+- Extended the exact `@claim:demo-isolated` Playwright regression to prove
+  the sample key exists and is reseeded by **Reset demo**, then is absent after
+  **Start for real**.
+- Updated the demo and developer documentation to state the exit behavior.
 
-## How to verify
+## Verification
+
+From a clean install:
 
 ```sh
 npm ci
@@ -26,15 +27,40 @@ npm run build
 npm run test:browser
 ```
 
-Run every exact command in `.factory/claims.json` separately. All six passed
-in this verification; the full browser suite passed 11/11. The built site is
-`dist/site`, and the packed MV3 extension is
-`.output/keyboard-route-check-1.0.0-chrome.zip`.
+All commands passed on 2026-08-28 UTC. The full browser suite passed **11/11**
+at desktop and 390 px. Every exact command in `.factory/claims.json` passed
+separately, including the expanded `demo-isolated` claim. The production build
+created `dist/site` and `.output/keyboard-route-check-1.0.0-chrome.zip`.
+`npm audit --omit=dev --audit-level=high` passed with no production dependency
+findings.
 
-Before release, the factory must make this live endpoint return the hosted
-checkout redirect (not 404):
+`verify-url.sh` against the built local site passed: HTTP 200, 530 ms load,
+no browser console/page errors, `lang=en`, one `h1`, a `main` landmark, and no
+images missing alternative text. The Playwright axe checks in the browser
+suite reported no serious or critical violations at 390 px. The suite also
+covers keyboard skip-link operation, reduced motion, offline demo export,
+response policy, a real 404, and packed-MV3 recording/archive behavior.
 
-`https://api.sociobot.in/api/v1/products/keyboard-route-check/checkout`
+## Release blocker that remains outside this repository
 
-Then fix the demo exit so it removes `demo:krc:sample-report`, add regression
-coverage for both outcomes, and rerun independent verification.
+The paid team archive cannot honestly be released yet. On 2026-08-28,
+`GET https://api.sociobot.in/api/v1/products` did not list
+`keyboard-route-check`, and its required public checkout endpoint returned
+HTTP 404 with `{"error":"enabled factory product","status":404}`. This is
+the same independent-verifier finding. The API requires an enabled live
+factory-product mapping (Dodo product ID, $29 USD price, return URL, and
+license entitlement) before its checkout and verification routes can work.
+
+No repository change can create that server-side billing mapping, and it was
+not simulated or redirected to another product. The current checkout claim
+therefore continues to test only the truthful page copy and destination; it
+must be replaced or extended with a real redirect assertion immediately after
+the factory enables the product. Do not mark this release as accepted until
+that live endpoint responds with the hosted checkout redirect and the
+end-to-end assertion passes.
+
+## Deployment
+
+Static artifact class is unchanged: deploy `dist/site` using the configured
+static deployment work order. The extension package remains the generated zip
+above. No DNS, database, or billing configuration was modified by this repair.

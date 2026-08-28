@@ -9,4 +9,4 @@ and a loop for reviewers to inspect.
 
 Demo mode writes only `demo:krc:sample-report` in browser localStorage. The
 banner's **Reset demo** control removes and recreates it. **Start for real**
-returns home and never reads demo storage.
+removes the demo key, returns home, and never reads demo storage.
