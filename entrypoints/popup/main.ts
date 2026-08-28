@@ -73,9 +73,10 @@ function render() {
 }
 
 void (async () => {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  tabId = tab.id || 0;
-  if (!tabId || !tab.url?.startsWith('http')) { app.textContent = 'Open a web page, then use Keyboard Route Check.'; return; }
+  const tabs = await chrome.tabs.query({ currentWindow: true });
+  const tab = tabs.find((candidate) => candidate.active && candidate.url?.startsWith('http')) || tabs.find((candidate) => candidate.url?.startsWith('http'));
+  if (!tab || !tab.id || !tab.url?.startsWith('http')) { app.textContent = 'Open a web page, then use Keyboard Route Check.'; return; }
+  tabId = tab.id;
   chrome.storage.onChanged.addListener((_changes, area) => { if (area === 'session' || area === 'local') void refresh(); });
   const saved = await chrome.storage.local.get([licenseKey, verdictKey]);
   const cached = saved[verdictKey] as { checkedAt?: number } | undefined;

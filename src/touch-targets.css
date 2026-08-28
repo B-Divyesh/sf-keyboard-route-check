@@ -1,0 +1,19 @@
+/* Every interactive target remains comfortably usable on touch screens. */
+a {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 6px;
+}
+
+.wordmark,
+.link-button {
+  min-height: 44px;
+}
+
+@media (max-width: 760px) {
+  .site-header nav a {
+    min-height: 44px;
+  }
+}

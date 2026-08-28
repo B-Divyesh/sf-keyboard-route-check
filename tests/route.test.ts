@@ -6,7 +6,7 @@ import type { RouteStep } from '../src/types';
 const step = (id: string, label = 'Open menu', visible = true, focusMark = true): RouteStep => ({ id, label, role: 'button', selector: `#${id}`, direction: 'forward', visible, focusMark, timestamp: 1 });
 
 describe('route report', () => {
-  it('@claim:route-data-local keeps values out of a route report', () => {
+  it('keeps values out of a route report', () => {
     const report = addStep(createReport('Page', 'https://example.test'), step('menu'));
     const output = routeExport(report);
     expect(output).toContain('Open menu');
@@ -17,7 +17,7 @@ describe('route report', () => {
     expect(recorder).not.toMatch(/\.value\b/);
     expect(background).not.toContain('fetch(');
   });
-  it('@claim:report-export exports labels, roles, order, and findings', () => {
+  it('exports labels, roles, order, and findings', () => {
     const first = addStep(createReport('Page', 'https://example.test'), step('menu'));
     const report = addStep(first, step('calendar', 'Next month', true, false), { id: 'expected', label: 'Choose a date' });
     const output = JSON.parse(routeExport(report));
@@ -29,5 +29,10 @@ describe('route report', () => {
   it('flags a focus loop', () => {
     const first = addStep(createReport('Page', 'https://example.test'), step('menu'));
     expect(addStep(first, step('menu')).findings[0]?.kind).toBe('loop');
+  });
+  it('does not flag adjacent controls with distinct identities as a loop', () => {
+    const first = addStep(createReport('Page', 'https://example.test'), step('a:nth-of-type(1)', 'Privacy'));
+    const second = addStep(first, step('a:nth-of-type(2)', 'Terms'));
+    expect(second.findings).toHaveLength(0);
   });
 });

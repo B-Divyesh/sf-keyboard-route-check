@@ -1,5 +1,6 @@
 import '../src/site.css';
 import '../src/mobile-fix.css';
+import '../src/touch-targets.css';
 import { routeExport } from '../src/route';
 import { sampleReport } from '../src/sample';
 
@@ -25,7 +26,7 @@ function footer() {
   return `<footer><p>Keyboard routes, made reviewable.</p><nav aria-label="Footer"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory</a></nav><small>v1.0.0 · Generated artwork is original to this product.</small></footer>`;
 }
 function demoBanner() {
-  return `<aside class="demo-banner" role="status"><span><b>Demo</b> — sample data, nothing is saved</span><span><button class="link-button" id="reset-demo">Reset demo</button><a href="/">Start for real</a></span></aside>`;
+  return `<aside class="demo-banner" role="status"><span><b>Demo</b> — sample data, nothing is saved to your real data</span><span><button class="link-button" id="reset-demo">Reset demo</button><a href="/">Start for real</a></span></aside>`;
 }
 function findings() {
   const r = sampleReport;
@@ -74,5 +75,6 @@ if (path === '/privacy') { document.title = 'Privacy — Keyboard Route Check'; 
 else if (path === '/terms') { document.title = 'Terms — Keyboard Route Check'; app.innerHTML = legalPage('terms'); }
 else if (path === '/404') { document.title = 'Page not found — Keyboard Route Check'; app.innerHTML = missingPage(); }
 else if (demo) { document.title = 'Demo — Keyboard Route Check'; app.innerHTML = demoPage(); enterDemo(); }
-else { document.title = 'Keyboard Route Check — Record a keyboard route'; app.innerHTML = landing(); document.querySelector('#license-form')?.addEventListener('submit', (event) => { event.preventDefault(); void verifyLicense((document.querySelector('#license') as HTMLInputElement).value); }); document.querySelector('#export-sample')?.addEventListener('click', exportSample); }
+else if (path === '/') { document.title = 'Keyboard Route Check — Record a keyboard route'; app.innerHTML = landing(); document.querySelector('#license-form')?.addEventListener('submit', (event) => { event.preventDefault(); void verifyLicense((document.querySelector('#license') as HTMLInputElement).value); }); document.querySelector('#export-sample')?.addEventListener('click', exportSample); }
+else { document.title = 'Page not found — Keyboard Route Check'; app.innerHTML = missingPage(); }
 void reconcileStoredLicense();

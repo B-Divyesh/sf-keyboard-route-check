@@ -11,7 +11,12 @@ async function state(tabId: number): Promise<RouteReport | undefined> {
 }
 
 chrome.runtime.onMessage.addListener((message: RecorderMessage, sender, respond) => {
-  const tabId = sender.tab?.id ?? (message as RecorderMessage & { tabId?: number }).tabId;
+  const requestedTabId = (message as RecorderMessage & { tabId?: number }).tabId;
+  // Popup messages name the inspected tab explicitly. Content-script steps
+  // must remain tied to their sender tab so a page cannot write elsewhere.
+  const tabId = message.type === 'KRC_START' || message.type === 'KRC_STOP' || message.type === 'KRC_CLEAR'
+    ? requestedTabId ?? sender.tab?.id
+    : sender.tab?.id;
   if (!tabId) return;
   void (async () => {
     if (message.type === 'KRC_START') {

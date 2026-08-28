@@ -1,16 +1,44 @@
 [
   {
     "id": "route-data-local",
-    "claim": "Route reports contain control labels and roles, never form values.",
+    "claim": "Route reports contain control labels and roles, never form values, and are not sent to our servers.",
     "where": "extension footer, privacy page, README",
-    "test": "npm test -- --grep @claim:route-data-local",
-    "sandbox": "unit report created from a focused control; export asserts its label and absence of values"
+    "test": "npm run test:claims -- --grep @claim:route-data-local",
+    "sandbox": "fresh browser context at /demo; an observable JSON download contains labels and roles, excludes values, and makes only same-origin requests"
   },
   {
     "id": "report-export",
     "claim": "Exports a route report with labels, roles, order, and findings.",
     "where": "landing page, extension export button, README",
-    "test": "npm test -- --grep @claim:report-export",
-    "sandbox": "sample route report; exported JSON asserts steps and visible findings"
+    "test": "npm run test:claims -- --grep @claim:report-export",
+    "sandbox": "fresh browser context at /demo; the downloaded JSON asserts route order and visible findings"
+  },
+  {
+    "id": "demo-isolated",
+    "claim": "Demo sample data is separate from your real data and can be reset.",
+    "where": "demo banner, privacy page, README",
+    "test": "npm run test:claims -- --grep @claim:demo-isolated",
+    "sandbox": "fresh /demo context; assert only the demo: storage key exists before and after Reset demo"
+  },
+  {
+    "id": "free-report-export",
+    "claim": "Free single-page reports can be exported without an account.",
+    "where": "landing page",
+    "test": "npm run test:claims -- --grep @claim:free-report-export",
+    "sandbox": "fresh browser context; enter /demo from the landing action and assert a sample report download without authentication"
+  },
+  {
+    "id": "team-archive-price",
+    "claim": "$29 one-time for the optional team archive.",
+    "where": "landing page, README, terms page",
+    "test": "npm run test:claims -- --grep @claim:team-archive-price",
+    "sandbox": "fresh landing page; assert the displayed price and the hosted Sociobot checkout destination"
+  },
+  {
+    "id": "team-archive-local",
+    "claim": "The optional team archive saves report history in this browser.",
+    "where": "landing page, README, terms page",
+    "test": "npm run test:claims -- --grep @claim:team-archive-local",
+    "sandbox": "packed MV3 extension in a fresh browser profile; record a route, unlock the archive locally, save it, and assert one local archive record"
   }
 ]

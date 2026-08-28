@@ -1,4 +1,5 @@
 import type { Direction, RecorderMessage, RouteStep } from '../src/types';
+import { elementIdentity } from '../src/element-identity';
 import { defineContentScript } from 'wxt/utils/define-content-script';
 
 export default defineContentScript({
@@ -43,10 +44,7 @@ function roleFor(el: HTMLElement): string {
 }
 
 function elementId(el: HTMLElement): string {
-  if (el.id) return `#${el.id}`;
-  const name = el.getAttribute('name');
-  if (name) return `${el.tagName.toLowerCase()}[name="${name}"]`;
-  return `${el.tagName.toLowerCase()}.${Array.from(el.classList).slice(0, 2).join('.')}`;
+  return elementIdentity(el);
 }
 
 function isVisible(el: HTMLElement): boolean {
