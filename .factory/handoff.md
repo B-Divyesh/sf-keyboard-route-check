@@ -61,6 +61,13 @@ end-to-end assertion passes.
 
 ## Deployment
 
-Static artifact class is unchanged: deploy `dist/site` using the configured
-static deployment work order. The extension package remains the generated zip
-above. No DNS, database, or billing configuration was modified by this repair.
+Static artifact class is unchanged. `dist/site` was deployed successfully on
+2026-08-28 by the configured Static Web Apps work order (deployment
+`b722a4cb-ea84-45ff-85d4-ca74d806d318`) to
+`https://keyboard-route-check.sociobot.in`.
+
+Live verification passed: root returned HTTP 200 in 790 ms with no browser
+errors; the 390 px demo created the sample key, **Start for real** removed it,
+and `/no-such-route` returned HTTP 404. The extension package remains the
+generated zip above. No database or billing configuration was modified by this
+repair.
