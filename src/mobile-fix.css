@@ -1,0 +1,43 @@
+.hero h1,
+.demo-heading h1,
+.legal h1,
+.missing h1 {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  body,
+  main,
+  .demo-heading,
+  .report,
+  .report-top {
+    min-width: 0;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-header nav {
+    justify-content: flex-start;
+  }
+
+  .wordmark {
+    max-width: none;
+  }
+
+  .demo-heading h1 {
+    width: min(358px, calc(100vw - 32px));
+    max-width: min(358px, calc(100vw - 32px));
+    font-size: 42px;
+  }
+
+  .demo-heading .lede {
+    width: min(358px, calc(100vw - 32px));
+  }
+}

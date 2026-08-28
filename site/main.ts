@@ -1,4 +1,5 @@
 import '../src/site.css';
+import '../src/mobile-fix.css';
 import { routeExport } from '../src/route';
 import { sampleReport } from '../src/sample';
 
