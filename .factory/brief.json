@@ -1,0 +1,7 @@
+{
+  "slug": "keyboard-route-check",
+  "title": "Keyboard Route Check",
+  "summary": "Record a keyboard route and share the focus defects you find.",
+  "artifact_class": "browser-extension",
+  "monetization": "freemium"
+}

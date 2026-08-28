@@ -1,0 +1,16 @@
+[
+  {
+    "id": "route-data-local",
+    "claim": "Route reports contain control labels and roles, never form values.",
+    "where": "extension footer, privacy page, README",
+    "test": "npm test -- --grep @claim:route-data-local",
+    "sandbox": "unit report created from a focused control; export asserts its label and absence of values"
+  },
+  {
+    "id": "report-export",
+    "claim": "Exports a route report with labels, roles, order, and findings.",
+    "where": "landing page, extension export button, README",
+    "test": "npm test -- --grep @claim:report-export",
+    "sandbox": "sample route report; exported JSON asserts steps and visible findings"
+  }
+]

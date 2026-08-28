@@ -1,0 +1,23 @@
+{
+  "name": "keyboard-route-check",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:site": "vite --config vite.site.config.ts",
+    "build:extension": "wxt build",
+    "package:extension": "wxt zip",
+    "build:site": "vite build --config vite.site.config.ts && node scripts/copy-extension.mjs",
+    "build": "npm run build:extension && npm run package:extension && npm run build:site",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^3.0.5",
+    "wxt": "^0.20.7"
+  }
+}
