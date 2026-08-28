@@ -1,0 +1,845 @@
+{
+  "results": [
+    {
+      "viewport": "desktop",
+      "route": "/",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:57:48 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css",
+        "https://keyboard-route-check.sociobot.in/hero/cassette-route.webp"
+      ],
+      "axe": [],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Keyboard Route Check — Record a keyboard route",
+        "lang": "en",
+        "h1": [
+          "Record the route your keyboard takes."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Record the route your keyboard takes.",
+          "H2:A route people can review.",
+          "H2:Sample booking page",
+          "H3:Check before release",
+          "H2:Check a route before release.",
+          "H3:Open the page",
+          "H3:Record the route",
+          "H3:Share the report",
+          "H2:It records a route, not a certification.",
+          "H2:Keep a team route archive."
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "/demo",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:57:50 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/demo",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css"
+      ],
+      "axe": [
+        {
+          "id": "aria-allowed-role",
+          "impact": "minor",
+          "nodes": 1
+        }
+      ],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Demo — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Review a keyboard route."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Review a keyboard route.",
+          "H2:Sample booking page",
+          "H3:Check before release"
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "/privacy",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:57:51 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/privacy",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css"
+      ],
+      "axe": [],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Privacy — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Your route stays on your device."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Your route stays on your device."
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "/terms",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:57:53 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/terms",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css"
+      ],
+      "axe": [],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Terms — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Use the report as review evidence."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Use the report as review evidence."
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "/no-such-route",
+      "status": 404,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-length": "525",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:57:54 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [
+        "console: Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/no-such-route",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css"
+      ],
+      "axe": [],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Page not found — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "That page is not on this tape."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:That page is not on this tape."
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:57:56 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css",
+        "https://keyboard-route-check.sociobot.in/hero/cassette-route.webp"
+      ],
+      "axe": [],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Keyboard Route Check — Record a keyboard route",
+        "lang": "en",
+        "h1": [
+          "Record the route your keyboard takes."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Record the route your keyboard takes.",
+          "H2:A route people can review.",
+          "H2:Sample booking page",
+          "H3:Check before release",
+          "H2:Check a route before release.",
+          "H3:Open the page",
+          "H3:Record the route",
+          "H3:Share the report",
+          "H2:It records a route, not a certification.",
+          "H2:Keep a team route archive."
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/demo",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:57:58 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/demo",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css"
+      ],
+      "axe": [
+        {
+          "id": "aria-allowed-role",
+          "impact": "minor",
+          "nodes": 1
+        }
+      ],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Demo — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Review a keyboard route."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Review a keyboard route.",
+          "H2:Sample booking page",
+          "H3:Check before release"
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/privacy",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:57:59 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/privacy",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css"
+      ],
+      "axe": [],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Privacy — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Your route stays on your device."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Your route stays on your device."
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/terms",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:58:01 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/terms",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css"
+      ],
+      "axe": [],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Terms — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Use the report as review evidence."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Use the report as review evidence."
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/no-such-route",
+      "status": 404,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-length": "525",
+        "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "date": "Fri, 28 Aug 2026 17:58:02 GMT",
+        "etag": "\"24984520\"",
+        "last-modified": "Fri, 28 Aug 2026 17:30:03 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      },
+      "errors": [
+        "console: Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "requests": [
+        "https://keyboard-route-check.sociobot.in/no-such-route",
+        "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css"
+      ],
+      "axe": [],
+      "seriousCritical": [],
+      "dom": {
+        "title": "Page not found — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "That page is not on this tape."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:That page is not on this tape."
+        ]
+      }
+    }
+  ],
+  "reducedMotion": {
+    "moving": []
+  },
+  "flow": {
+    "afterDemoClick": {
+      "url": "https://keyboard-route-check.sociobot.in/demo",
+      "banner": "Demo\n— sample data, nothing is saved to your real data\nReset demo\nStart for real",
+      "h1": "Review a keyboard route.",
+      "storage": {
+        "demo:krc:sample-report": "{\"version\":1,\"title\":\"Sample booking page\",\"url\":\"https://sample.keyboard-route-check.local/booking\",\"startedAt\":1788105600000,\"endedAt\":1788105633000,\"steps\":[{\"id\":\"nav-menu\",\"role\":\"button\",\"label\":\"Open menu\",\"selector\":\"button[aria-label=\\\"Open menu\\\"]\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105600000},{\"id\":\"date\",\"role\":\"button\",\"label\":\"Choose a date\",\"selector\":\"#date-picker\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105608000},{\"id\":\"next-month\",\"role\":\"button\",\"label\":\"Next month\",\"selector\":\".calendar-next\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":false,\"timestamp\":1788105615000},{\"id\":\"date\",\"role\":\"button\",\"label\":\"Choose a date\",\"selector\":\"#date-picker\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105620000},{\"id\":\"book\",\"role\":\"button\",\"label\":\"Book appointment\",\"selector\":\"#book\",\"direction\":\"reverse\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105633000}],\"findings\":[{\"kind\":\"invisible-focus\",\"at\":2,\"message\":\"Next month may not show a visible focus mark.\"},{\"kind\":\"skip\",\"at\":3,\"message\":\"Expected a date grid; focus moved to Choose a date.\"},{\"kind\":\"loop\",\"at\":3,\"message\":\"Focus returned to Choose a date without moving on.\"}]}"
+      }
+    },
+    "resetStorage": {
+      "demo:krc:sample-report": "{\"version\":1,\"title\":\"Sample booking page\",\"url\":\"https://sample.keyboard-route-check.local/booking\",\"startedAt\":1788105600000,\"endedAt\":1788105633000,\"steps\":[{\"id\":\"nav-menu\",\"role\":\"button\",\"label\":\"Open menu\",\"selector\":\"button[aria-label=\\\"Open menu\\\"]\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105600000},{\"id\":\"date\",\"role\":\"button\",\"label\":\"Choose a date\",\"selector\":\"#date-picker\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105608000},{\"id\":\"next-month\",\"role\":\"button\",\"label\":\"Next month\",\"selector\":\".calendar-next\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":false,\"timestamp\":1788105615000},{\"id\":\"date\",\"role\":\"button\",\"label\":\"Choose a date\",\"selector\":\"#date-picker\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105620000},{\"id\":\"book\",\"role\":\"button\",\"label\":\"Book appointment\",\"selector\":\"#book\",\"direction\":\"reverse\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105633000}],\"findings\":[{\"kind\":\"invisible-focus\",\"at\":2,\"message\":\"Next month may not show a visible focus mark.\"},{\"kind\":\"skip\",\"at\":3,\"message\":\"Expected a date grid; focus moved to Choose a date.\"},{\"kind\":\"loop\",\"at\":3,\"message\":\"Focus returned to Choose a date without moving on.\"}]}"
+    },
+    "downloadInfo": {
+      "filename": "sample-keyboard-route-report.json",
+      "size": 1768
+    },
+    "afterExit": {
+      "url": "https://keyboard-route-check.sociobot.in/",
+      "storage": {}
+    },
+    "emptyLicense": "Paste your license token first.",
+    "invalidLicense": "This license is not active. You can buy a new team archive.",
+    "storage": {
+      "sb_license:keyboard-route-check": "invalid-independent-qa",
+      "sb_license_verdict:keyboard-route-check": "{\"expires_at\":null,\"reason\":\"invalid\",\"valid\":false,\"checkedAt\":1787939885638}"
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/",
+        "type": "document"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "type": "script"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css",
+        "type": "stylesheet"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/hero/cassette-route.webp",
+        "type": "image"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/demo",
+        "type": "document"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "type": "script"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css",
+        "type": "stylesheet"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/",
+        "type": "document"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/assets/main-BVVvibxe.js",
+        "type": "script"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/assets/main-DWcYRO-7.css",
+        "type": "stylesheet"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/hero/cassette-route.webp",
+        "type": "image"
+      },
+      {
+        "method": "GET",
+        "url": "https://api.sociobot.in/api/v1/products/keyboard-route-check/verify?license=invalid-independent-qa",
+        "type": "fetch"
+      }
+    ],
+    "errors": []
+  },
+  "focusStops": [
+    {
+      "tag": "A",
+      "text": "Skip to content",
+      "id": "",
+      "href": "#main",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgb(185, 223, 73)",
+      "rect": {
+        "x": 8,
+        "y": 8,
+        "width": 120.890625,
+        "height": 48
+      }
+    },
+    {
+      "tag": "A",
+      "text": "KRC Keyboard Route Check",
+      "id": "",
+      "href": "/",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 124,
+        "y": 16,
+        "width": 221.203125,
+        "height": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Demo",
+      "id": "",
+      "href": "/demo",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 1057.984375,
+        "y": 16,
+        "width": 44.359375,
+        "height": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "How it works",
+      "id": "",
+      "href": "/#how",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 1120.34375,
+        "y": 16,
+        "width": 109.046875,
+        "height": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Privacy",
+      "id": "",
+      "href": "/privacy",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 1247.390625,
+        "y": 16,
+        "width": 68.609375,
+        "height": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Try it with sample data",
+      "id": "",
+      "href": "/demo",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgb(185, 223, 73)",
+      "rect": {
+        "x": 124,
+        "y": 515.234375,
+        "width": 216.015625,
+        "height": 46
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Download the extension",
+      "id": "",
+      "href": "/downloads/keyboard-route-check.zip",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 124,
+        "y": 577.234375,
+        "width": 184.1875,
+        "height": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Open the sample report",
+      "id": "",
+      "href": "/demo",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 124,
+        "y": 428.234375,
+        "width": 161.734375,
+        "height": 44
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Export sample report",
+      "id": "export-sample",
+      "href": null,
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgb(185, 223, 73)",
+      "rect": {
+        "x": 1099.453125,
+        "y": 224.234375,
+        "width": 192.546875,
+        "height": 46
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Read the privacy details",
+      "id": "",
+      "href": "/privacy",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 344,
+        "y": 427.90625,
+        "width": 166.171875,
+        "height": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Buy team archive",
+      "id": "",
+      "href": "https://api.sociobot.in/api/v1/products/keyboard-route-check/checkout",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgb(180, 42, 53)",
+      "rect": {
+        "x": 124,
+        "y": 763.90625,
+        "width": 161.234375,
+        "height": 46
+      }
+    },
+    {
+      "tag": "INPUT",
+      "text": "",
+      "id": "license",
+      "href": null,
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgb(255, 249, 234)",
+      "rect": {
+        "x": 124,
+        "y": 853.90625,
+        "width": 360,
+        "height": 46
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Verify license",
+      "id": "",
+      "href": null,
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgb(185, 223, 73)",
+      "rect": {
+        "x": 496,
+        "y": 853.90625,
+        "width": 145.578125,
+        "height": 46
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Privacy",
+      "id": "",
+      "href": "/privacy",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 468.3125,
+        "y": 815.90625,
+        "width": 71.015625,
+        "height": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Terms",
+      "id": "",
+      "href": "/terms",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 557.328125,
+        "y": 815.90625,
+        "width": 54.15625,
+        "height": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Built by Param Factory",
+      "id": "",
+      "href": "https://sociobot.in",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgba(0, 0, 0, 0)",
+      "rect": {
+        "x": 629.484375,
+        "y": 815.90625,
+        "width": 197.4375,
+        "height": 44
+      }
+    },
+    {
+      "tag": "BODY",
+      "text": "Skip to contentKRC Keyboard Route CheckDemoHow it worksPrivacyA FIELD RECORDER F",
+      "id": "",
+      "href": null,
+      "outlineColor": "rgb(23, 33, 28)",
+      "outlineWidth": "0px",
+      "outlineStyle": "none",
+      "background": "rgb(244, 236, 216)",
+      "rect": {
+        "x": 0,
+        "y": -2031,
+        "width": 1440,
+        "height": 2930.90625
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Skip to content",
+      "id": "",
+      "href": "#main",
+      "outlineColor": "rgb(180, 42, 53)",
+      "outlineWidth": "3px",
+      "outlineStyle": "solid",
+      "background": "rgb(185, 223, 73)",
+      "rect": {
+        "x": 8,
+        "y": 8,
+        "width": 120.890625,
+        "height": 48
+      }
+    }
+  ]
+}
