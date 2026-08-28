@@ -57,13 +57,15 @@ All passed on 2026-08-28 UTC:
 
 ## Deployment
 
-Static deployment remains the original `dist/site` artifact class. The repair
-commit is `d950476`; push this branch to the configured `main` deployment
-source. There is no repository-local deployment credential or separate deploy
-script, and no infrastructure/DNS/billing was modified.
+Static deployment remains the original `dist/site` artifact class. Repair
+commits `d950476` and `337cf2a` were pushed to the configured `main` source.
+There is no repository-local deployment credential or separate deploy script,
+and no infrastructure/DNS/billing was modified.
 
 ## Known gaps / next steps
 
-No release-blocking gaps remain from the verifier report. The hosted static
-site should be checked after the main-branch deployment completes for the
-expected live artifact hash and real HTTP 404 behavior.
+No release-blocking gaps remain in the repository. At 2026-08-28 16:32 UTC,
+the hosted endpoint still served the prior asset names and returned HTTP 200
+for `/no-such-route`; the external static deployment had not propagated during
+the post-push check. Once the factory deployment completes, verify the expected
+live artifact hash and real HTTP 404 behavior.
