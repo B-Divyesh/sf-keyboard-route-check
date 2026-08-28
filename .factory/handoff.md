@@ -1,51 +1,48 @@
-# Keyboard Route Check handoff
+# Keyboard Route Check verification handoff — FAIL
 
-## Delivered
+Independent verification of candidate
+`f8554d58bee597f4b210c445d8543ead5e983b1b` against
+https://keyboard-route-check.sociobot.in completed on 2026-08-28 UTC.
 
-- A WXT Manifest V3 extension that starts and stops a manual route recording on
-  the active `http` or `https` tab.
-- The recorder captures focused control labels, roles, order, Tab or Shift+Tab
-  direction, likely loops/skips, and likely missing focus marks. It never reads
-  input values.
-- JSON export is available for every report. The paid $29 team archive stores
-  up to 100 reports locally after an optimistically cached, daily Sociobot
-  license verification. The popup also supports pasting a license.
-- A cassette-era zine landing site, `/demo` sample sandbox, `/privacy`,
-  `/terms`, and styled `404` page. The zip is copied to
-  `dist/site/downloads/keyboard-route-check.zip` by the build.
-- Original generated cassette artwork at `public/hero/cassette-route.webp`
-  (196 KB). Prompt, review, and provenance are recorded in `design.md`.
+Do not release this candidate. Exact evidence, commands, and full severity
+breakdown are in [verification.md](verification.md).
 
-## Run and verify
+## Blocking result
+
+- Both required commands in `.factory/claims.json` fail with Vitest’s
+  `Unknown option --grep` error.
+- The packed extension falsely flags a focus loop in ordinary Tab traversal:
+  consecutive plain links are both identified as `a.`.
+
+## Other confirmed defects
+
+- Unknown live routes return HTTP 200 and the landing page instead of a real
+  styled 404 response.
+- Several interactive targets are below the required 44×44 CSS px minimum,
+  including footer links and mobile header links.
+- Multiple visitor-facing privacy/demo/price claims are not represented in
+  `.factory/claims.json`.
+
+## Verification summary
+
+`npm test`, `npx tsc --noEmit`, and exact `npm run build` pass. The live static
+HTML, JS, CSS, and unpacked extension contents match the built candidate. The
+demo/export flow, core privacy redaction smoke test, keyboard focus, reduced
+motion, Playwright axe scan, and live mobile Lighthouse (99 performance, 100
+accessibility) otherwise passed. API verification rate limiting was observed
+(first 429 in a 20-way burst at request 17, with `Retry-After: 2`).
+
+## Rerun
+
+After repairing the documented blockers, run:
 
 ```sh
-npm install
+npm ci
 npm test
+npx tsc --noEmit
 npm run build
 ```
 
-`npm test` passed: 3 tests, including both claim-tagged tests.
-`npm run build` passed and produced `.output/chrome-mv3`, its zip archive, and
-`dist/site` with `index.html` at the deploy root.
-
-Additional verification passed:
-
-- TypeScript: `npx tsc --noEmit`
-- Built manifest check: content script and `storage` permission present
-- Sample URL check: `/`, `/demo`, and `/privacy` returned 200 from the Vite
-  server
-- Headless Chromium rendered `/demo` at a 390px screenshot size
-
-Performance-class evidence from the production bundle: initial site JavaScript
-is 4.18 KB gzip; CSS is 2.43 KB gzip; the only hero image is 196 KB WebP.
-Lighthouse 12 could not attach to the container's preinstalled Chromium, so no
-synthetic Lighthouse score is reported. That is the only unmeasured gate.
-
-## Known gaps and next steps
-
-- Route findings are heuristics. Complex widgets and intentionally managed
-  focus can need human interpretation; the product does not claim certification.
-- The extension archive is a self-hosted download. Publish it to the relevant
-  extension store only if the factory later chooses that distribution path.
-- Run Lighthouse in a standard Chrome environment before release to record the
-  final performance and accessibility scores.
+Then rerun every exact command in `.factory/claims.json`, a packed-extension
+recording path through adjacent generic links/buttons, mobile touch-target
+checks, and live deployment comparison.
