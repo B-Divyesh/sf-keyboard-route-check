@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://keyboard-route-check.sociobot.in/sitemap.xml
