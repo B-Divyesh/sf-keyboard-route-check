@@ -28,6 +28,7 @@ sentence exceeds 22 words or contains a banned marketing word.
 | Load the page you need to check. | 7 | pass |
 | Use Tab and Shift+Tab as a keyboard user would. | 9 | pass |
 | Export a small JSON report for the issue or review. | 10 | pass |
+| It records a route, not a certification. | 8 | pass |
 | It cannot confirm that a page meets accessibility requirements. | 9 | pass |
 | It does not send route data away. | 8 | pass |
 | Use it beside human review. | 5 | pass |
