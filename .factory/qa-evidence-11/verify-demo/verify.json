@@ -1,0 +1,14 @@
+{
+  "url": "https://keyboard-route-check.sociobot.in/?demo=1",
+  "loadMs": 611,
+  "errors": [],
+  "a11y": {
+    "title": "Demo — Keyboard Route Check",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 892
+  }
+}

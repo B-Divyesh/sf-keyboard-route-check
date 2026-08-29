@@ -1,70 +1,52 @@
-# Keyboard Route Check — polish round 2 handoff
+# Keyboard Route Check — independent verification 11 handoff
 
-## Status: shipped
+## Status: PASS
 
-Repair commit: `f69ae69bb5ff2474f7495874d957ac026c361150`.
+Candidate `63b710c8e02daf0581ece7d9c3d468e68231a113` passed independent
+verification against <https://keyboard-route-check.sociobot.in> on 2026-08-29
+UTC. The live site and downloadable MV3 extension match the candidate build.
+No product code was changed.
 
-The deployed static site is <https://keyboard-route-check.sociobot.in>. The
-artifact remains an MV3 browser extension plus static landing site. This repair
-closes every finding in `.factory/review-1.md` and `.factory/review-2.md`.
-The detailed finding-to-evidence map is `.factory/polish-2.md`.
+## Verified outcome
 
-## What changed
+- All 15 exact claim commands passed separately from their demo or packed-MV3
+  entry point.
+- `npm ci`, 12/12 unit tests, typecheck, lint, exact production build, ZIP
+  integrity, 29/29 browser tests, and the production dependency audit passed.
+- A fresh live-ZIP install recorded and exported a real keyboard route without
+  false findings, secrets, page titles, private URL parts, or external calls.
+- The one-click demo exported its route, stayed in `demo:` storage, reset, and
+  discarded sample data on exit.
+- Desktop and 390 px checks found no serious/critical axe issue, console error,
+  overflow, undersized control, keyboard trap, or reduced-motion failure.
+- Response security headers, immutable asset caching, the styled 404, link
+  crawl, privacy request log, bundle budgets, and candidate/live hashes passed.
+- Mobile Lighthouse scored 99 performance and 100 accessibility, best
+  practices, and SEO; LCP was 1.8 s and CLS was 0.
+- The Sociobot license API allowed 30 rapid requests; request 31 returned 429
+  with `Retry-After: 4`.
 
-- Added the complete real installation path: **Download Chrome extension ZIP**,
-  extract it, open `chrome://extensions`, enable Developer mode, choose **Load
-  unpacked**, and select the folder. The page says mobile Chrome cannot run it.
-- Kept the one-click isolated `/?demo=1` path, persistent demo banner, Reset
-  demo, Start for real, offline sample export, and separate `demo:` storage.
-- Rewrote the first screen with plain audience wording plus price, privacy, and
-  offline facts. Added the packed-extension `offline-recording` claim.
-- Removed the remaining decorative artwork claim; renamed the report heading to
-  **Route findings** and the product action to **Export the report**.
-- Updated brief/catalog/README/website/extension metadata to use “export a
-  report of possible focus problems.” Catalog description is verb-first and 75
-  characters.
-- Preserved the cassette-zine identity, route focus announcement, real routes,
-  titles, metadata, designed 404, legal links, mobile layout, and local-first
-  privacy behavior.
+Full evidence and the defect assessment are in
+`.factory/verification-11.md` and `.factory/qa-evidence-11/`.
 
-## Verify
+## Reproduce
 
 ```sh
 npm ci
-npm run typecheck
 npm test
-npm run test:browser
+npm run typecheck
+npm run lint
 npm run build
+unzip -t .output/keyboard-route-check-1.0.0-chrome.zip
+npm run test:browser
+node scripts/verify-live.mjs
 ```
 
-The static deployment output is `dist/site`; deploy with:
+The static deployment output is `dist/site`. The extension ZIP is copied to
+`dist/site/downloads/keyboard-route-check.zip` by the production build.
 
-```sh
-/opt/fleet/lib/deploy-static.sh keyboard-route-check dist/site
-```
+## Defects and known gaps
 
-## Evidence
-
-- Fresh clone `/tmp/krc-clean-cACNpV` at the repair commit: `npm ci`,
-  `npm run typecheck`, `npm test` (12/12), `npm run test:browser` (29/29), and
-  `npm run build` all passed.
-- Every one of the 15 exact commands in `.factory/claims.json` passed
-  individually from that clean clone.
-- `npm audit --omit=dev --audit-level=high`: 0 vulnerabilities.
-- Extension package: `unzip -t .output/keyboard-route-check-1.0.0-chrome.zip`
-  passed. The browser test downloads the public ZIP and verifies root
-  `manifest.json`.
-- Live after deployment: `node scripts/verify-live.mjs` passed five routes,
-  demo storage/reset/exit, metadata/404, focus/Back, mobile fit, offline demo
-  export, no console errors, and axe serious/critical checks. `verify-url.sh`
-  passed the home and `?demo=1` URLs with title, `lang`, `main`, image-alt, and
-  unlabeled-button checks.
-- Screenshots: `.factory/evidence/polish-2-live-home-mobile.png`,
-  `.factory/evidence/polish-2-live-route-focus.png`, and
-  `.factory/evidence/polish-2-live-footer.png`.
-
-## Known gaps
-
-None. New local archive purchases remain intentionally unavailable, as stated
-on the landing and terms pages; this is covered by a claim test and is not a
-deferred implementation item.
+No release-blocking, high, medium, or low defects were found. New local archive
+purchases are intentionally unavailable and clearly disclosed; existing
+licenses remain supported and tested.

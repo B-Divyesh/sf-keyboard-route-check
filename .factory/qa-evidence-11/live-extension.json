@@ -1,0 +1,13 @@
+{
+  "source": "live downloadable ZIP in a fresh Chromium profile",
+  "fixture": "route-page.html?private=qa-secret#private",
+  "recorded_labels": ["License token", "Verify license", "Privacy", "Terms"],
+  "recorded_roles": ["input", "button", "link", "link"],
+  "unique_ids": 4,
+  "findings": [],
+  "safe_url": "http://127.0.0.1:4173/fixtures/route-page.html",
+  "page_title_collected": false,
+  "form_or_url_secret_collected": false,
+  "export_matches_stored_route": true,
+  "external_requests": []
+}
