@@ -1,0 +1,377 @@
+{
+  "routes": [
+    {
+      "viewport": "desktop",
+      "route": "/",
+      "status": 200,
+      "errors": [],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Keyboard Route Check — Record a keyboard route",
+        "lang": "en",
+        "h1": [
+          "Record the route your keyboard takes."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Record the route your keyboard takes.",
+          "H2:Sample keyboard route report",
+          "H2:Sample booking page",
+          "H3:Check before release",
+          "H2:Check a route before release.",
+          "H3:Open the page",
+          "H3:Record the route",
+          "H3:Share the report",
+          "H2:It records a route, not a certification.",
+          "H2:Local report archive for existing licenses"
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "/demo",
+      "status": 200,
+      "errors": [],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Demo — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Review a keyboard route."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Review a keyboard route.",
+          "H2:Sample booking page",
+          "H3:Check before release"
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "/privacy",
+      "status": 200,
+      "errors": [],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Privacy — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Your route stays on your device."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Your route stays on your device."
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "/terms",
+      "status": 200,
+      "errors": [],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Terms — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Use the report as review evidence."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Use the report as review evidence."
+        ]
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "/definitely-missing-qa8",
+      "status": 404,
+      "errors": [
+        "console:Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Page not found — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "We could not find that page."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:We could not find that page."
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/",
+      "status": 200,
+      "errors": [],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Keyboard Route Check — Record a keyboard route",
+        "lang": "en",
+        "h1": [
+          "Record the route your keyboard takes."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Record the route your keyboard takes.",
+          "H2:Sample keyboard route report",
+          "H2:Sample booking page",
+          "H3:Check before release",
+          "H2:Check a route before release.",
+          "H3:Open the page",
+          "H3:Record the route",
+          "H3:Share the report",
+          "H2:It records a route, not a certification.",
+          "H2:Local report archive for existing licenses"
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/demo",
+      "status": 200,
+      "errors": [],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Demo — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Review a keyboard route."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Review a keyboard route.",
+          "H2:Sample booking page",
+          "H3:Check before release"
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/privacy",
+      "status": 200,
+      "errors": [],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Privacy — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Your route stays on your device."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Your route stays on your device."
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/terms",
+      "status": 200,
+      "errors": [],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Terms — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "Use the report as review evidence."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:Use the report as review evidence."
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "/definitely-missing-qa8",
+      "status": 404,
+      "errors": [
+        "console:Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "externalRequests": [],
+      "seriousCritical": [],
+      "allAxe": [],
+      "dom": {
+        "title": "Page not found — Keyboard Route Check",
+        "lang": "en",
+        "h1": [
+          "We could not find that page."
+        ],
+        "main": 1,
+        "missingAlt": 0,
+        "overflow": 0,
+        "undersized": [],
+        "headings": [
+          "H1:We could not find that page."
+        ]
+      }
+    }
+  ],
+  "keyboard": {
+    "firstTab": {
+      "text": "Skip to content",
+      "href": "#main",
+      "focusVisible": true,
+      "outline": "rgb(180, 42, 53) solid 3px"
+    },
+    "afterSkip": {
+      "hash": "#main",
+      "active": "BODY"
+    },
+    "stopsToPrimary": [
+      {
+        "tag": "A",
+        "text": "Skip to content",
+        "href": "#main",
+        "focusVisible": true,
+        "outline": "rgb(180, 42, 53) solid 3px"
+      },
+      {
+        "tag": "A",
+        "text": "KRC Keyboard Route Check",
+        "href": "/",
+        "focusVisible": true,
+        "outline": "rgb(180, 42, 53) solid 3px"
+      },
+      {
+        "tag": "A",
+        "text": "Demo",
+        "href": "/demo",
+        "focusVisible": true,
+        "outline": "rgb(180, 42, 53) solid 3px"
+      },
+      {
+        "tag": "A",
+        "text": "How it works",
+        "href": "/#how",
+        "focusVisible": true,
+        "outline": "rgb(180, 42, 53) solid 3px"
+      },
+      {
+        "tag": "A",
+        "text": "Privacy",
+        "href": "/privacy",
+        "focusVisible": true,
+        "outline": "rgb(180, 42, 53) solid 3px"
+      },
+      {
+        "tag": "A",
+        "text": "Try it with sample data",
+        "href": "/?demo=1",
+        "focusVisible": true,
+        "outline": "rgb(180, 42, 53) solid 3px"
+      }
+    ],
+    "afterPrimary": {
+      "url": "https://keyboard-route-check.sociobot.in/?demo=1",
+      "h1": "Review a keyboard route.",
+      "h1Focused": true
+    }
+  },
+  "demo": {
+    "initialStorage": {
+      "demo:krc:sample-report": "{\"version\":1,\"title\":\"Sample booking page\",\"url\":\"https://sample.keyboard-route-check.local/booking\",\"startedAt\":1788105600000,\"endedAt\":1788105633000,\"steps\":[{\"id\":\"nav-menu\",\"role\":\"button\",\"label\":\"Open menu\",\"selector\":\"button[aria-label=\\\"Open menu\\\"]\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105600000},{\"id\":\"date\",\"role\":\"button\",\"label\":\"Choose a date\",\"selector\":\"#date-picker\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105608000},{\"id\":\"next-month\",\"role\":\"button\",\"label\":\"Next month\",\"selector\":\".calendar-next\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":false,\"timestamp\":1788105615000},{\"id\":\"date\",\"role\":\"button\",\"label\":\"Choose a date\",\"selector\":\"#date-picker\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105620000},{\"id\":\"book\",\"role\":\"button\",\"label\":\"Book appointment\",\"selector\":\"#book\",\"direction\":\"reverse\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105633000}],\"findings\":[{\"kind\":\"invisible-focus\",\"at\":2,\"message\":\"Next month may not show a visible focus mark.\"},{\"kind\":\"skip\",\"at\":3,\"message\":\"Expected a date grid; focus moved to Choose a date.\"},{\"kind\":\"loop\",\"at\":3,\"message\":\"Focus returned to Choose a date without moving on.\"}]}"
+    },
+    "afterResetStorage": {
+      "demo:krc:sample-report": "{\"version\":1,\"title\":\"Sample booking page\",\"url\":\"https://sample.keyboard-route-check.local/booking\",\"startedAt\":1788105600000,\"endedAt\":1788105633000,\"steps\":[{\"id\":\"nav-menu\",\"role\":\"button\",\"label\":\"Open menu\",\"selector\":\"button[aria-label=\\\"Open menu\\\"]\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105600000},{\"id\":\"date\",\"role\":\"button\",\"label\":\"Choose a date\",\"selector\":\"#date-picker\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105608000},{\"id\":\"next-month\",\"role\":\"button\",\"label\":\"Next month\",\"selector\":\".calendar-next\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":false,\"timestamp\":1788105615000},{\"id\":\"date\",\"role\":\"button\",\"label\":\"Choose a date\",\"selector\":\"#date-picker\",\"direction\":\"forward\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105620000},{\"id\":\"book\",\"role\":\"button\",\"label\":\"Book appointment\",\"selector\":\"#book\",\"direction\":\"reverse\",\"visible\":true,\"focusMark\":true,\"timestamp\":1788105633000}],\"findings\":[{\"kind\":\"invisible-focus\",\"at\":2,\"message\":\"Next month may not show a visible focus mark.\"},{\"kind\":\"skip\",\"at\":3,\"message\":\"Expected a date grid; focus moved to Choose a date.\"},{\"kind\":\"loop\",\"at\":3,\"message\":\"Focus returned to Choose a date without moving on.\"}]}"
+    },
+    "download": {
+      "filename": "sample-keyboard-route-report.json",
+      "steps": 5,
+      "findings": [
+        "invisible-focus",
+        "skip",
+        "loop"
+      ],
+      "labels": [
+        "Open menu",
+        "Choose a date",
+        "Next month",
+        "Choose a date",
+        "Book appointment"
+      ]
+    },
+    "afterExit": {
+      "url": "https://keyboard-route-check.sociobot.in/",
+      "storage": {}
+    },
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/demo",
+        "type": "document"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/assets/main-BDImKD60.js",
+        "type": "script"
+      },
+      {
+        "method": "GET",
+        "url": "https://keyboard-route-check.sociobot.in/assets/main-BS7_Ez12.css",
+        "type": "stylesheet"
+      }
+    ],
+    "externalRequests": [],
+    "errors": [],
+    "offlineDownload": "sample-keyboard-route-report.json"
+  },
+  "reducedMotion": {
+    "active": []
+  },
+  "narrow320": {
+    "overflow": 0,
+    "h1Visible": true,
+    "primaryVisible": true
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "url": "https://keyboard-route-check.sociobot.in/",
+  "status": 200,
+  "title": "Keyboard Route Check — Record a keyboard route",
+  "h1": [
+    "Record the route your keyboard takes."
+  ],
+  "visibleFirstViewport": [
+    "Skip to content",
+    "KRC",
+    "Keyboard Route Check",
+    "Demo",
+    "How it works",
+    "Privacy",
+    "KEYBOARD ROUTE RECORDER",
+    "Record the route your keyboard takes.",
+    "For keyboard users and web teams who need proof before a focus defect reaches production.",
+    "Try it with sample data",
+    "See a route report right away.",
+    "Download the extension",
+    "Records each control’s name and type",
+    "Form values stay out",
+    "Warns when Tab returns to an earlier control",
+    "WHAT THE EXTENSION CAPTURES",
+    "Sample keyboard route report",
+    "Press Record in the extension. Tab through a real page. Export each control’s name, type, order, and warnings.",
+    "Open the sample report",
+    "SAMPLE REPORT",
+    "Sample booking page",
+    "5 focused controls · 3 route findings",
+    "Export sample report",
+    "01",
+    "Open menu",
+    "button · Tab",
+    "FOCUS SEEN",
+    "02",
+    "Choose a date",
+    "button · Tab",
+    "FOCUS SEEN",
+    "03",
+    "Next month",
+    "button · Tab",
+    "FOCUS UNCLEAR",
+    "04",
+    "Choose a date",
+    "button · Tab",
+    "FOCUS SEEN",
+    "05",
+    "Book appointment",
+    "button · Shift+Tab",
+    "FOCUS SEEN",
+    "Check before release",
+    "INVISIBLE FOCUS Next month may not show a visible focus mark.",
+    "SKIP Expected a date grid; focus moved to Choose a date.",
+    "LOOP Focus returned to Choose a date without moving on.",
+    "THREE STEPS",
+    "Check a route before release.",
+    "01",
+    "Open the page",
+    "Load the page you need to check.",
+    "02",
+    "Record the route",
+    "Use Tab and Shift+Tab as a keyboard user would.",
+    "03",
+    "Share the report",
+    "Export a small JSON report for the issue or review.",
+    "BOUNDARIES",
+    "It records a route, not a certification.",
+    "It cannot confirm that a page meets accessibility requirements. It does not send route data away. Use it beside human review.",
+    "Read the privacy details",
+    "FOR EXISTING LICENSES",
+    "Local report archive for existing licenses",
+    "It saves reports only in this browser. It does not sync or share them with teammates.",
+    "New local archive purchases are temporarily unavailable.",
+    "Record and export manual keyboard routes.",
+    "Privacy",
+    "Terms",
+    "Built by Param Factory (external site)",
+    "v1.0.0 · Generated artwork is original to this product."
+  ],
+  "actionsFirstViewport": [
+    {
+      "tag": "A",
+      "text": "Skip to content",
+      "href": "https://keyboard-route-check.sociobot.in/#main",
+      "rect": {
+        "x": -999,
+        "y": 8,
+        "w": 120.890625,
+        "h": 48
+      }
+    },
+    {
+      "tag": "A",
+      "text": "KRC\nKeyboard Route Check",
+      "href": "https://keyboard-route-check.sociobot.in/",
+      "rect": {
+        "x": 124,
+        "y": 16,
+        "w": 221.203125,
+        "h": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Demo",
+      "href": "https://keyboard-route-check.sociobot.in/demo",
+      "rect": {
+        "x": 1057.984375,
+        "y": 16,
+        "w": 44.359375,
+        "h": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "How it works",
+      "href": "https://keyboard-route-check.sociobot.in/#how",
+      "rect": {
+        "x": 1120.34375,
+        "y": 16,
+        "w": 109.046875,
+        "h": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Privacy",
+      "href": "https://keyboard-route-check.sociobot.in/privacy",
+      "rect": {
+        "x": 1247.390625,
+        "y": 16,
+        "w": 68.609375,
+        "h": 44
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Try it with sample data",
+      "href": "https://keyboard-route-check.sociobot.in/?demo=1",
+      "rect": {
+        "x": 124,
+        "y": 515.234375,
+        "w": 257.5625,
+        "h": 46
+      }
+    },
+    {
+      "tag": "A",
+      "text": "Download the extension",
+      "href": "https://keyboard-route-check.sociobot.in/downloads/keyboard-route-check.zip",
+      "rect": {
+        "x": 124,
+        "y": 577.234375,
+        "w": 223.921875,
+        "h": 44
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Export sample report",
+      "href": null,
+      "rect": {
+        "x": 1063.34375,
+        "y": 899.234375,
+        "w": 228.65625,
+        "h": 46
+      }
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://keyboard-route-check.sociobot.in/",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://keyboard-route-check.sociobot.in/assets/main-BDImKD60.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://keyboard-route-check.sociobot.in/assets/main-BS7_Ez12.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://keyboard-route-check.sociobot.in/hero/cassette-route.webp",
+      "type": "image"
+    }
+  ],
+  "consoleMessages": [],
+  "pageErrors": [],
+  "responseHeaders": {
+    "cache-control": "public, must-revalidate, max-age=30",
+    "content-encoding": "br",
+    "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+    "content-type": "text/html",
+    "date": "Sat, 29 Aug 2026 15:57:16 GMT",
+    "etag": "\"74956680\"",
+    "last-modified": "Sat, 29 Aug 2026 15:46:36 GMT",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+    "vary": "Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-dns-prefetch-control": "off",
+    "x-xss-protection": "1; mode=block"
+  }
+}
