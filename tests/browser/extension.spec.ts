@@ -161,7 +161,7 @@ test('packed popup keyboard focus has a three-to-one focus ring on each reported
   }
 });
 
-test('@claim:team-archive-local @claim:license-transfer-handoff exposes a checkout-return token and unlocks the extension after paste-and-verify', async () => {
+test('@claim:team-archive-local @claim:license-transfer-handoff @claim:license-check-destination exposes a checkout-return token and unlocks the extension after paste-and-verify', async () => {
   const { context, worker, extensionId } = await launchPackagedExtension();
   try {
     const requests: string[] = [];
@@ -196,6 +196,10 @@ test('@claim:team-archive-local @claim:license-transfer-handoff exposes a checko
     expect(archive).toHaveLength(1);
     expect(requests.filter((url) => url.startsWith('https://api.sociobot.in/'))).toHaveLength(1);
     expect(requests.some((url) => /sync|share|archive/.test(new URL(url).pathname))).toBe(false);
+    expect(requests.every((url) => {
+      const parsed = new URL(url);
+      return parsed.protocol === 'chrome-extension:' || parsed.origin === 'http://127.0.0.1:4173' || parsed.origin === 'https://api.sociobot.in';
+    })).toBe(true);
   } finally {
     await context.close();
   }

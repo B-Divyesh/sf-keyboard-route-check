@@ -15,7 +15,7 @@
   },
   {
     "id": "demo-isolated",
-    "claim": "Demo sample data is separate from your real data and can be reset.",
+    "claim": "Demo sample data is separate from your real data, makes no external requests, and can be reset.",
     "where": "demo banner, privacy page, README",
     "test": "npm run test:claims -- --grep @claim:demo-isolated",
     "sandbox": "fresh /demo context; assert only the demo: storage key exists before and after Reset demo, then assert Start for real removes it"
@@ -75,5 +75,12 @@
     "where": "landing page, privacy page",
     "test": "npm run test:claims -- --grep @claim:license-transfer-handoff",
     "sandbox": "fresh browser profile; open the companion site with a checkout-return license, assert the token is shown after URL cleanup, paste it into the packed extension, stub the documented verification response, and assert local archive access"
+  },
+  {
+    "id": "license-check-destination",
+    "claim": "License checks go only to the Sociobot billing API.",
+    "where": "privacy page",
+    "test": "npm run test:claims -- --grep @claim:license-check-destination",
+    "sandbox": "packed MV3 extension in a fresh profile; verify a local-archive license and assert the only external request is the documented Sociobot verification endpoint"
   }
 ]

@@ -1,7 +1,8 @@
 # Demo sandbox
 
 Open `/?demo=1` (or `/demo`) to load the sample booking-page route. It is
-available without an extension, account, or network request.
+available without an extension or account. Its sample actions make no external
+requests.
 
 The sample contains five focus stops: menu, date chooser, next month, date
 chooser again, and book appointment. It includes a focus-mark warning, a skip,

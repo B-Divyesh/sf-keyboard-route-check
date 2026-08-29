@@ -34,6 +34,8 @@ test('demo exports a route report with labels, roles, order, and findings', asyn
 });
 
 test('@claim:demo-isolated stores only sample data separately, resets it, and discards it on exit', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', (request) => requests.push(request.url()));
   await page.goto('/?demo=1');
   await expect(page.getByLabel('Demo controls')).toContainText('sample data, nothing is saved to your real data');
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
@@ -43,6 +45,7 @@ test('@claim:demo-isolated stores only sample data separately, resets it, and di
   await page.getByRole('link', { name: 'Start for real' }).click();
   await expect(page).toHaveURL(/\/$/);
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual([]);
+  expect(requests.every((url) => new URL(url).origin === 'http://127.0.0.1:4173')).toBe(true);
 });
 
 test('@claim:free-report-export downloads the sample report without an account', async ({ page }) => {
