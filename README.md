@@ -51,6 +51,18 @@ Open `http://localhost:5173/demo` for the isolated sample route. Demo storage
 uses the `demo:krc:sample-report` localStorage key. Reset demo recreates it;
 Start for real clears it.
 
+## Deploy
+
+The factory deploys the static companion site from `dist/site`; the packaged
+extension is copied into its `downloads/` directory during the build.
+
+```sh
+/opt/fleet/lib/deploy-static.sh keyboard-route-check dist/site
+```
+
+Do not deploy the extension separately or change DNS, billing, or checkout
+configuration from this repository.
+
 ## Privacy and the optional team archive
 
 Route reports stay in browser extension storage. The extension records labels,

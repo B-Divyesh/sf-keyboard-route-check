@@ -1,6 +1,6 @@
 import type { Direction, RecorderMessage, RouteStep } from '../src/types';
 import { elementIdentity } from '../src/element-identity';
-import { hasVisibleFocusIndicator } from '../src/focus-indicator';
+import { hasVisibleFocusIndicator, type FocusStyle } from '../src/focus-indicator';
 import { orderTabStops } from '../src/tab-order';
 import { defineContentScript } from 'wxt/utils/define-content-script';
 
@@ -55,17 +55,58 @@ function isVisible(el: HTMLElement): boolean {
   return style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.width > 0 && rect.height > 0;
 }
 
-function hasFocusMark(el: HTMLElement): boolean {
+function focusStyle(el: HTMLElement): FocusStyle {
   const style = getComputedStyle(el);
+  return {
+    outlineStyle: style.outlineStyle,
+    outlineWidth: style.outlineWidth,
+    outlineColor: style.outlineColor,
+    boxShadow: style.boxShadow,
+    backgroundColor: style.backgroundColor,
+    color: style.color,
+    borderTopColor: style.borderTopColor,
+    borderRightColor: style.borderRightColor,
+    borderBottomColor: style.borderBottomColor,
+    borderLeftColor: style.borderLeftColor,
+    borderTopWidth: style.borderTopWidth,
+    borderRightWidth: style.borderRightWidth,
+    borderBottomWidth: style.borderBottomWidth,
+    borderLeftWidth: style.borderLeftWidth
+  };
+}
+
+/**
+ * CSSOM only exposes the current (focused) style. Sample an inert clone in the
+ * same parent to compare focus-only fills and borders without blurring the
+ * control the keyboard user is currently using.
+ */
+function unfocusedStyle(el: HTMLElement): FocusStyle {
+  const clone = el.cloneNode(true) as HTMLElement;
+  clone.setAttribute('aria-hidden', 'true');
+  clone.style.setProperty('position', 'fixed', 'important');
+  clone.style.setProperty('visibility', 'hidden', 'important');
+  clone.style.setProperty('pointer-events', 'none', 'important');
+  clone.style.setProperty('inset', '-9999px', 'important');
+  el.after(clone);
+  try {
+    return focusStyle(clone);
+  } finally {
+    clone.remove();
+  }
+}
+
+function hasFocusMark(el: HTMLElement): boolean {
+  const style = focusStyle(el);
+  const beforeFocus = unfocusedStyle(el);
   let parent = el.parentElement;
   while (parent) {
     const background = getComputedStyle(parent).backgroundColor;
     if (background && background !== 'transparent' && background !== 'rgba(0, 0, 0, 0)') {
-      return hasVisibleFocusIndicator(style, background);
+      return hasVisibleFocusIndicator(style, background, beforeFocus);
     }
     parent = parent.parentElement;
   }
-  return hasVisibleFocusIndicator(style);
+  return hasVisibleFocusIndicator(style, undefined, beforeFocus);
 }
 
 function tabbables(): HTMLElement[] {

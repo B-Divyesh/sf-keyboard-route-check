@@ -8,6 +8,16 @@ export interface FocusStyle {
   outlineWidth: string;
   outlineColor: string;
   boxShadow: string;
+  backgroundColor?: string;
+  color?: string;
+  borderTopColor?: string;
+  borderRightColor?: string;
+  borderBottomColor?: string;
+  borderLeftColor?: string;
+  borderTopWidth?: string;
+  borderRightWidth?: string;
+  borderBottomWidth?: string;
+  borderLeftWidth?: string;
 }
 
 type Rgb = { red: number; green: number; blue: number; alpha: number };
@@ -68,18 +78,53 @@ function contrasts(color: string, background: string): boolean {
   return contrastRatio(composite(foreground, behind), behind) >= 3;
 }
 
+function changedByAtLeastThreeToOne(focusedColor: string | undefined, unfocusedColor: string | undefined, background: string): boolean {
+  if (!focusedColor || !unfocusedColor) return false;
+  const behind = parseCssColor(background) || { red: 255, green: 255, blue: 255, alpha: 1 };
+  const focused = parseCssColor(focusedColor);
+  const unfocused = parseCssColor(unfocusedColor);
+  if (!focused || !unfocused || focused.alpha <= 0 || unfocused.alpha <= 0) return false;
+  return contrastRatio(composite(focused, behind), composite(unfocused, behind)) >= 3;
+}
+
+function borderChanged(style: FocusStyle, unfocused: FocusStyle, background: string): boolean {
+  const borders = [
+    [style.borderTopColor, style.borderTopWidth, unfocused.borderTopColor, unfocused.borderTopWidth],
+    [style.borderRightColor, style.borderRightWidth, unfocused.borderRightColor, unfocused.borderRightWidth],
+    [style.borderBottomColor, style.borderBottomWidth, unfocused.borderBottomColor, unfocused.borderBottomWidth],
+    [style.borderLeftColor, style.borderLeftWidth, unfocused.borderLeftColor, unfocused.borderLeftWidth]
+  ];
+  return borders.some(([focusedColor, focusedWidth, unfocusedColor, unfocusedWidth]) => {
+    const focusedPixels = Number.parseFloat(focusedWidth || '0');
+    const unfocusedPixels = Number.parseFloat(unfocusedWidth || '0');
+    if (focusedPixels <= 0 || !focusedColor) return false;
+    return changedByAtLeastThreeToOne(focusedColor, unfocusedColor, background)
+      || (focusedPixels > unfocusedPixels && contrasts(focusedColor, background));
+  });
+}
+
 function hasNonZeroShadowGeometry(value: string): boolean {
   const withoutColors = value.replace(/rgba?\([^)]*\)|#[\da-f]{3,8}|transparent/gi, '');
   const dimensions = [...withoutColors.matchAll(/-?(?:\d*\.)?\d+px/g)].map((match) => Number.parseFloat(match[0]));
   return dimensions.some((dimension) => dimension !== 0);
 }
 
-/** Returns true only when a computed outline or shadow can actually be seen. */
-export function hasVisibleFocusIndicator(style: FocusStyle, backgroundColor = 'rgb(255, 255, 255)'): boolean {
+/**
+ * Returns true only when a computed focus treatment can actually be seen.
+ * `unfocusedStyle` lets the recorder recognise valid focus treatments that
+ * use a strong fill, text, or border change rather than an outline/shadow.
+ */
+export function hasVisibleFocusIndicator(style: FocusStyle, backgroundColor = 'rgb(255, 255, 255)', unfocusedStyle?: FocusStyle): boolean {
   const outlineWidth = Number.parseFloat(style.outlineWidth);
   if (style.outlineStyle !== 'none' && outlineWidth > 0 && contrasts(style.outlineColor, backgroundColor)) return true;
 
-  if (style.boxShadow === 'none' || !hasNonZeroShadowGeometry(style.boxShadow)) return false;
-  const colors = style.boxShadow.match(/rgba?\([^)]*\)|#[\da-f]{3,8}|transparent/gi) || [];
-  return colors.some((color) => contrasts(color, backgroundColor));
+  if (style.boxShadow !== 'none' && hasNonZeroShadowGeometry(style.boxShadow)) {
+    const colors = style.boxShadow.match(/rgba?\([^)]*\)|#[\da-f]{3,8}|transparent/gi) || [];
+    if (colors.some((color) => contrasts(color, backgroundColor))) return true;
+  }
+
+  if (!unfocusedStyle) return false;
+  return changedByAtLeastThreeToOne(style.backgroundColor, unfocusedStyle.backgroundColor, backgroundColor)
+    || changedByAtLeastThreeToOne(style.color, unfocusedStyle.color, backgroundColor)
+    || borderChanged(style, unfocusedStyle, backgroundColor);
 }

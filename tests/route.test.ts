@@ -33,6 +33,16 @@ describe('route report', () => {
     expect(hasVisibleFocusIndicator({ outlineStyle: 'none', outlineWidth: '0px', outlineColor: 'transparent', boxShadow: 'rgba(0, 0, 0, 0) 0px 0px 0px 3px' }, 'rgb(255, 255, 255)')).toBe(false);
     expect(hasVisibleFocusIndicator({ outlineStyle: 'solid', outlineWidth: '3px', outlineColor: 'rgb(23, 33, 28)', boxShadow: 'none' }, 'rgb(255, 255, 255)')).toBe(true);
   });
+  it('recognises a high-contrast background or border focus change without an outline', () => {
+    const unfocused = {
+      outlineStyle: 'none', outlineWidth: '0px', outlineColor: 'transparent', boxShadow: 'none',
+      backgroundColor: 'rgb(255, 255, 255)', color: 'rgb(0, 0, 0)',
+      borderTopColor: 'rgb(0, 0, 0)', borderRightColor: 'rgb(0, 0, 0)', borderBottomColor: 'rgb(0, 0, 0)', borderLeftColor: 'rgb(0, 0, 0)',
+      borderTopWidth: '4px', borderRightWidth: '4px', borderBottomWidth: '4px', borderLeftWidth: '4px'
+    };
+    const focused = { ...unfocused, backgroundColor: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)' };
+    expect(hasVisibleFocusIndicator(focused, 'rgb(255, 255, 255)', unfocused)).toBe(true);
+  });
   it('exports labels, roles, order, and findings', () => {
     const first = addStep(createReport('Page', 'https://example.test'), step('menu'));
     const report = addStep(first, step('calendar', 'Next month', true, false), { id: 'expected', label: 'Choose a date' });

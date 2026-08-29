@@ -2,6 +2,7 @@ import { expect, test, chromium } from '@playwright/test';
 import { mkdtemp, readFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
+import { contrastRatio, parseCssColor } from '../../src/focus-indicator';
 
 async function workerFor(context: import('@playwright/test').BrowserContext) {
   return context.serviceWorkers()[0] || await context.waitForEvent('serviceworker');
@@ -98,6 +99,62 @@ test('@claim:invisible-focus-reporting detects a transparent focus outline in a 
     const report = await waitForStops(worker, tabId, 1) as { steps: Array<{ focusMark: boolean }>; findings: Array<{ kind: string; message: string }> };
     expect(report.steps[0].focusMark).toBe(false);
     expect(report.findings).toContainEqual(expect.objectContaining({ kind: 'invisible-focus', message: 'Invisible focus may not show a visible focus mark.' }));
+  } finally {
+    await context.close();
+  }
+});
+
+test('does not report a visible background-color focus treatment as invisible', async () => {
+  const { context, worker, extensionId } = await launchPackagedExtension();
+  try {
+    const page = await context.newPage();
+    await page.goto('http://127.0.0.1:4173/fixtures/background-focus-page.html');
+    const popup = await context.newPage();
+    await popup.goto(`chrome-extension://${extensionId}/popup.html`);
+    await popup.getByRole('button', { name: 'Record this tab' }).click();
+    await page.bringToFront();
+    await page.keyboard.press('Tab');
+    const tabId = await tabIdFor(worker, '/fixtures/background-focus-page.html');
+    const report = await waitForStops(worker, tabId, 1) as { steps: Array<{ focusMark: boolean }>; findings: Array<{ kind: string }> };
+    expect(report.steps[0].focusMark).toBe(true);
+    expect(report.findings.filter((finding) => finding.kind === 'invisible-focus')).toEqual([]);
+  } finally {
+    await context.close();
+  }
+});
+
+test('packed popup keyboard focus has a three-to-one focus ring on each reported paper control', async () => {
+  const { context, worker, extensionId } = await launchPackagedExtension();
+  try {
+    const page = await context.newPage();
+    await page.goto('http://127.0.0.1:4173/fixtures/route-page.html');
+    const popup = await context.newPage();
+    await popup.goto(`chrome-extension://${extensionId}/popup.html`);
+    await popup.getByRole('button', { name: 'Record this tab' }).click();
+    await page.bringToFront();
+    await page.focus('#license');
+    const tabId = await tabIdFor(worker, '/fixtures/route-page.html');
+    await waitForStops(worker, tabId, 1);
+    for (const name of ['Team archive license', 'Clear route']) {
+      const control = popup.getByRole('button', { name });
+      await control.focus();
+      await popup.keyboard.press('Tab');
+      await popup.keyboard.press('Shift+Tab');
+      const focus = await control.evaluate((element) => {
+        const style = getComputedStyle(element);
+        return {
+          focusVisible: element.matches(':focus-visible'),
+          outlineColor: style.outlineColor,
+          outlineWidth: style.outlineWidth,
+          paper: getComputedStyle(document.documentElement).backgroundColor
+        };
+      });
+      expect(focus.focusVisible, `${name} should receive keyboard focus`).toBe(true);
+      expect(focus.outlineWidth, `${name} should have a 3px focus ring`).toBe('3px');
+      const outline = parseCssColor(focus.outlineColor)!;
+      const paper = parseCssColor(focus.paper)!;
+      expect(contrastRatio(outline, paper), `${name} focus ring contrast`).toBeGreaterThanOrEqual(3);
+    }
   } finally {
     await context.close();
   }

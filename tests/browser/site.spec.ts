@@ -52,10 +52,12 @@ test('@claim:free-report-export downloads the sample report without an account',
   expect(report.title).toBe('Sample booking page');
 });
 
-test('does not advertise an unavailable team archive checkout', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByText('New team archive purchases are temporarily unavailable.')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Buy team archive' })).toHaveCount(0);
+test('@claim:team-archive-unavailable states the archive purchase status and does not show a dead checkout', async ({ page }) => {
+  for (const route of ['/', '/terms']) {
+    await page.goto(route);
+    await expect(page.getByText('New team archive purchases are temporarily unavailable.')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Buy team archive' })).toHaveCount(0);
+  }
 });
 
 test('serves a styled unknown route with a real 404 status', async ({ page, request }) => {

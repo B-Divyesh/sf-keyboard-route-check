@@ -35,6 +35,13 @@
     "sandbox": "packed MV3 extension in a fresh browser profile; record a route, unlock the archive locally, save it, and assert one local archive record"
   },
   {
+    "id": "team-archive-unavailable",
+    "claim": "New team archive purchases are temporarily unavailable.",
+    "where": "landing page, terms page, README",
+    "test": "npm run test:claims -- --grep @claim:team-archive-unavailable",
+    "sandbox": "fresh browser context; load the landing page and assert the availability notice is visible and no team archive checkout link is offered"
+  },
+  {
     "id": "focus-cycle-reporting",
     "claim": "Warns when a repeated forward Tab route returns to an earlier control.",
     "where": "landing page, README",
