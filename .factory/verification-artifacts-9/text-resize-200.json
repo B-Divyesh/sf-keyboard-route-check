@@ -1,0 +1,42 @@
+[
+  {
+    "route": "/",
+    "rootFont": "32px",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "focusedSkipVisible": true,
+    "clipped": []
+  },
+  {
+    "route": "/demo",
+    "rootFont": "32px",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "focusedSkipVisible": true,
+    "clipped": []
+  },
+  {
+    "route": "/privacy",
+    "rootFont": "32px",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "focusedSkipVisible": true,
+    "clipped": []
+  },
+  {
+    "route": "/terms",
+    "rootFont": "32px",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "focusedSkipVisible": true,
+    "clipped": []
+  },
+  {
+    "route": "/404",
+    "rootFont": "32px",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "focusedSkipVisible": true,
+    "clipped": []
+  }
+]

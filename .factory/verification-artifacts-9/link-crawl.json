@@ -1,0 +1,331 @@
+[
+  {
+    "source": "/",
+    "text": "Skip to content",
+    "href": "https://keyboard-route-check.sociobot.in/#main",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/",
+    "text": "KRC Keyboard Route Check",
+    "href": "https://keyboard-route-check.sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/"
+  },
+  {
+    "source": "/",
+    "text": "Demo",
+    "href": "https://keyboard-route-check.sociobot.in/demo",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/demo"
+  },
+  {
+    "source": "/",
+    "text": "How it works",
+    "href": "https://keyboard-route-check.sociobot.in/#how",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/",
+    "text": "Try it with sample data",
+    "href": "https://keyboard-route-check.sociobot.in/?demo=1",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/?demo=1"
+  },
+  {
+    "source": "/",
+    "text": "Download the extension",
+    "href": "https://keyboard-route-check.sociobot.in/downloads/keyboard-route-check.zip",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/downloads/keyboard-route-check.zip"
+  },
+  {
+    "source": "/",
+    "text": "Open the sample report",
+    "href": "https://keyboard-route-check.sociobot.in/demo",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/demo"
+  },
+  {
+    "source": "/",
+    "text": "Read the privacy details",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/",
+    "text": "Terms",
+    "href": "https://keyboard-route-check.sociobot.in/terms",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/terms"
+  },
+  {
+    "source": "/",
+    "text": "Built by Param Factory (external site)",
+    "href": "https://sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://sociobot.in/"
+  },
+  {
+    "source": "/demo",
+    "text": "Skip to content",
+    "href": "https://keyboard-route-check.sociobot.in/demo#main",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/demo",
+    "text": "KRC Keyboard Route Check",
+    "href": "https://keyboard-route-check.sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/"
+  },
+  {
+    "source": "/demo",
+    "text": "Demo",
+    "href": "https://keyboard-route-check.sociobot.in/demo",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/demo"
+  },
+  {
+    "source": "/demo",
+    "text": "How it works",
+    "href": "https://keyboard-route-check.sociobot.in/#how",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/demo",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/demo",
+    "text": "Start for real",
+    "href": "https://keyboard-route-check.sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/"
+  },
+  {
+    "source": "/demo",
+    "text": "Download the extension",
+    "href": "https://keyboard-route-check.sociobot.in/downloads/keyboard-route-check.zip",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/downloads/keyboard-route-check.zip"
+  },
+  {
+    "source": "/demo",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/demo",
+    "text": "Terms",
+    "href": "https://keyboard-route-check.sociobot.in/terms",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/terms"
+  },
+  {
+    "source": "/demo",
+    "text": "Built by Param Factory (external site)",
+    "href": "https://sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://sociobot.in/"
+  },
+  {
+    "source": "/privacy",
+    "text": "Skip to content",
+    "href": "https://keyboard-route-check.sociobot.in/privacy#main",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/privacy",
+    "text": "KRC Keyboard Route Check",
+    "href": "https://keyboard-route-check.sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/"
+  },
+  {
+    "source": "/privacy",
+    "text": "Demo",
+    "href": "https://keyboard-route-check.sociobot.in/demo",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/demo"
+  },
+  {
+    "source": "/privacy",
+    "text": "How it works",
+    "href": "https://keyboard-route-check.sociobot.in/#how",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/privacy",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/privacy",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/privacy",
+    "text": "Terms",
+    "href": "https://keyboard-route-check.sociobot.in/terms",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/terms"
+  },
+  {
+    "source": "/privacy",
+    "text": "Built by Param Factory (external site)",
+    "href": "https://sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://sociobot.in/"
+  },
+  {
+    "source": "/terms",
+    "text": "Skip to content",
+    "href": "https://keyboard-route-check.sociobot.in/terms#main",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/terms",
+    "text": "KRC Keyboard Route Check",
+    "href": "https://keyboard-route-check.sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/"
+  },
+  {
+    "source": "/terms",
+    "text": "Demo",
+    "href": "https://keyboard-route-check.sociobot.in/demo",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/demo"
+  },
+  {
+    "source": "/terms",
+    "text": "How it works",
+    "href": "https://keyboard-route-check.sociobot.in/#how",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/terms",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/terms",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/terms",
+    "text": "Terms",
+    "href": "https://keyboard-route-check.sociobot.in/terms",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/terms"
+  },
+  {
+    "source": "/terms",
+    "text": "Built by Param Factory (external site)",
+    "href": "https://sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://sociobot.in/"
+  },
+  {
+    "source": "/404",
+    "text": "Skip to content",
+    "href": "https://keyboard-route-check.sociobot.in/404#main",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/404",
+    "text": "KRC Keyboard Route Check",
+    "href": "https://keyboard-route-check.sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/"
+  },
+  {
+    "source": "/404",
+    "text": "Demo",
+    "href": "https://keyboard-route-check.sociobot.in/demo",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/demo"
+  },
+  {
+    "source": "/404",
+    "text": "How it works",
+    "href": "https://keyboard-route-check.sociobot.in/#how",
+    "status": 200,
+    "target": 1
+  },
+  {
+    "source": "/404",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/404",
+    "text": "Go to Keyboard Route Check",
+    "href": "https://keyboard-route-check.sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/"
+  },
+  {
+    "source": "/404",
+    "text": "Privacy",
+    "href": "https://keyboard-route-check.sociobot.in/privacy",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+  },
+  {
+    "source": "/404",
+    "text": "Terms",
+    "href": "https://keyboard-route-check.sociobot.in/terms",
+    "status": 200,
+    "finalUrl": "https://keyboard-route-check.sociobot.in/terms"
+  },
+  {
+    "source": "/404",
+    "text": "Built by Param Factory (external site)",
+    "href": "https://sociobot.in/",
+    "status": 200,
+    "finalUrl": "https://sociobot.in/"
+  }
+]

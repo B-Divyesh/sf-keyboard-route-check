@@ -1,0 +1,26 @@
+{
+  "steps": [
+    {
+      "label": "Before",
+      "role": "button",
+      "direction": "forward"
+    },
+    {
+      "label": "One",
+      "role": "radio",
+      "direction": "forward"
+    },
+    {
+      "label": "After",
+      "role": "button",
+      "direction": "forward"
+    }
+  ],
+  "findings": [
+    {
+      "at": 2,
+      "kind": "skip",
+      "message": "Expected Two; focus moved to After."
+    }
+  ]
+}

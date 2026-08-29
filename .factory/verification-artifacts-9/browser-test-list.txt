@@ -1,0 +1,29 @@
+Listing tests:
+  extension.spec.ts:41:1 › @claim:route-data-local @claim:report-export records real extension data without values, private URL parts, or outgoing report requests
+  extension.spec.ts:96:1 › @claim:invisible-focus-reporting detects a transparent focus outline in a packed extension route report
+  extension.spec.ts:115:1 › does not report a visible background-color focus treatment as invisible
+  extension.spec.ts:134:1 › records an implicit label and its visible wrapper focus-within treatment
+  extension.spec.ts:157:1 › packed popup keyboard focus has a three-to-one focus ring on each reported paper control
+  extension.spec.ts:194:1 › @claim:team-archive-local @claim:license-transfer-handoff @claim:license-check-destination exposes a checkout-return token and unlocks the extension after paste-and-verify
+  extension.spec.ts:238:1 › keeps a proven archive verdict while offline and announces invalid or missing license input
+  extension.spec.ts:276:1 › @claim:focus-cycle-reporting records a forward two-control Tab cycle as loop evidence
+  extension.spec.ts:296:1 › @claim:browser-tab-order records valid positive tabindex order without false skips
+  extension.spec.ts:316:1 › @claim:skipped-control-reporting names the expected and actual controls after a true Tab skip
+  extension.spec.ts:344:1 › @claim:reverse-tab-recording records a real Shift+Tab recovery as reverse without a false loop
+  extension.spec.ts:375:1 › @claim:popup-label-safety renders markup-like page labels as text, never popup controls
+  site.spec.ts:13:1 › demo export contains labels and roles, never form values or external requests
+  site.spec.ts:26:1 › demo exports a route report with labels, roles, order, and findings
+  site.spec.ts:37:1 › @claim:demo-isolated stores only sample data separately, resets it, and discards it on exit
+  site.spec.ts:52:1 › @claim:free-report-export downloads the sample report without an account
+  site.spec.ts:60:1 › @claim:team-archive-unavailable states the local archive purchase status and does not show a dead checkout
+  site.spec.ts:68:1 › serves a styled unknown route with a real 404 status
+  site.spec.ts:76:1 › header routes and Back focus and announce each destination heading
+  site.spec.ts:92:1 › every route has complete route-specific metadata and clear external link text
+  site.spec.ts:110:1 › review copy uses useful section labels, plain terms, and an honest local archive name
+  site.spec.ts:129:1 › all landing and demo controls meet the 44px touch target baseline at 390px
+  site.spec.ts:146:1 › every public-site keyboard focus ring has three-to-one contrast against its surface
+  site.spec.ts:188:1 › the complete first-read message fits the initial 390px viewport without horizontal overflow
+  site.spec.ts:208:1 › landing and demo have no serious or critical axe accessibility violations at desktop and 390px
+  site.spec.ts:222:1 › demo remains usable after its first load goes offline and respects reduced motion
+  site.spec.ts:239:1 › static deployment policy preserves known routes and sends unknown routes to 404
+Total: 27 tests in 2 files

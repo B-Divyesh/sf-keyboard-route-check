@@ -1,0 +1,23 @@
+{
+  "extensionId": "hmnflijplgdmgeiodjlopfaipppkpaab",
+  "emptyState": true,
+  "normalLabels": [
+    "License token",
+    "Verify license",
+    "Privacy",
+    "Terms"
+  ],
+  "uniqueIds": 4,
+  "findings": [],
+  "redaction": {
+    "formValue": true,
+    "queryAndFragment": true
+  },
+  "preLicenseExternalRequests": [],
+  "missingLicenseRecovery": "Paste your license token first.",
+  "invalidLicenseRecovery": "This license is not active. Check the token and try again.",
+  "cleared": true,
+  "axeSeriousCritical": 0,
+  "pageErrors": [],
+  "popupErrors": []
+}

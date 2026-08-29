@@ -1,0 +1,31 @@
+{
+  "steps": [
+    {
+      "label": "Before",
+      "role": "button",
+      "direction": "forward"
+    },
+    {
+      "label": "Editor",
+      "role": "div",
+      "direction": "forward"
+    },
+    {
+      "label": "After",
+      "role": "button",
+      "direction": "forward"
+    }
+  ],
+  "findings": [
+    {
+      "at": 1,
+      "kind": "skip",
+      "message": "Expected After; focus moved to Editor."
+    },
+    {
+      "at": 2,
+      "kind": "skip",
+      "message": "Expected Before; focus moved to After."
+    }
+  ]
+}

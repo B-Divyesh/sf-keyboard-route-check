@@ -1,0 +1,508 @@
+{
+  "routes": [
+    {
+      "viewport": "desktop",
+      "route": "/",
+      "status": 200,
+      "title": "Keyboard Route Check — Record a keyboard route",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "headings": [
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        3,
+        2,
+        2
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/demo",
+      "status": 200,
+      "title": "Demo — Keyboard Route Check",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "headings": [
+        1,
+        2,
+        3
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/privacy",
+      "status": 200,
+      "title": "Privacy — Keyboard Route Check",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "headings": [
+        1
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/terms",
+      "status": 200,
+      "title": "Terms — Keyboard Route Check",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "headings": [
+        1
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/404",
+      "status": 200,
+      "title": "Page not found — Keyboard Route Check",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "headings": [
+        1
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "mobile",
+      "route": "/",
+      "status": 200,
+      "title": "Keyboard Route Check — Record a keyboard route",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "headings": [
+        1,
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        3,
+        2,
+        2
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "mobile",
+      "route": "/demo",
+      "status": 200,
+      "title": "Demo — Keyboard Route Check",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "headings": [
+        1,
+        2,
+        3
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "mobile",
+      "route": "/privacy",
+      "status": 200,
+      "title": "Privacy — Keyboard Route Check",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "headings": [
+        1
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "mobile",
+      "route": "/terms",
+      "status": 200,
+      "title": "Terms — Keyboard Route Check",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "headings": [
+        1
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    },
+    {
+      "viewport": "mobile",
+      "route": "/404",
+      "status": 200,
+      "title": "Page not found — Keyboard Route Check",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "headings": [
+        1
+      ],
+      "undersized": [],
+      "motion": 0,
+      "axeViolations": [],
+      "errors": [],
+      "responses": []
+    }
+  ],
+  "desktopKeyboard": {
+    "controlCount": 13,
+    "focus": [
+      {
+        "tag": "A",
+        "name": "Skip to content",
+        "href": "#main",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 121,
+          "h": 48
+        }
+      },
+      {
+        "tag": "A",
+        "name": "KRC Keyboard Route Check home",
+        "href": "/",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 221,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Demo",
+        "href": "/demo",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 44,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "name": "How it works",
+        "href": "/#how",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 109,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Privacy",
+        "href": "/privacy",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 69,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Try it with sample data",
+        "href": "/?demo=1",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 258,
+          "h": 46
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Download the extension",
+        "href": "/downloads/keyboard-route-check.zip",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 224,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Open the sample report",
+        "href": "/demo",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 162,
+          "h": 44
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "name": "Export sample report",
+        "href": null,
+        "outline": "3px solid rgb(185, 223, 73)",
+        "box": {
+          "w": 229,
+          "h": 46
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Read the privacy details",
+        "href": "/privacy",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 166,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Privacy",
+        "href": "/privacy",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 79,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Terms",
+        "href": "/terms",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 60,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Built by Param Factory (external site)",
+        "href": "https://sociobot.in",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 378,
+          "h": 44
+        }
+      },
+      {
+        "tag": "BODY",
+        "name": "Skip to contentKRC Keyboard Route CheckDemoHow it worksPrivacyKeyboard route recorderRecord the route your keyboard takes.For keyboard users and web teams who need proof before a focus defect reaches production.Try it with sample dataSee a route report right away.Download the extensionRecords each control’s name and typeForm values stay outWarns when Tab returns to an earlier controlWHAT THE EXTENSION CAPTURESSample keyboard route reportPress Record in the extension. Tab through a real page. Export each control’s name, type, order, and warnings.Open the sample reportSAMPLE REPORTSample booking page5 focused controls · 3 route findingsExport sample report01Open menubutton · Tabfocus seen02Choose a datebutton · Tabfocus seen03Next monthbutton · Tabfocus unclear04Choose a datebutton · Tabfocus seen05Book appointmentbutton · Shift+Tabfocus seenCheck before releaseinvisible focus Next month may not show a visible focus mark.skip Expected a date grid; focus moved to Choose a date.loop Focus returned to Choose a date without moving on.THREE STEPSCheck a route before release.01Open the pageLoad the page you need to check.02Record the routeUse Tab and Shift+Tab as a keyboard user would.03Share the reportExport a small JSON report for the issue or review.BOUNDARIESIt records a route, not a certification.It cannot confirm that a page meets accessibility requirements. It does not send route data away. Use it beside human review.Read the privacy detailsFOR EXISTING LICENSESLocal report archive for existing licensesIt saves reports only in this browser. It does not sync or share them with teammates.New local archive purchases are temporarily unavailable.Record and export manual keyboard routes.PrivacyTermsBuilt by Param Factory (external site)v1.0.0 · Generated artwork is original to this product.",
+        "href": null,
+        "outline": "0px none rgb(23, 33, 28)",
+        "box": {
+          "w": 1440,
+          "h": 2941
+        }
+      },
+      {
+        "tag": "A",
+        "name": "Skip to content",
+        "href": "#main",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 121,
+          "h": 48
+        }
+      },
+      {
+        "tag": "A",
+        "name": "KRC Keyboard Route Check home",
+        "href": "/",
+        "outline": "3px solid rgb(180, 42, 53)",
+        "box": {
+          "w": 221,
+          "h": 44
+        }
+      }
+    ],
+    "first": "Skip to content",
+    "afterSkip": {
+      "hash": "#main",
+      "mainTop": 0
+    },
+    "afterSkipTab": "Try it with sample data",
+    "errors": []
+  },
+  "mobile": null,
+  "demo": {
+    "initialKeys": [
+      "demo:krc:sample-report"
+    ],
+    "resetKeys": [
+      "demo:krc:sample-report"
+    ],
+    "exportName": "sample-keyboard-route-report.json",
+    "steps": 5,
+    "findings": [
+      "invisible-focus",
+      "skip",
+      "loop"
+    ],
+    "exitKeys": [],
+    "externalRequests": [],
+    "errors": []
+  },
+  "links": [
+    {
+      "text": "Skip to content",
+      "href": "https://keyboard-route-check.sociobot.in/#main",
+      "download": false,
+      "status": 200
+    },
+    {
+      "text": "KRC Keyboard Route Check",
+      "href": "https://keyboard-route-check.sociobot.in/",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/"
+    },
+    {
+      "text": "Demo",
+      "href": "https://keyboard-route-check.sociobot.in/demo",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/demo"
+    },
+    {
+      "text": "How it works",
+      "href": "https://keyboard-route-check.sociobot.in/#how",
+      "download": false,
+      "status": 200
+    },
+    {
+      "text": "Privacy",
+      "href": "https://keyboard-route-check.sociobot.in/privacy",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+    },
+    {
+      "text": "Try it with sample data",
+      "href": "https://keyboard-route-check.sociobot.in/?demo=1",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/?demo=1"
+    },
+    {
+      "text": "Download the extension",
+      "href": "https://keyboard-route-check.sociobot.in/downloads/keyboard-route-check.zip",
+      "download": true,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/downloads/keyboard-route-check.zip"
+    },
+    {
+      "text": "Open the sample report",
+      "href": "https://keyboard-route-check.sociobot.in/demo",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/demo"
+    },
+    {
+      "text": "Read the privacy details",
+      "href": "https://keyboard-route-check.sociobot.in/privacy",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+    },
+    {
+      "text": "Privacy",
+      "href": "https://keyboard-route-check.sociobot.in/privacy",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/privacy"
+    },
+    {
+      "text": "Terms",
+      "href": "https://keyboard-route-check.sociobot.in/terms",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://keyboard-route-check.sociobot.in/terms"
+    },
+    {
+      "text": "Built by Param Factory (external site)",
+      "href": "https://sociobot.in/",
+      "download": false,
+      "status": 200,
+      "finalUrl": "https://sociobot.in/"
+    }
+  ],
+  "requests": [
+    "https://keyboard-route-check.sociobot.in/",
+    "https://keyboard-route-check.sociobot.in/assets/main-BDImKD60.js",
+    "https://keyboard-route-check.sociobot.in/assets/main-BS7_Ez12.css",
+    "https://keyboard-route-check.sociobot.in/hero/cassette-route.webp"
+  ],
+  "unknownStatus": 404
+}

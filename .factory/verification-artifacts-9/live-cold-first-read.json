@@ -1,0 +1,177 @@
+{
+  "status": 200,
+  "url": "https://keyboard-route-check.sociobot.in/",
+  "title": "Keyboard Route Check — Record a keyboard route",
+  "h1": [
+    "Record the route your keyboard takes."
+  ],
+  "firstViewport": [
+    {
+      "tag": "a",
+      "text": "Skip to content",
+      "top": 8,
+      "bottom": 56,
+      "display": "flex",
+      "visibility": "visible"
+    },
+    {
+      "tag": "a",
+      "text": "KRC Keyboard Route Check",
+      "top": 16,
+      "bottom": 60,
+      "display": "flex",
+      "visibility": "visible"
+    },
+    {
+      "tag": "a",
+      "text": "Demo",
+      "top": 16,
+      "bottom": 60,
+      "display": "flex",
+      "visibility": "visible"
+    },
+    {
+      "tag": "a",
+      "text": "How it works",
+      "top": 16,
+      "bottom": 60,
+      "display": "flex",
+      "visibility": "visible"
+    },
+    {
+      "tag": "a",
+      "text": "Privacy",
+      "top": 16,
+      "bottom": 60,
+      "display": "flex",
+      "visibility": "visible"
+    },
+    {
+      "tag": "p",
+      "text": "KEYBOARD ROUTE RECORDER",
+      "top": 150,
+      "bottom": 164,
+      "display": "block",
+      "visibility": "visible"
+    },
+    {
+      "tag": "h1",
+      "text": "Record the route your keyboard takes.",
+      "top": 176,
+      "bottom": 407,
+      "display": "block",
+      "visibility": "visible"
+    },
+    {
+      "tag": "p",
+      "text": "For keyboard users and web teams who need proof before a focus defect reaches production.",
+      "top": 427,
+      "bottom": 487,
+      "display": "block",
+      "visibility": "visible"
+    },
+    {
+      "tag": "a",
+      "text": "Try it with sample data",
+      "top": 515,
+      "bottom": 561,
+      "display": "flex",
+      "visibility": "visible"
+    },
+    {
+      "tag": "a",
+      "text": "Download the extension",
+      "top": 577,
+      "bottom": 621,
+      "display": "flex",
+      "visibility": "visible"
+    },
+    {
+      "tag": "li",
+      "text": "Records each control’s name and type",
+      "top": 651,
+      "bottom": 670,
+      "display": "list-item",
+      "visibility": "visible"
+    },
+    {
+      "tag": "li",
+      "text": "Form values stay out",
+      "top": 676,
+      "bottom": 695,
+      "display": "list-item",
+      "visibility": "visible"
+    },
+    {
+      "tag": "li",
+      "text": "Warns when Tab returns to an earlier control",
+      "top": 701,
+      "bottom": 720,
+      "display": "list-item",
+      "visibility": "visible"
+    },
+    {
+      "tag": "p",
+      "text": "WHAT THE EXTENSION CAPTURES",
+      "top": 875,
+      "bottom": 889,
+      "display": "block",
+      "visibility": "visible"
+    },
+    {
+      "tag": "p",
+      "text": "SAMPLE REPORT",
+      "top": 899,
+      "bottom": 918,
+      "display": "block",
+      "visibility": "visible"
+    },
+    {
+      "tag": "button",
+      "text": "Export sample report",
+      "top": 899,
+      "bottom": 945,
+      "display": "flex",
+      "visibility": "visible"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://keyboard-route-check.sociobot.in/",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://keyboard-route-check.sociobot.in/assets/main-BDImKD60.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://keyboard-route-check.sociobot.in/assets/main-BS7_Ez12.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://keyboard-route-check.sociobot.in/hero/cassette-route.webp",
+      "resourceType": "image"
+    }
+  ],
+  "console": [],
+  "pageErrors": [],
+  "headers": {
+    "cache-control": "public, must-revalidate, max-age=30",
+    "content-encoding": "br",
+    "content-security-policy": "default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'",
+    "content-type": "text/html",
+    "date": "Sat, 29 Aug 2026 16:46:06 GMT",
+    "etag": "\"93771785\"",
+    "last-modified": "Sat, 29 Aug 2026 16:33:09 GMT",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+    "vary": "Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-dns-prefetch-control": "off",
+    "x-xss-protection": "1; mode=block"
+  }
+}

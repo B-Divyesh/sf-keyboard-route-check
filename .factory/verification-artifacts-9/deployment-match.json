@@ -1,0 +1,189 @@
+[
+  {
+    "rel": "404.html",
+    "route": "/404",
+    "status": 200,
+    "bytes": 1308,
+    "localSha256": "d1b8ff5ca820c3014980b680801ff310aebf092823bc898e34ec0c87af7b4ac8",
+    "liveSha256": "d1b8ff5ca820c3014980b680801ff310aebf092823bc898e34ec0c87af7b4ac8",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "text/html"
+  },
+  {
+    "rel": "apple-touch-icon.png",
+    "route": "/apple-touch-icon.png",
+    "status": 200,
+    "bytes": 62737,
+    "localSha256": "b6426587381f567d7061a22c3e8f0c720b25ce8378b3ec0452c92eff7ef69e3f",
+    "liveSha256": "b6426587381f567d7061a22c3e8f0c720b25ce8378b3ec0452c92eff7ef69e3f",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "image/png"
+  },
+  {
+    "rel": "assets/main-BDImKD60.js",
+    "route": "/assets/main-BDImKD60.js",
+    "status": 200,
+    "bytes": 13161,
+    "localSha256": "e9f99a23a8a362f1fd561860830d011c0e1c068b9c8061bd237cfca59ca6dad9",
+    "liveSha256": "e9f99a23a8a362f1fd561860830d011c0e1c068b9c8061bd237cfca59ca6dad9",
+    "match": true,
+    "cacheControl": "public, max-age=31536000, immutable",
+    "contentType": "text/javascript"
+  },
+  {
+    "rel": "assets/main-BS7_Ez12.css",
+    "route": "/assets/main-BS7_Ez12.css",
+    "status": 200,
+    "bytes": 9363,
+    "localSha256": "ec6a5de92a6b7d02a187a1ac13f7b829d79c9415b6ce57a727e40924ab8d79d5",
+    "liveSha256": "ec6a5de92a6b7d02a187a1ac13f7b829d79c9415b6ce57a727e40924ab8d79d5",
+    "match": true,
+    "cacheControl": "public, max-age=31536000, immutable",
+    "contentType": "text/css"
+  },
+  {
+    "rel": "demo.html",
+    "route": "/demo",
+    "status": 200,
+    "bytes": 1182,
+    "localSha256": "31cc0120034e39ffc0868343cfead0c830c5408039ed9d03a6366fd9f696fb48",
+    "liveSha256": "31cc0120034e39ffc0868343cfead0c830c5408039ed9d03a6366fd9f696fb48",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "text/html"
+  },
+  {
+    "rel": "downloads/keyboard-route-check.zip",
+    "route": "/downloads/keyboard-route-check.zip",
+    "status": 200,
+    "bytes": 467790,
+    "localSha256": "f0889eae2febd178a5b93b29bcdc84d480ce1558e99afc077f42cd13f503a2bf",
+    "liveSha256": "f0889eae2febd178a5b93b29bcdc84d480ce1558e99afc077f42cd13f503a2bf",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "application/zip"
+  },
+  {
+    "rel": "favicon.svg",
+    "route": "/favicon.svg",
+    "status": 200,
+    "bytes": 412,
+    "localSha256": "ef3a280fb09d52c74b145b3ad78d37224481d1eff48cd38eb4264f5984845d99",
+    "liveSha256": "ef3a280fb09d52c74b145b3ad78d37224481d1eff48cd38eb4264f5984845d99",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "image/svg+xml"
+  },
+  {
+    "rel": "hero/cassette-route.webp",
+    "route": "/hero/cassette-route.webp",
+    "status": 200,
+    "bytes": 199746,
+    "localSha256": "43df0853417de2931d2edcaa5692a7e304b43af5fa70b980869bd03bc75ba4d2",
+    "liveSha256": "43df0853417de2931d2edcaa5692a7e304b43af5fa70b980869bd03bc75ba4d2",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "image/webp"
+  },
+  {
+    "rel": "icon/128.png",
+    "route": "/icon/128.png",
+    "status": 200,
+    "bytes": 31325,
+    "localSha256": "4c9f8b38eeda2119a7c16cf60a0e21b3feaabddef3e9eef012198c6e242f7154",
+    "liveSha256": "4c9f8b38eeda2119a7c16cf60a0e21b3feaabddef3e9eef012198c6e242f7154",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "image/png"
+  },
+  {
+    "rel": "icon/16.png",
+    "route": "/icon/16.png",
+    "status": 200,
+    "bytes": 1188,
+    "localSha256": "2f1c937eb2c29c94d6ae0d3c194c252d0eb7b386ec77808e3fe75fedcb995a39",
+    "liveSha256": "2f1c937eb2c29c94d6ae0d3c194c252d0eb7b386ec77808e3fe75fedcb995a39",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "image/png"
+  },
+  {
+    "rel": "icon/48.png",
+    "route": "/icon/48.png",
+    "status": 200,
+    "bytes": 4981,
+    "localSha256": "5d1d9adbf7ec7512c48ce9a2d760d03ce174ba22d03802bc5088c4bdca1046ed",
+    "liveSha256": "5d1d9adbf7ec7512c48ce9a2d760d03ce174ba22d03802bc5088c4bdca1046ed",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "image/png"
+  },
+  {
+    "rel": "index.html",
+    "route": "/",
+    "status": 200,
+    "bytes": 1361,
+    "localSha256": "21fd48eaad0fa7d675b6c00617ff9a7d7e0c8b5deb1278ee9d78cbcffac347ab",
+    "liveSha256": "21fd48eaad0fa7d675b6c00617ff9a7d7e0c8b5deb1278ee9d78cbcffac347ab",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "text/html"
+  },
+  {
+    "rel": "privacy.html",
+    "route": "/privacy",
+    "status": 200,
+    "bytes": 1290,
+    "localSha256": "607bb38554bfe8b5589b74318a9767f4578b98bc3e77313a4b3f1fc743424666",
+    "liveSha256": "607bb38554bfe8b5589b74318a9767f4578b98bc3e77313a4b3f1fc743424666",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "text/html"
+  },
+  {
+    "rel": "robots.txt",
+    "route": "/robots.txt",
+    "status": 200,
+    "bytes": 85,
+    "localSha256": "3a9236ed6f1a84191144a77d2afa72c8c21178eb0693fd015efb1be9f8c588c1",
+    "liveSha256": "3a9236ed6f1a84191144a77d2afa72c8c21178eb0693fd015efb1be9f8c588c1",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "text/plain"
+  },
+  {
+    "rel": "sitemap.xml",
+    "route": "/sitemap.xml",
+    "status": 200,
+    "bytes": 390,
+    "localSha256": "0d692ab9c3fcb228d9afd3228e955959659c0d39a077ac1dc875012a8089e858",
+    "liveSha256": "0d692ab9c3fcb228d9afd3228e955959659c0d39a077ac1dc875012a8089e858",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "text/xml"
+  },
+  {
+    "rel": "social-card.webp",
+    "route": "/social-card.webp",
+    "status": 200,
+    "bytes": 155442,
+    "localSha256": "42d59628fffad885de1681f84b277943949a0d96bb4cebf5f27ab6bf2cee26b3",
+    "liveSha256": "42d59628fffad885de1681f84b277943949a0d96bb4cebf5f27ab6bf2cee26b3",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "image/webp"
+  },
+  {
+    "rel": "terms.html",
+    "route": "/terms",
+    "status": 200,
+    "bytes": 1243,
+    "localSha256": "40b6cc3909655bfd5f87cebe0489ec862c733d30cd2be43c6e43b1f734e6428f",
+    "liveSha256": "40b6cc3909655bfd5f87cebe0489ec862c733d30cd2be43c6e43b1f734e6428f",
+    "match": true,
+    "cacheControl": "public, must-revalidate, max-age=30",
+    "contentType": "text/html"
+  }
+]
