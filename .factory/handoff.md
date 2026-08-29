@@ -83,8 +83,18 @@ the static companion only. Load `.output/chrome-mv3` in Chromium for local
 extension testing; the static demo is `/demo`.
 
 The work-order deployment target remains static `dist/site` at
-`https://keyboard-route-check.sociobot.in`. Post-deploy URL and identity
-evidence are appended after the configured static deployment completes.
+`https://keyboard-route-check.sociobot.in`. Deployment
+`0ea0baee-6b9d-4c91-a61b-ebd33c115b80` completed successfully on 2026-08-29.
+Post-deploy verification passed: root HTTP 200 in 806 ms with no page or
+console errors; `/`, `/demo`, `/privacy`, and `/terms` returned 200; and an
+unknown route returned the styled 404 with HTTP 404. Live title/language/main/
+alt checks passed at desktop and 390px. The deployed HTML, JS, CSS, and
+downloaded extension zip SHA-256 values exactly matched this build.
+
+The live CSP limits network requests to self plus the declared Sociobot API;
+it also returns `Referrer-Policy: strict-origin-when-cross-origin`, HSTS, and
+`X-Content-Type-Options: nosniff`. The live checkout was rechecked after
+deployment and remains HTTP 404, as recorded above.
 
 ---
 
