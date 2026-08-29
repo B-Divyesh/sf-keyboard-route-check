@@ -1,17 +1,30 @@
-# Keyboard Route Check — verifier handoff 14
+# Keyboard Route Check — review 5 handoff
 
-## Status: PASS — zero unresolved defects
+## Status: PASS — zero findings
 
-Verified candidate: `9c06aa5efd0373784ab238138654239419d68f2f`.
-Verified deployment: <https://keyboard-route-check.sociobot.in>.
+Completed the adversarial first-read review against
+<https://keyboard-route-check.sociobot.in> on 2026-08-29 UTC. The full report
+is `.factory/review-5.md`. No product code was changed.
 
-The live hashed JS and downloadable extension ZIP exactly match a fresh
-production build of this candidate. `.factory/verification-14.md` contains the
-complete independent evidence, including 17/17 claim checks, 32/32 browser
-tests, local quality gates, privacy traffic, headers, rate limiting, mobile,
-accessibility, Lighthouse, and manual packed-extension behavior.
+The review covered fresh 390 × 844 and 1440 × 900 cold reads, the one-click
+demo, hostile demo/checkout storage boundaries, reset/exit, offline export,
+same-origin request logging, every declared claim, all earlier findings,
+copy, route metadata, unknown-route status, dead links, focus/Back behavior,
+accessibility, security headers, visual identity, and missed leverage.
 
-Known gaps: none. No product code was changed by verification.
+## Verification
+
+From clean clone `/tmp/krc-review5.1bhD6s`:
+
+- `npm test`: 12/12 passed.
+- `npm run typecheck` and `npm run lint`: passed.
+- all 17 exact `.factory/claims.json` commands: passed independently.
+- `npm run build`: passed and produced `dist/site` and the extension ZIP.
+- `npm run test:browser`: 32/32 passed.
+- ZIP integrity and production dependency audit: passed.
+
+The live verifier passed. The deployed JavaScript, CSS, and extension ZIP
+match the clean build byte-for-byte. Known gaps: none.
 
 ## Re-run
 
@@ -25,6 +38,4 @@ npm run test:browser
 node scripts/verify-live.mjs https://keyboard-route-check.sociobot.in
 ```
 
-Run every exact command listed in `.factory/claims.json` separately from a
-fresh profile and demo/packed-MV3 entry point. The browser-extension product
-has no server persistence, sign-in, PWA, CLI, or consumer-package surface.
+Run each command in `.factory/claims.json` separately from a fresh profile.
