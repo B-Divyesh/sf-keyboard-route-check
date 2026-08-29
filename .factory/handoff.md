@@ -1,80 +1,70 @@
-# Keyboard Route Check — polish 3 handoff
+# Keyboard Route Check — independent QA handoff 12
 
-## Status: PASS
+## Status: FAIL
 
-Repair implementation: `558a2ad4e1d64e0c34ce3f04791ffebee91d26ff`
-(`fix: isolate demo checkout returns`). It is pushed to `origin/main` and was
-deployed as static deployment `f54b0648-ddae-4c4d-b495-672347334411` to
-<https://keyboard-route-check.sociobot.in> on 2026-08-29 UTC.
+Tested candidate: `f397e93de5816d944367714c70d6f6ab7174779e`
 
-## What changed
+Live URL: <https://keyboard-route-check.sociobot.in>
 
-- Demo mode now identifies its route before checkout-return handling. A
-  `license` parameter on `/?demo=1` or `/demo` is removed from the URL and
-  ignored without reading or writing real storage.
-- Website checkout-return tokens now use `sessionStorage` only. They are shown
-  only in the return tab and are never persisted in website local storage.
-- Added the `checkout-token-session-only` claim and strengthened
-  `demo-isolated` with the exact combined-query adversarial case.
-- Replaced every remaining public “companion site” use with “website.” The
-  first-screen ZIP action now says **Download desktop Chrome extension ZIP**.
-- Kept the cassette-zine visual system, existing real installation path,
-  routing, legal pages, demo banner/reset/exit controls, and extension
-  packaging intact.
+Test date: 2026-08-29 UTC
 
-## Verification
+The previous deployment-only failure is resolved. A fresh `npm run build`
+completed, and every one of the 17 normally served candidate files matches the
+live deployment byte-for-byte. The release is blocked by one independently
+reproduced accessibility defect:
 
-Fresh clone: `/tmp/krc-clean-VDGs2q`, cloned from `558a2ad` before testing.
+1. **High:** activating **Skip to content** leaves focus on `<body>`. The next
+   Tab returns to the header wordmark, so the repeated header is not bypassed.
 
-- `npm ci`, `npm run typecheck`, `npm test` — passed (12 unit tests).
-- `npm run build` — passed; produced `dist/site` and the MV3 ZIP.
-- Every exact command in `.factory/claims.json` ran separately and passed:
-  all 16 claims, including `@claim:demo-isolated` and
-  `@claim:checkout-token-session-only`.
-- `npx playwright test tests/browser/site.spec.ts --reporter=list` — 17/17
-  passed; includes mobile fit, route focus/Back, metadata/404, serious/critical
-  axe checks, privacy storage, and offline demo export.
-- `npx playwright test tests/browser/extension.spec.ts --reporter=list` —
-  13/13 passed against the packed MV3 extension.
-- `npm audit --omit=dev --audit-level=high` — 0 vulnerabilities.
-- `unzip -t .output/keyboard-route-check-1.0.0-chrome.zip` — passed; the ZIP
-  contains root `manifest.json`.
-- Local production-artifact check:
-  `KRC_LIVE_URL=http://127.0.0.1:4173 node scripts/verify-live.mjs` — passed.
-- Cold live check: `node scripts/verify-live.mjs` — passed routes, demo
-  reset/exit, combined demo-token isolation, session-only return, route focus,
-  metadata, mobile fit, offline sample export, request privacy, console, and
-  axe. Live screenshots: `evidence/polish-3-live-home-mobile.png`,
-  `evidence/polish-3-live-route-focus.png`, and
-  `evidence/polish-3-live-footer.png`.
-- `/opt/fleet/lib/verify-url.sh` passed both the [home page](https://keyboard-route-check.sociobot.in)
-  and [demo](https://keyboard-route-check.sociobot.in/?demo=1); output and
-  screenshots are under `evidence/polish-3-verify-home/` and
-  `evidence/polish-3-verify-demo/`.
-- Lighthouse mobile, live: Performance 99, Accessibility 100, Best Practices
-  100, SEO 100; LCP 1.81 s and CLS 0. Report:
-  `evidence/polish-3-lighthouse-mobile.json`.
-- Live headers include CSP with `frame-ancestors 'none'`, HSTS,
-  `Referrer-Policy: strict-origin-when-cross-origin`, and `nosniff`; an
-  unknown URL returned HTTP 404.
+Full findings and exact evidence are in `.factory/verification-12.md` and
+`.factory/evidence/verification-12/`.
 
-## How to run
+## What passed
+
+- All 16 exact `.factory/claims.json` commands passed independently.
+- `npm ci`, `npm test` (12/12), `npm run typecheck`, `npm run lint`, exact
+  `npm run build`, and `npm run test:browser` (30/30) passed.
+- The cold first-read and one-click populated demo gate passed at desktop and
+  390 px.
+- The packed MV3 recording, redaction, route findings, download, offline use,
+  invalid-input recovery, local archive, and hostile-label scenarios passed.
+- Fresh live axe checks found zero violations on all public routes at desktop
+  and mobile. The extension popup also had zero axe violations.
+- Demo traffic stayed same-origin; checkout-return storage stayed session-only
+  and isolated from demo data.
+- Live headers, 404 behavior, caching, links, reduced motion, bundle budgets,
+  and production asset matching passed.
+- Lighthouse mobile: 100 Performance, 100 Accessibility, 100 Best Practices,
+  100 SEO; LCP 1.8 s, TBT 20 ms, CLS 0.
+- Billing verification allowed 30 requests; request 31 returned 429 with
+  `Retry-After: 4`.
+
+## Verification commands
 
 ```sh
 npm ci
 npm test
 npm run typecheck
+npm run lint
 npm run build
 npm run test:browser
-node scripts/verify-live.mjs
+node scripts/verify-live.mjs https://keyboard-route-check.sociobot.in
 ```
 
-Open `/?demo=1` for the isolated sample. Opening
-`/?demo=1&license=anything` keeps the demo sandbox isolated. A normal
-`/?license=token` return displays that token only in the current tab so it can
-be copied into the extension.
+## How to reproduce the blockers
 
-## Known gaps and next steps
+Skip link:
 
-None. New local-report-archive purchases remain intentionally unavailable,
-which is disclosed on the landing page and terms page.
+1. Open the live home page in a fresh desktop browser.
+2. Press Tab once, then Enter on **Skip to content**.
+3. Inspect focus or press Tab again. Focus is on `<body>`, then returns to the
+   header wordmark instead of entering main content.
+
+## Required next steps
+
+- Make the skip target focusable and move keyboard focus to it (or the h1) when
+  the skip link is activated; verify the next Tab starts within main content.
+- Add a regression test that activates the skip link and asserts focus enters
+  main content, then rerun all gates and independent live verification.
+
+No product code was modified during this verification.

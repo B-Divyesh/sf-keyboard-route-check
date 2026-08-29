@@ -1,0 +1,49 @@
+{
+  "url": "https://keyboard-route-check.sociobot.in",
+  "observed_at": "2026-08-29T21:42:00Z",
+  "first_read": {
+    "what": "Record the route your keyboard takes.",
+    "who": "For keyboard users and web teams checking how focus moves through a page.",
+    "first_action": "Try it with sample data",
+    "next_step": "See a route report right away.",
+    "one_click_demo": true
+  },
+  "routes": {
+    "viewports": ["1440x900", "390x844"],
+    "tested": ["/", "/demo", "/privacy", "/terms", "/no-such-route"],
+    "axe_serious_or_critical": 0,
+    "ordinary_page_console_or_page_errors": 0,
+    "external_requests_in_demo_flow": 0,
+    "undersized_visible_controls": 0,
+    "normal_width_horizontal_overflow": 0,
+    "reduced_motion_active_animations_or_transitions": 0
+  },
+  "keyboard": {
+    "visible_focus": "3px designed outline on every traversed control",
+    "demo_enter_reset_export_exit": "passed",
+    "route_change_and_back_focus_h1": "passed",
+    "skip_link": {
+      "result": "failed",
+      "after_enter_url": "https://keyboard-route-check.sociobot.in/#main",
+      "after_enter_active_element": "BODY",
+      "next_tab": "KRC Keyboard Route Check home",
+      "impact": "Header navigation is not bypassed"
+    }
+  },
+  "text_resize_200_percent": {
+    "result": "passed without material text loss",
+    "viewport": "390x844",
+    "document_scroll_width": 401,
+    "document_client_width": 390,
+    "body_overflow_x": "hidden",
+    "longest_required_token": "chrome://extensions",
+    "text_right_edge": 390.859375,
+    "note": "The unbreakable token reaches the antialiased viewport edge but remains readable; all other required text reflows."
+  },
+  "privacy": {
+    "checkout_token_url_cleanup": "passed",
+    "checkout_token_session_storage_only": "passed",
+    "checkout_token_absent_in_second_tab": "passed",
+    "demo_with_checkout_token_ignores_token": "passed"
+  }
+}

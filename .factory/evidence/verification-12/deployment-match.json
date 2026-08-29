@@ -1,0 +1,13 @@
+{
+  "candidate": "f397e93de5816d944367714c70d6f6ab7174779e",
+  "url": "https://keyboard-route-check.sociobot.in",
+  "observed_at": "2026-08-29T21:34:35Z",
+  "normally_served_files_compared": 17,
+  "mismatches": 0,
+  "key_artifacts": {
+    "assets/main-BlRHl9dE.js": "7d254558e78390d508dce87a7378d03927ed698901a272f91e33ad9913afd5e7",
+    "assets/main-C-whmeQy.css": "811ea8324dc98b982f595cb4a3a34e640d436a6bf32071144cada0e457d2f549",
+    "downloads/keyboard-route-check.zip": "8935373c457fdc9b9f13dcc1f3c0b6b74d5f2e48eb848fe07011376ec7d97bd1"
+  },
+  "note": "staticwebapp.config.json is consumed by the hosting platform and is not a normally served file."
+}
