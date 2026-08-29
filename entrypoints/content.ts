@@ -11,6 +11,7 @@ export default defineContentScript({
 let enabled = false;
 let direction: Direction = 'direct';
 let expected: { id: string; label: string } | undefined;
+let pendingFocusStyles: { target: HTMLElement; styles: Map<HTMLElement, FocusStyle> } | undefined;
 
 function safeText(value: string | null | undefined): string {
   return (value || '').replace(/\s+/g, ' ').trim().slice(0, 80);
@@ -24,8 +25,9 @@ function labelFor(el: HTMLElement): string {
     const label = labelledBy.split(/\s+/).map((id) => safeText(document.getElementById(id)?.textContent)).filter(Boolean).join(' ');
     if (label) return label;
   }
-  if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement) {
-    const label = safeText(document.querySelector(`label[for="${CSS.escape(el.id)}"]`)?.textContent);
+  const labels = (el as HTMLElement & { labels?: NodeListOf<HTMLLabelElement> | null }).labels;
+  if (labels?.length) {
+    const label = Array.from(labels).map((item) => safeText(item.textContent)).filter(Boolean).join(' ');
     if (label) return label;
   }
   const title = safeText(el.getAttribute('title'));
@@ -95,18 +97,45 @@ function unfocusedStyle(el: HTMLElement): FocusStyle {
   }
 }
 
-function hasFocusMark(el: HTMLElement): boolean {
-  const style = focusStyle(el);
-  const beforeFocus = unfocusedStyle(el);
+function focusChain(el: HTMLElement): HTMLElement[] {
+  const chain: HTMLElement[] = [];
+  let node: HTMLElement | null = el;
+  while (node && node !== document.body && node !== document.documentElement) {
+    chain.push(node);
+    node = node.parentElement;
+  }
+  return chain;
+}
+
+function backgroundBehind(el: HTMLElement): string | undefined {
   let parent = el.parentElement;
   while (parent) {
     const background = getComputedStyle(parent).backgroundColor;
     if (background && background !== 'transparent' && background !== 'rgba(0, 0, 0, 0)') {
-      return hasVisibleFocusIndicator(style, background, beforeFocus);
+      return background;
     }
     parent = parent.parentElement;
   }
-  return hasVisibleFocusIndicator(style, undefined, beforeFocus);
+  return undefined;
+}
+
+function focusStyleChanged(focused: FocusStyle, unfocused: FocusStyle): boolean {
+  return (Object.keys(focused) as Array<keyof FocusStyle>)
+    .some((property) => focused[property] !== unfocused[property]);
+}
+
+function focusStylesBefore(el: HTMLElement): Map<HTMLElement, FocusStyle> {
+  return new Map(focusChain(el).map((node) => [node, focusStyle(node)]));
+}
+
+function hasFocusMark(el: HTMLElement): boolean {
+  const beforeStyles = pendingFocusStyles?.target === el ? pendingFocusStyles.styles : undefined;
+  return focusChain(el).some((node) => {
+    const focused = focusStyle(node);
+    const unfocused = beforeStyles?.get(node) || (node === el ? unfocusedStyle(el) : undefined);
+    if (unfocused && !focusStyleChanged(focused, unfocused)) return false;
+    return hasVisibleFocusIndicator(focused, backgroundBehind(node), unfocused);
+  });
 }
 
 function tabbables(): HTMLElement[] {
@@ -119,31 +148,46 @@ document.addEventListener('keydown', (event) => {
   if (!enabled || event.key !== 'Tab') return;
   direction = event.shiftKey ? 'reverse' : 'forward';
   const candidates = tabbables();
-  if (!candidates.length) { expected = undefined; return; }
+  if (!candidates.length) {
+    expected = undefined;
+    pendingFocusStyles = undefined;
+    return;
+  }
   const index = candidates.indexOf(document.activeElement as HTMLElement);
   const nextIndex = index < 0
     ? (event.shiftKey ? candidates.length - 1 : 0)
     : (index + (event.shiftKey ? -1 : 1) + candidates.length) % candidates.length;
   const next = candidates[nextIndex];
   expected = { id: elementId(next), label: labelFor(next) };
+  pendingFocusStyles = { target: next, styles: focusStylesBefore(next) };
 }, true);
 
 document.addEventListener('focusin', (event) => {
   if (!enabled || !(event.target instanceof HTMLElement)) return;
   const el = event.target;
+  const focusMark = hasFocusMark(el);
   const step: RouteStep = {
     id: elementId(el), role: roleFor(el), label: labelFor(el), selector: elementId(el), direction,
-    visible: isVisible(el), focusMark: hasFocusMark(el), timestamp: Date.now()
+    visible: isVisible(el), focusMark, timestamp: Date.now()
   };
   const packet: RecorderMessage = { type: 'KRC_STEP', step, expected };
   void chrome.runtime.sendMessage(packet);
   direction = 'direct';
   expected = undefined;
+  pendingFocusStyles = undefined;
 }, true);
 
 chrome.runtime.onMessage.addListener((message: RecorderMessage, _sender, respond) => {
-  if (message.type === 'KRC_START') enabled = true;
-  if (message.type === 'KRC_STOP' || message.type === 'KRC_CLEAR') enabled = false;
+  if (message.type === 'KRC_START') {
+    enabled = true;
+    expected = undefined;
+    pendingFocusStyles = undefined;
+  }
+  if (message.type === 'KRC_STOP' || message.type === 'KRC_CLEAR') {
+    enabled = false;
+    expected = undefined;
+    pendingFocusStyles = undefined;
+  }
   respond({ ok: true });
 });
   }

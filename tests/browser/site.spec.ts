@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
+import { contrastRatio, parseCssColor } from '../../src/focus-indicator';
 
 async function exportedSample(page: import('@playwright/test').Page) {
   const downloadPromise = page.waitForEvent('download');
@@ -140,6 +141,48 @@ test('all landing and demo controls meet the 44px touch target baseline at 390px
     expect(undersized, `${route} has undersized touch controls`).toEqual([]);
   }
   await context.close();
+});
+
+test('every public-site keyboard focus ring has three-to-one contrast against its surface', async ({ page }) => {
+  for (const route of ['/', '/demo', '/privacy', '/terms', '/404']) {
+    await page.goto(route);
+    const controls = page.locator('a[href], button:not([disabled]), input:not([disabled])');
+    for (let index = 0; index < await controls.count(); index += 1) {
+      const control = controls.nth(index);
+      if (!await control.isVisible()) continue;
+      await control.focus();
+      await page.keyboard.press('Tab');
+      await page.keyboard.press('Shift+Tab');
+      const focus = await control.evaluate((element) => {
+        const style = getComputedStyle(element);
+        let surface = element.parentElement;
+        let backgroundColor = 'rgb(255, 255, 255)';
+        while (surface) {
+          const candidate = getComputedStyle(surface).backgroundColor;
+          if (candidate !== 'transparent' && candidate !== 'rgba(0, 0, 0, 0)') {
+            backgroundColor = candidate;
+            break;
+          }
+          surface = surface.parentElement;
+        }
+        return {
+          name: element.getAttribute('aria-label') || element.textContent?.trim() || element.getAttribute('name') || element.tagName,
+          focusVisible: element.matches(':focus-visible'),
+          outlineStyle: style.outlineStyle,
+          outlineWidth: Number.parseFloat(style.outlineWidth),
+          outlineColor: style.outlineColor,
+          backgroundColor
+        };
+      });
+      expect(focus.focusVisible, `${route}: ${focus.name} should show keyboard focus`).toBe(true);
+      expect(focus.outlineStyle, `${route}: ${focus.name} should have an outline`).not.toBe('none');
+      expect(focus.outlineWidth, `${route}: ${focus.name} should have a visible outline`).toBeGreaterThan(0);
+      expect(
+        contrastRatio(parseCssColor(focus.outlineColor)!, parseCssColor(focus.backgroundColor)!),
+        `${route}: ${focus.name} focus ring contrast against ${focus.backgroundColor}`
+      ).toBeGreaterThanOrEqual(3);
+    }
+  }
 });
 
 test('the complete first-read message fits the initial 390px viewport without horizontal overflow', async ({ browser }) => {

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Implicit label and wrapper focus fixture</title>
+    <style>
+      body { padding: 32px; background: white; color: #17211c; }
+      .field { display: inline-block; padding: 12px; }
+      .field:focus-within { outline: 4px solid rgb(0, 95, 204); outline-offset: 3px; }
+      input:focus { outline: none; box-shadow: none; }
+    </style>
+  </head>
+  <body>
+    <label class="field">Work email
+      <input type="email" value="do-not-record-secret" />
+    </label>
+  </body>
+</html>

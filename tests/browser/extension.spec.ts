@@ -124,6 +124,29 @@ test('does not report a visible background-color focus treatment as invisible', 
   }
 });
 
+test('records an implicit label and its visible wrapper focus-within treatment', async () => {
+  const { context, worker, extensionId } = await launchPackagedExtension();
+  try {
+    const page = await context.newPage();
+    await page.goto('http://127.0.0.1:4173/fixtures/implicit-label-focus-page.html');
+    const popup = await context.newPage();
+    await popup.goto(`chrome-extension://${extensionId}/popup.html`);
+    await popup.getByRole('button', { name: 'Record this tab' }).click();
+    await page.bringToFront();
+    await page.keyboard.press('Tab');
+    const tabId = await tabIdFor(worker, '/fixtures/implicit-label-focus-page.html');
+    const report = await waitForStops(worker, tabId, 1) as {
+      steps: Array<{ label: string; role: string; focusMark: boolean }>;
+      findings: Array<{ kind: string }>;
+    };
+    expect(report.steps[0]).toMatchObject({ label: 'Work email', role: 'input', focusMark: true });
+    expect(report.findings.filter((finding) => finding.kind === 'invisible-focus')).toEqual([]);
+    expect(JSON.stringify(report)).not.toContain('do-not-record-secret');
+  } finally {
+    await context.close();
+  }
+});
+
 test('packed popup keyboard focus has a three-to-one focus ring on each reported paper control', async () => {
   const { context, worker, extensionId } = await launchPackagedExtension();
   try {

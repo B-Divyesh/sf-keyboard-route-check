@@ -15,6 +15,11 @@ h1[tabindex="-1"]:focus {
   outline-offset: 6px;
 }
 
+/* The report header is tape-dark, so its focus ring uses the 10.38:1 lime. */
+.report-top button:focus-visible {
+  outline-color: var(--lime);
+}
+
 .product-preview > div > p:not(.eyebrow),
 .paid > p:not(.eyebrow) {
   max-width: 540px;
