@@ -1,7 +1,21 @@
 import type { Direction, RouteFinding, RouteReport, RouteStep } from './types';
 
-export function createReport(title: string, url: string, now = Date.now()): RouteReport {
-  return { version: 1, title, url, startedAt: now, steps: [], findings: [] };
+/** Keep page context useful without leaking credentials, query values, fragments, or page titles. */
+export function safeReportUrl(value: string): string {
+  try {
+    const url = new URL(value);
+    url.username = '';
+    url.password = '';
+    url.search = '';
+    url.hash = '';
+    return url.toString();
+  } catch {
+    return '';
+  }
+}
+
+export function createReport(_title: string, url: string, now = Date.now()): RouteReport {
+  return { version: 1, title: 'Page title not collected', url: safeReportUrl(url), startedAt: now, steps: [], findings: [] };
 }
 
 export function addStep(report: RouteReport, step: RouteStep, expected?: { id: string; label: string }): RouteReport {

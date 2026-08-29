@@ -1,5 +1,6 @@
 import type { Direction, RecorderMessage, RouteStep } from '../src/types';
 import { elementIdentity } from '../src/element-identity';
+import { hasVisibleFocusIndicator } from '../src/focus-indicator';
 import { orderTabStops } from '../src/tab-order';
 import { defineContentScript } from 'wxt/utils/define-content-script';
 
@@ -56,7 +57,15 @@ function isVisible(el: HTMLElement): boolean {
 
 function hasFocusMark(el: HTMLElement): boolean {
   const style = getComputedStyle(el);
-  return style.outlineStyle !== 'none' || style.outlineWidth !== '0px' || style.boxShadow !== 'none';
+  let parent = el.parentElement;
+  while (parent) {
+    const background = getComputedStyle(parent).backgroundColor;
+    if (background && background !== 'transparent' && background !== 'rgba(0, 0, 0, 0)') {
+      return hasVisibleFocusIndicator(style, background);
+    }
+    parent = parent.parentElement;
+  }
+  return hasVisibleFocusIndicator(style);
 }
 
 function tabbables(): HTMLElement[] {

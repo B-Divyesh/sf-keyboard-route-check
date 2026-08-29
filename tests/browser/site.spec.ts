@@ -9,7 +9,7 @@ async function exportedSample(page: import('@playwright/test').Page) {
   return JSON.parse(await readFile(await download.path()!, 'utf8'));
 }
 
-test('@claim:route-data-local demo export contains labels and roles, never form values or external requests', async ({ page }) => {
+test('demo export contains labels and roles, never form values or external requests', async ({ page }) => {
   const requests: string[] = [];
   page.on('request', (request) => requests.push(request.url()));
   await page.goto('/demo');
@@ -22,7 +22,7 @@ test('@claim:route-data-local demo export contains labels and roles, never form 
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
 });
 
-test('@claim:report-export exports a route report with labels, roles, order, and findings', async ({ page }) => {
+test('demo exports a route report with labels, roles, order, and findings', async ({ page }) => {
   await page.goto('/demo');
   const report = await exportedSample(page);
 
@@ -37,7 +37,7 @@ test('@claim:demo-isolated stores only sample data separately, resets it, and di
   await page.goto('/demo');
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
   await page.getByRole('button', { name: 'Reset demo' }).click();
-  await expect(page.getByRole('status')).toContainText('sample data, nothing is saved to your real data');
+  await expect(page.getByLabel('Demo controls')).toContainText('sample data, nothing is saved to your real data');
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
   await page.getByRole('link', { name: 'Start for real' }).click();
   await expect(page).toHaveURL(/\/$/);
@@ -52,10 +52,10 @@ test('@claim:free-report-export downloads the sample report without an account',
   expect(report.title).toBe('Sample booking page');
 });
 
-test('@claim:team-archive-price shows the one-time team archive price before checkout', async ({ page }) => {
+test('does not advertise an unavailable team archive checkout', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByText('$29 one-time. Save report history on this device.')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Buy team archive' })).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/keyboard-route-check/checkout');
+  await expect(page.getByText('New team archive purchases are temporarily unavailable.')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Buy team archive' })).toHaveCount(0);
 });
 
 test('serves a styled unknown route with a real 404 status', async ({ page, request }) => {
@@ -87,7 +87,7 @@ test('landing and demo have no serious or critical axe accessibility violations 
   for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 }]) {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
-    for (const route of ['/', '/demo']) {
+    for (const route of ['/', '/demo', '/privacy', '/terms']) {
       await page.goto(route);
       const results = await new AxeBuilder({ page }).analyze();
       expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact || '')),

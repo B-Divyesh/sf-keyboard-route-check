@@ -58,4 +58,6 @@ Prompt sheet:
 
 Asset provenance: generated with the factory image deployment through
 `/opt/fleet/lib/gen-image.sh` on 2026-08-28. The selected asset is original to
-this product and is optimized to WebP for delivery.
+this product and is optimized to WebP for delivery. `public/social-card.webp`
+is a 1200×630 center crop made from that reviewed hero asset on 2026-08-29;
+it supplies the matching social card for every public route.

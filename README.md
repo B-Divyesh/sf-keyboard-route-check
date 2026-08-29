@@ -10,6 +10,7 @@ form values.
 It warns when a repeated forward Tab route returns to an earlier control. It
 records the browser's Tab order, including valid positive `tabindex` values.
 Page labels appear as text in the popup.
+It warns when a control lacks a visible focus indicator.
 
 The static site is a companion landing page and one-click sample report. Try
 the sample at `/demo` after running the site.
@@ -52,10 +53,16 @@ Start for real clears it.
 
 ## Privacy and the optional team archive
 
-Route reports stay in browser extension storage. The extension records labels
-and roles, never form values. It makes no analytics or route-report requests.
-The optional $29 one-time team archive license is verified with Sociobot only
-when a license is supplied. Sociobot is the merchant of record.
+Route reports stay in browser extension storage. The extension records labels,
+roles, directions, timestamps, stable control identifiers, and a page origin
+and path. It never records form values or page titles. It removes URL
+credentials, query values, and fragments before export. It makes no analytics
+or route-report requests.
+
+The optional team archive saves report history in the extension browser
+profile. New archive purchases are temporarily unavailable. If an existing
+purchase returns to the companion site, copy its displayed token into
+**Team archive license** in the extension and verify it there.
 
 See the deployed `/privacy` and `/terms` pages for the current legal text.
 

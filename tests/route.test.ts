@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { addStep, createReport, routeExport } from '../src/route';
+import { addStep, createReport, routeExport, safeReportUrl } from '../src/route';
 import { escapeHtml } from '../src/html';
+import { hasVisibleFocusIndicator } from '../src/focus-indicator';
 import type { RouteStep } from '../src/types';
 
 const step = (id: string, label = 'Open menu', visible = true, focusMark = true, direction: RouteStep['direction'] = 'forward'): RouteStep => ({ id, label, role: 'button', selector: `#${id}`, direction, visible, focusMark, timestamp: 1 });
@@ -17,6 +18,20 @@ describe('route report', () => {
     const background = readFileSync(new URL('../entrypoints/background.ts', import.meta.url), 'utf8');
     expect(recorder).not.toMatch(/\.value\b/);
     expect(background).not.toContain('fetch(');
+  });
+  it('removes page titles, credentials, query values, and fragments from report context', () => {
+    const report = createReport('A private patient record', 'https://name:password@example.test/check?session_token=secret-query-value#private-note');
+    expect(report.title).toBe('Page title not collected');
+    expect(report.url).toBe('https://example.test/check');
+    expect(routeExport(report)).not.toContain('secret-query-value');
+    expect(routeExport(report)).not.toContain('private patient');
+    expect(safeReportUrl('not a URL')).toBe('');
+  });
+  it('does not mistake transparent or low-contrast CSS for a visible focus indicator', () => {
+    expect(hasVisibleFocusIndicator({ outlineStyle: 'solid', outlineWidth: '3px', outlineColor: 'rgba(0, 0, 0, 0)', boxShadow: 'none' }, 'rgb(255, 255, 255)')).toBe(false);
+    expect(hasVisibleFocusIndicator({ outlineStyle: 'solid', outlineWidth: '3px', outlineColor: 'rgb(255, 255, 255)', boxShadow: 'none' }, 'rgb(255, 255, 255)')).toBe(false);
+    expect(hasVisibleFocusIndicator({ outlineStyle: 'none', outlineWidth: '0px', outlineColor: 'transparent', boxShadow: 'rgba(0, 0, 0, 0) 0px 0px 0px 3px' }, 'rgb(255, 255, 255)')).toBe(false);
+    expect(hasVisibleFocusIndicator({ outlineStyle: 'solid', outlineWidth: '3px', outlineColor: 'rgb(23, 33, 28)', boxShadow: 'none' }, 'rgb(255, 255, 255)')).toBe(true);
   });
   it('exports labels, roles, order, and findings', () => {
     const first = addStep(createReport('Page', 'https://example.test'), step('menu'));

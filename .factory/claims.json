@@ -4,14 +4,14 @@
     "claim": "Route reports contain control labels and roles, never form values, and are not sent to our servers.",
     "where": "extension footer, privacy page, README",
     "test": "npm run test:claims -- --grep @claim:route-data-local",
-    "sandbox": "fresh browser context at /demo; an observable JSON download contains labels and roles, excludes values, and makes only same-origin requests"
+    "sandbox": "packed MV3 extension in a fresh profile; record a real input route on a URL with a query token, export it, and assert stored/exported data retains labels and roles but no input value, query token, fragment, title, or external report request"
   },
   {
     "id": "report-export",
     "claim": "Exports a route report with labels, roles, order, and findings.",
     "where": "landing page, extension export button, README",
     "test": "npm run test:claims -- --grep @claim:report-export",
-    "sandbox": "fresh browser context at /demo; the downloaded JSON asserts route order and visible findings"
+    "sandbox": "packed MV3 extension in a fresh profile; record real focused controls, start an observable JSON download, and assert labels, roles, browser order, and report data"
   },
   {
     "id": "demo-isolated",
@@ -28,13 +28,6 @@
     "sandbox": "fresh browser context; enter /demo from the landing action and assert a sample report download without authentication"
   },
   {
-    "id": "team-archive-price",
-    "claim": "$29 one-time for the optional team archive.",
-    "where": "landing page, README, terms page",
-    "test": "npm run test:claims -- --grep @claim:team-archive-price",
-    "sandbox": "fresh landing page; assert the displayed price and the hosted Sociobot checkout destination"
-  },
-  {
     "id": "team-archive-local",
     "claim": "The optional team archive saves report history in this browser.",
     "where": "landing page, README, terms page",
@@ -49,6 +42,13 @@
     "sandbox": "packed MV3 extension in a fresh browser profile; Tab through Alpha → Beta → Alpha and assert the exported route contains a loop finding"
   },
   {
+    "id": "invisible-focus-reporting",
+    "claim": "Warns when a control lacks a visible focus indicator.",
+    "where": "sample report, README",
+    "test": "npm run test:claims -- --grep @claim:invisible-focus-reporting",
+    "sandbox": "packed MV3 extension in a fresh browser profile; Tab to a button with a transparent outline and assert an invisible-focus finding in the real report"
+  },
+  {
     "id": "browser-tab-order",
     "claim": "Records the browser's Tab order, including valid positive tabindex values.",
     "where": "landing page, README",
@@ -61,5 +61,12 @@
     "where": "privacy page, README",
     "test": "npm run test:claims -- --grep @claim:popup-label-safety",
     "sandbox": "packed MV3 extension in a fresh browser profile; focus a control whose aria-label contains button markup and assert the popup creates no injected control"
+  },
+  {
+    "id": "license-transfer-handoff",
+    "claim": "A returned team-archive license can be copied into the extension for verification.",
+    "where": "landing page, privacy page",
+    "test": "npm run test:claims -- --grep @claim:license-transfer-handoff",
+    "sandbox": "fresh browser profile; open the companion site with a checkout-return license, assert the token is shown after URL cleanup, paste it into the packed extension, stub the documented verification response, and assert local archive access"
   }
 ]

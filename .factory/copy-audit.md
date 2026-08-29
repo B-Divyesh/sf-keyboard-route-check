@@ -10,7 +10,6 @@ none contains a banned marketing word.
 | See a route report right away. | 6 | pass |
 | Labels and roles only. | 4 | pass |
 | Form values stay out. | 4 | pass |
-| Free single-page reports. | 3 | pass |
 | Warns on repeated Tab loops. | 5 | pass |
 | Original field-tape artwork. | 3 | pass |
 | A route people can review. | 6 | pass |
@@ -26,9 +25,8 @@ none contains a banned marketing word.
 | It does not send route data away. | 8 | pass |
 | Use it beside human review. | 5 | pass |
 | Keep a team route archive. | 6 | pass |
-| $29 one-time. | 2 | pass |
-| Save report history on this device. | 7 | pass |
-| Sociobot is the merchant of record. | 6 | pass |
+| Licensed teams can save report history in this browser. | 9 | pass |
+| New team archive purchases are temporarily unavailable. | 7 | pass |
 
 ## Terminology
 
@@ -39,3 +37,4 @@ none contains a banned marketing word.
 | A possible defect | finding |
 | The exported file | report |
 | Sample-mode data | demo |
+| Saved reports for a licensed team | archive |
