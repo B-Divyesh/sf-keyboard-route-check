@@ -1,0 +1,10 @@
+{
+  "endpoint": "https://api.sociobot.in/api/v1/products/keyboard-route-check/verify",
+  "origin": "https://keyboard-route-check.sociobot.in",
+  "observed_at": "2026-08-29T22:07:53Z",
+  "accepted_requests": 30,
+  "first_limited_request": 31,
+  "status": 429,
+  "retry_after": "4",
+  "access_control_allow_origin": "https://keyboard-route-check.sociobot.in"
+}

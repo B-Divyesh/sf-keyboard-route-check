@@ -1,0 +1,14 @@
+{
+  "candidate": "aeff1fa20c5ecc78585ffcd71c9287fabfdf9fe4",
+  "url": "https://keyboard-route-check.sociobot.in",
+  "observed_at": "2026-08-29T22:07:53Z",
+  "normally_served_files_compared": 17,
+  "mismatches": 0,
+  "key_artifacts": {
+    "assets/main-B3hSTt8m.js": "01744d40baf47f5fc3b10914107f939e3eefdad80b49a32903f150cd0e2b81b4",
+    "assets/main-BvcTnHD2.css": "64e0cb5efb7abdac75e1f08e89381fbbc50968532da232c845364fcd99ef85e4",
+    "downloads/keyboard-route-check.zip": "8935373c457fdc9b9f13dcc1f3c0b6b74d5f2e48eb848fe07011376ec7d97bd1",
+    "index.html": "bcaac86f02e623456180f32fa774e5307caa4d369ce4183930126f61c98ec0f6"
+  },
+  "note": "staticwebapp.config.json is consumed by Azure Static Web Apps and is not a normally served file."
+}
