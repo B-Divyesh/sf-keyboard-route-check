@@ -83,16 +83,18 @@ test('all landing and demo controls meet the 44px touch target baseline at 390px
   await context.close();
 });
 
-test('landing and demo have no serious or critical axe accessibility violations at 390px', async ({ browser }) => {
-  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
-  const page = await context.newPage();
-  for (const route of ['/', '/demo']) {
-    await page.goto(route);
-    const results = await new AxeBuilder({ page }).analyze();
-    expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact || '')),
-      `${route} axe violations`).toEqual([]);
+test('landing and demo have no serious or critical axe accessibility violations at desktop and 390px', async ({ browser }) => {
+  for (const viewport of [{ width: 1280, height: 800 }, { width: 390, height: 844 }]) {
+    const context = await browser.newContext({ viewport });
+    const page = await context.newPage();
+    for (const route of ['/', '/demo']) {
+      await page.goto(route);
+      const results = await new AxeBuilder({ page }).analyze();
+      expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact || '')),
+        `${route} axe violations at ${viewport.width}px`).toEqual([]);
+    }
+    await context.close();
   }
-  await context.close();
 });
 
 test('demo remains usable after its first load goes offline and respects reduced motion', async ({ browser }) => {

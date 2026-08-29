@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><title>Focus cycle fixture</title></head>
+  <body>
+    <main>
+      <button id="alpha">Alpha</button>
+      <button id="beta">Beta</button>
+    </main>
+    <script>
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Tab' && !event.shiftKey && document.activeElement?.id === 'beta') {
+          event.preventDefault();
+          document.querySelector('#alpha').focus();
+        }
+      });
+    </script>
+  </body>
+</html>

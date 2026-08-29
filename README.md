@@ -7,6 +7,10 @@ extension records a manual Tab and Shift+Tab route through one page. It records
 control labels, roles, order, and likely focus-route defects. It never records
 form values.
 
+It warns when a repeated forward Tab route returns to an earlier control. It
+records the browser's Tab order, including valid positive `tabindex` values.
+Page labels appear as text in the popup.
+
 The static site is a companion landing page and one-click sample report. Try
 the sample at `/demo` after running the site.
 

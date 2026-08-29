@@ -40,5 +40,26 @@
     "where": "landing page, README, terms page",
     "test": "npm run test:claims -- --grep @claim:team-archive-local",
     "sandbox": "packed MV3 extension in a fresh browser profile; record a route, unlock the archive locally, save it, and assert one local archive record"
+  },
+  {
+    "id": "focus-cycle-reporting",
+    "claim": "Warns when a repeated forward Tab route returns to an earlier control.",
+    "where": "landing page, README",
+    "test": "npm run test:claims -- --grep @claim:focus-cycle-reporting",
+    "sandbox": "packed MV3 extension in a fresh browser profile; Tab through Alpha → Beta → Alpha and assert the exported route contains a loop finding"
+  },
+  {
+    "id": "browser-tab-order",
+    "claim": "Records the browser's Tab order, including valid positive tabindex values.",
+    "where": "landing page, README",
+    "test": "npm run test:claims -- --grep @claim:browser-tab-order",
+    "sandbox": "packed MV3 extension in a fresh browser profile; Tab through tabindex=1, tabindex=2, and ordinary controls and assert the route is Beta, Alpha, Gamma with no skip finding"
+  },
+  {
+    "id": "popup-label-safety",
+    "claim": "Shows page labels as text in the extension popup.",
+    "where": "privacy page, README",
+    "test": "npm run test:claims -- --grep @claim:popup-label-safety",
+    "sandbox": "packed MV3 extension in a fresh browser profile; focus a control whose aria-label contains button markup and assert the popup creates no injected control"
   }
 ]

@@ -11,6 +11,7 @@ none contains a banned marketing word.
 | Labels and roles only. | 4 | pass |
 | Form values stay out. | 4 | pass |
 | Free single-page reports. | 3 | pass |
+| Warns on repeated Tab loops. | 5 | pass |
 | Original field-tape artwork. | 3 | pass |
 | A route people can review. | 6 | pass |
 | Press Record in the extension. | 5 | pass |

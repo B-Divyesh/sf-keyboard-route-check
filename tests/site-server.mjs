@@ -15,7 +15,10 @@ const types = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascrip
 
 function fileFor(pathname) {
   if (pathname === '/') return { file: join(root, 'index.html'), status: 200 };
-  if (pathname === '/fixtures/route-page.html') return { file: join(repo, 'tests/fixtures/route-page.html'), status: 200 };
+  if (pathname.startsWith('/fixtures/')) {
+    const fixture = join(repo, 'tests', normalize(pathname).replace(/^([/\\])+/, ''));
+    if (fixture.startsWith(join(repo, 'tests', 'fixtures')) && existsSync(fixture) && statSync(fixture).isFile()) return { file: fixture, status: 200 };
+  }
   const rewritten = rewrites.get(pathname);
   if (rewritten) return { file: join(root, rewritten), status: 200 };
   const clean = normalize(pathname).replace(/^([/\\])+/, '');

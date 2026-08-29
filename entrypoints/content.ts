@@ -1,5 +1,6 @@
 import type { Direction, RecorderMessage, RouteStep } from '../src/types';
 import { elementIdentity } from '../src/element-identity';
+import { orderTabStops } from '../src/tab-order';
 import { defineContentScript } from 'wxt/utils/define-content-script';
 
 export default defineContentScript({
@@ -59,17 +60,22 @@ function hasFocusMark(el: HTMLElement): boolean {
 }
 
 function tabbables(): HTMLElement[] {
-  return Array.from(document.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'))
-    .filter((node) => isVisible(node));
+  const candidates = Array.from(document.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]'))
+    .filter((node) => isVisible(node) && node.tabIndex >= 0);
+  return orderTabStops(candidates.map((node, documentOrder) => ({ value: node, tabIndex: node.tabIndex, documentOrder })));
 }
 
 document.addEventListener('keydown', (event) => {
   if (!enabled || event.key !== 'Tab') return;
   direction = event.shiftKey ? 'reverse' : 'forward';
   const candidates = tabbables();
+  if (!candidates.length) { expected = undefined; return; }
   const index = candidates.indexOf(document.activeElement as HTMLElement);
-  const next = candidates[index + (event.shiftKey ? -1 : 1)];
-  expected = next ? { id: elementId(next), label: labelFor(next) } : undefined;
+  const nextIndex = index < 0
+    ? (event.shiftKey ? candidates.length - 1 : 0)
+    : (index + (event.shiftKey ? -1 : 1) + candidates.length) % candidates.length;
+  const next = candidates[nextIndex];
+  expected = { id: elementId(next), label: labelFor(next) };
 }, true);
 
 document.addEventListener('focusin', (event) => {

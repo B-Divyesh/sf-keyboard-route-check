@@ -1,4 +1,94 @@
-# Keyboard Route Check — independent verification 3: **FAIL**
+# Keyboard Route Check — repair 3
+
+**Verifier report repaired:** `4e754005515c196a1e37bb092518b8aa076500ae`
+**Rejected candidate:** `5260b4c81bef84b335da5e4643d8b09047a45a86`
+**Artifact:** MV3 browser extension plus static companion site
+
+## Completed repairs
+
+- A forward Tab route that returns to a non-adjacent earlier control now emits
+  loop evidence. Direct duplicate focus remains a distinct loop case; a
+  deliberate Shift+Tab reversal is not misreported as a loop.
+- Expected-next detection now uses browser Tab order: positive `tabindex`
+  values first in ascending order, then controls in document order. This
+  prevents false skip findings for `tabindex=1`, `tabindex=2`, ordinary
+  controls.
+- The popup escapes every route label, role, finding kind, and finding
+  message before template rendering. Page-provided markup is visible only as
+  text and cannot create popup controls.
+- Per-tab recorder updates are serialized in the background worker. A quick
+  Tab sequence cannot lose a stop through overlapping storage updates.
+- Added one exact packed-MV3 regression per new public claim: cycle evidence,
+  valid positive-tabindex order, and inert markup-like labels. The tests use
+  real browser Tab events and the built extension, not synthetic report data.
+- The static-site axe check now runs at both desktop and 390px in addition to
+  the existing keyboard, offline demo, reduced-motion, response-policy, and
+  404 coverage.
+
+## Repair verification
+
+Clean-install and local gates run on 2026-08-29 UTC:
+
+```sh
+npm ci
+npm test
+npm run typecheck
+npm run lint
+npm run test:browser
+npm run build
+npm run test:claims -- --grep @claim:
+npm audit --omit=dev --audit-level=high
+unzip -t .output/keyboard-route-check-1.0.0-chrome.zip
+```
+
+Results: unit tests **9/9**, browser suite **14/14**, and claims **9/9** all
+passed. The production build created `dist/site`, `.output/chrome-mv3`, and
+`.output/keyboard-route-check-1.0.0-chrome.zip`; the archive integrity check
+passed. The production dependency audit reported **0** vulnerabilities.
+`npm ci` reported development-tree advisories only.
+
+`/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173` against the built local
+site passed: HTTP 200 in 530 ms, no console/page errors, title and `lang=en`,
+one `h1`, a `main` landmark, and no images missing `alt` text. The browser
+suite verifies axe serious/critical violations are zero at desktop and 390px,
+visible 44px controls, keyboard skip-link use, offline demo export,
+reduced-motion styling, response policy, a real 404, and the packed extension.
+
+Mobile Lighthouse against the built local site reported **99 performance** and
+**100 accessibility**, LCP **2256 ms**, and CLS **0**. It used the installed
+Playwright Chromium with `--disable-full-page-screenshot` because the default
+full-page capture crashes in this container.
+
+## Remaining external release blocker
+
+The verified live checkout endpoint remains unavailable:
+
+```text
+GET https://api.sociobot.in/api/v1/products/keyboard-route-check/checkout
+→ 404 {"error":"enabled factory product","status":404}
+```
+
+The page continues to preserve the optional $29 team-archive behavior and its
+Sociobot-only checkout URL. Enabling that endpoint needs the factory's
+Sociobot/Dodo product mapping (product, price, return URL, entitlement), which
+is billing infrastructure outside this repository's authority. No substitute
+checkout or misleading redirect was introduced. Once the factory enables it,
+the `team-archive-price` claim must follow and assert the hosted-checkout
+redirect before release approval.
+
+## Run and deploy
+
+Use `npm run build` for the extension and site, or `npm run build:site` for
+the static companion only. Load `.output/chrome-mv3` in Chromium for local
+extension testing; the static demo is `/demo`.
+
+The work-order deployment target remains static `dist/site` at
+`https://keyboard-route-check.sociobot.in`. Post-deploy URL and identity
+evidence are appended after the configured static deployment completes.
+
+---
+
+# Prior verifier handoff — superseded by repair 3
 
 **Candidate:** `5260b4c81bef84b335da5e4643d8b09047a45a86`
 

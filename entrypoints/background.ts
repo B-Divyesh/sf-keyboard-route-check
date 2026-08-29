@@ -5,9 +5,26 @@ import { defineBackground } from 'wxt/utils/define-background';
 export default defineBackground(() => {
 const reportKey = (tabId: number) => `report:${tabId}`;
 const activeKey = (tabId: number) => `active:${tabId}`;
+const tabQueues = new Map<number, Promise<void>>();
 
 async function state(tabId: number): Promise<RouteReport | undefined> {
   return (await chrome.storage.session.get(reportKey(tabId)))[reportKey(tabId)] as RouteReport | undefined;
+}
+
+/**
+ * Focus events can arrive more quickly than a storage read/write round trip.
+ * Serialize each tab's report updates so a fast Tab sequence cannot lose
+ * earlier stops through concurrent read-modify-write operations.
+ */
+function queueTabUpdate(tabId: number, update: () => Promise<void>): Promise<void> {
+  const previous = tabQueues.get(tabId) || Promise.resolve();
+  const queued = previous.catch(() => undefined).then(update);
+  tabQueues.set(tabId, queued);
+  void queued.then(
+    () => { if (tabQueues.get(tabId) === queued) tabQueues.delete(tabId); },
+    () => { if (tabQueues.get(tabId) === queued) tabQueues.delete(tabId); }
+  );
+  return queued;
 }
 
 chrome.runtime.onMessage.addListener((message: RecorderMessage, sender, respond) => {
@@ -18,7 +35,7 @@ chrome.runtime.onMessage.addListener((message: RecorderMessage, sender, respond)
     ? requestedTabId ?? sender.tab?.id
     : sender.tab?.id;
   if (!tabId) return;
-  void (async () => {
+  void queueTabUpdate(tabId, async () => {
     if (message.type === 'KRC_START') {
       const tab = await chrome.tabs.get(tabId);
       const report = createReport(tab.title || 'Untitled page', tab.url || '');
@@ -40,9 +57,12 @@ chrome.runtime.onMessage.addListener((message: RecorderMessage, sender, respond)
       if (active && report) await chrome.storage.session.set({ [reportKey(tabId)]: addStep(report, message.step, message.expected) });
       respond({ ok: true });
     }
-  })();
+  }).catch(() => respond({ ok: false }));
   return true;
 });
 
-chrome.tabs.onRemoved.addListener((tabId) => void chrome.storage.session.remove([reportKey(tabId), activeKey(tabId)]));
+chrome.tabs.onRemoved.addListener((tabId) => {
+  tabQueues.delete(tabId);
+  void chrome.storage.session.remove([reportKey(tabId), activeKey(tabId)]);
+});
 });
