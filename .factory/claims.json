@@ -18,7 +18,14 @@
     "claim": "Demo sample data is separate from your real data, makes no external requests, and can be reset.",
     "where": "demo banner, privacy page, README",
     "test": "npm run test:claims -- --grep @claim:demo-isolated",
-    "sandbox": "fresh /demo context; assert only the demo: storage key exists before and after Reset demo, then assert Start for real removes it"
+    "sandbox": "fresh /?demo=1&license=adversarial-sentinel context; assert the token is removed from the URL without creating a real localStorage or sessionStorage key, assert only the demo: key exists before and after Reset demo, then assert Start for real removes it and no token appears on the real landing page"
+  },
+  {
+    "id": "checkout-token-session-only",
+    "claim": "A returned checkout token stays in the return tab until it closes and is never saved in website local storage.",
+    "where": "privacy page, returned checkout notice, README",
+    "test": "npm run test:claims -- --grep @claim:checkout-token-session-only",
+    "sandbox": "fresh browser context; open a checkout-return URL, assert the cleaned return tab displays its token from sessionStorage while localStorage has no token, then assert a separate tab and a fresh browser context have no token"
   },
   {
     "id": "free-report-export",
@@ -95,7 +102,7 @@
     "claim": "A returned local-archive license can be copied into the extension for verification.",
     "where": "landing page, privacy page",
     "test": "npm run test:claims -- --grep @claim:license-transfer-handoff",
-    "sandbox": "fresh browser profile; open the companion site with a checkout-return license, assert the token is shown after URL cleanup, paste it into the packed extension, stub the documented verification response, and assert local archive access"
+    "sandbox": "fresh browser profile; open the website with a checkout-return license, assert the token is shown after URL cleanup, paste it into the packed extension, stub the documented verification response, and assert local archive access"
   },
   {
     "id": "license-check-destination",

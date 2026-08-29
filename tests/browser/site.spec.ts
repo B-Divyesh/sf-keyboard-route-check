@@ -38,19 +38,46 @@ test('demo exports a route report with labels, roles, order, and findings', asyn
   expect(report.findings.map((finding: { kind: string }) => finding.kind)).toContain('invisible-focus');
 });
 
-test('@claim:demo-isolated stores only sample data separately, resets it, and discards it on exit', async ({ page }) => {
+test('@claim:demo-isolated keeps a combined checkout return out of real storage, resets sample data, and discards it on exit', async ({ page }) => {
   const requests: string[] = [];
   page.on('request', (request) => requests.push(request.url()));
-  await page.goto('/?demo=1');
+  await page.goto('/?demo=1&license=adversarial-sentinel');
+  await expect(page).toHaveURL(/\?demo=1$/);
   await expect(page.getByLabel('Demo controls')).toContainText('sample data, nothing is saved to your real data');
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
+  expect(await page.evaluate(() => Object.keys(sessionStorage))).toEqual([]);
   await page.getByRole('button', { name: 'Reset demo' }).click();
   await expect(page.getByLabel('Demo controls')).toContainText('sample data, nothing is saved to your real data');
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
+  expect(await page.evaluate(() => Object.keys(sessionStorage))).toEqual([]);
   await page.getByRole('link', { name: 'Start for real' }).click();
   await expect(page).toHaveURL(/\/$/);
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual([]);
+  expect(await page.evaluate(() => Object.keys(sessionStorage))).toEqual([]);
+  await expect(page.getByRole('heading', { name: 'Move your license to the extension' })).toHaveCount(0);
   expect(requests.every((url) => new URL(url).origin === 'http://127.0.0.1:4173')).toBe(true);
+});
+
+test('@claim:checkout-token-session-only keeps a checkout return in its tab, never localStorage, and clears it for a fresh browser session', async ({ browser }) => {
+  const context = await browser.newContext();
+  const returnPage = await context.newPage();
+  await returnPage.goto('/?license=session-only-token');
+  await expect(returnPage).toHaveURL(/\/$/);
+  await expect(returnPage.getByLabel('Returned license token')).toHaveValue('session-only-token');
+  expect(await returnPage.evaluate(() => localStorage.getItem('sb_license:keyboard-route-check'))).toBeNull();
+  expect(await returnPage.evaluate(() => sessionStorage.getItem('krc:license-transfer'))).toBe('session-only-token');
+
+  const otherTab = await context.newPage();
+  await otherTab.goto('/');
+  expect(await otherTab.evaluate(() => sessionStorage.getItem('krc:license-transfer'))).toBeNull();
+  await context.close();
+
+  const freshContext = await browser.newContext();
+  const freshPage = await freshContext.newPage();
+  await freshPage.goto('/');
+  expect(await freshPage.evaluate(() => sessionStorage.getItem('krc:license-transfer'))).toBeNull();
+  await expect(freshPage.getByRole('heading', { name: 'Move your license to the extension' })).toHaveCount(0);
+  await freshContext.close();
 });
 
 test('@claim:free-report-export downloads the sample report without an account', async ({ page }) => {
@@ -63,14 +90,14 @@ test('@claim:free-report-export downloads the sample report without an account',
 
 test('the landing page explains desktop installation and downloads an unpacked extension ZIP', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('link', { name: 'Download Chrome extension ZIP' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Download desktop Chrome extension ZIP' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Install in desktop Chrome or Chromium' })).toBeVisible();
   await expect(page.getByText('Chrome on phones cannot run this extension.')).toBeVisible();
   await expect(page.locator('.install')).toContainText('Extract the ZIP to a folder.');
   await expect(page.locator('.install')).toContainText('chrome://extensions');
   await expect(page.locator('.install')).toContainText('Load unpacked');
   const downloadPromise = page.waitForEvent('download');
-  await page.getByRole('link', { name: 'Download Chrome extension ZIP' }).click();
+  await page.getByRole('link', { name: 'Download desktop Chrome extension ZIP' }).click();
   const download = await downloadPromise;
   const { stdout } = await execFile('unzip', ['-Z1', await download.path()!]);
   expect(stdout.split(/\r?\n/)).toContain('manifest.json');
@@ -141,7 +168,11 @@ test('review copy uses useful section labels, plain terms, and an honest local a
   await expect(page.getByText('Record and export manual keyboard routes.')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Route findings' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Export the report' })).toBeVisible();
-  await expect(page.locator('body')).not.toContainText(/FIELD RECORDER|ROUTE TAPE|team route archive|Tab loops|WCAG compliance|Generated artwork|Share the report/i);
+  await expect(page.locator('body')).not.toContainText(/FIELD RECORDER|ROUTE TAPE|team route archive|Tab loops|WCAG compliance|Generated artwork|Share the report|companion site/i);
+
+  await page.goto('/privacy');
+  await expect(page.getByText('The website keeps a returned checkout token in this tab until the tab closes, so you can copy it into the extension.')).toBeVisible();
+  await expect(page.locator('body')).not.toContainText(/companion[- ]site/i);
 
   await page.goto('/404');
   await expect(page.getByText('Page not found', { exact: true })).toBeVisible();
@@ -217,6 +248,7 @@ test('the complete first-read message fits the initial 390px viewport without ho
     page.locator('.lede'),
     page.getByRole('link', { name: 'Try it with sample data' }),
     page.getByText('See a route report right away.'),
+    page.getByRole('link', { name: 'Download desktop Chrome extension ZIP' }),
     page.locator('.facts')
   ]) {
     const box = await target.boundingBox();

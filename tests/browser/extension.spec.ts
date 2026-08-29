@@ -201,7 +201,8 @@ test('@claim:team-archive-local @claim:license-transfer-handoff @claim:license-c
     await expect(returnPage).toHaveURL('http://127.0.0.1:4173/');
     await expect(returnPage.getByRole('heading', { name: 'Move your license to the extension' })).toBeVisible();
     await expect(returnPage.getByLabel('Returned license token')).toHaveValue('verification-transfer-token');
-    await expect(returnPage.getByText('Copy it, open the extension, choose Local archive license, paste it, and verify it.')).toBeVisible();
+    await expect(returnPage.getByText('Your returned checkout token stays in this tab until it closes. Copy it, open the extension, choose Local archive license, paste it, and verify it.')).toBeVisible();
+    expect(await returnPage.evaluate(() => localStorage.getItem('sb_license:keyboard-route-check'))).toBeNull();
     await returnPage.close();
 
     await context.route(/https:\/\/api\.sociobot\.in\/api\/v1\/products\/keyboard-route-check\/verify\?license=/, async (route) => {

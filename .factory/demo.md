@@ -10,5 +10,7 @@ and a loop for reviewers to inspect.
 
 Demo mode writes only `demo:krc:sample-report` in browser localStorage. The
 persistent banner's **Reset demo** control removes and recreates it. **Start for
-real** removes the demo key, returns home, and never reads demo storage. The
-landing page's **Try it with sample data** link opens `/?demo=1` in one click.
+real** removes the demo key, returns home, and never reads demo storage. A
+checkout `license` parameter is removed and ignored on a demo URL, so demo mode
+never writes checkout data. The landing page's **Try it with sample data** link
+opens `/?demo=1` in one click.

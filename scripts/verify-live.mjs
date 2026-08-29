@@ -3,6 +3,7 @@ import { chromium } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const base = process.env.KRC_LIVE_URL || 'https://keyboard-route-check.sociobot.in';
+const canonicalBase = 'https://keyboard-route-check.sociobot.in';
 const browser = await chromium.launch({ headless: true });
 const consoleErrors = [];
 const requests = [];
@@ -27,13 +28,14 @@ try {
   assert.equal(await page.getByText('Free report export; no account').count(), 1);
   assert.equal(await page.getByText('Route data stays in this browser').count(), 1);
   assert.equal(await page.getByText('Recording works offline; license checks need a connection').count(), 1);
+  assert.equal(await page.getByRole('link', { name: 'Download desktop Chrome extension ZIP' }).count(), 1);
   assert.equal(await page.getByRole('heading', { name: 'Install in desktop Chrome or Chromium' }).count(), 1);
   assert.equal(await page.locator('.install').getByText('Load unpacked').count(), 1);
   assert.equal(await page.getByRole('heading', { name: 'Local report archive for existing licenses' }).count(), 1);
   assert.equal(await page.getByText('It does not sync or share them with teammates.').count(), 1);
   assert.equal(await page.getByRole('link', { name: 'Built by Param Factory (external site)' }).count(), 1);
   await assertNoSeriousAxe(page);
-  await page.locator('footer').screenshot({ path: '.factory/evidence/polish-2-live-footer.png' });
+  await page.locator('footer').screenshot({ path: '.factory/evidence/polish-3-live-footer.png' });
 
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
   assert.match(page.url(), /\?demo=1$/);
@@ -50,26 +52,53 @@ try {
   assert.equal(new URL(page.url()).pathname, '/');
   assert.deepEqual(await page.evaluate(() => Object.keys(localStorage)), []);
 
+  await page.goto(`${base}/?demo=1&license=adversarial-sentinel`, { waitUntil: 'networkidle' });
+  assert.match(page.url(), /\?demo=1$/);
+  assert.deepEqual(await page.evaluate(() => Object.keys(localStorage)), ['demo:krc:sample-report']);
+  assert.deepEqual(await page.evaluate(() => Object.keys(sessionStorage)), []);
+  await page.getByRole('button', { name: 'Reset demo' }).click();
+  assert.deepEqual(await page.evaluate(() => Object.keys(localStorage)), ['demo:krc:sample-report']);
+  assert.deepEqual(await page.evaluate(() => Object.keys(sessionStorage)), []);
+  await page.getByRole('link', { name: 'Start for real' }).click();
+  assert.deepEqual(await page.evaluate(() => Object.keys(localStorage)), []);
+  assert.deepEqual(await page.evaluate(() => Object.keys(sessionStorage)), []);
+  assert.equal(await page.getByRole('heading', { name: 'Move your license to the extension' }).count(), 0);
+
+  await page.goto(`${base}/?license=session-only-live-token`, { waitUntil: 'networkidle' });
+  assert.equal(new URL(page.url()).pathname, '/');
+  assert.equal(new URL(page.url()).search, '');
+  assert.equal(await page.evaluate(() => localStorage.getItem('sb_license:keyboard-route-check')), null);
+  assert.equal(await page.evaluate(() => sessionStorage.getItem('krc:license-transfer')), 'session-only-live-token');
+  assert.equal(await page.getByLabel('Returned license token').inputValue(), 'session-only-live-token');
+  const otherTab = await context.newPage();
+  await otherTab.goto(`${base}/`, { waitUntil: 'networkidle' });
+  assert.equal(await otherTab.evaluate(() => sessionStorage.getItem('krc:license-transfer')), null);
+  await otherTab.close();
+
   await page.getByRole('link', { name: 'Demo', exact: true }).click();
   assert.equal(await page.locator('h1').evaluate((heading) => heading === document.activeElement), true);
   await page.waitForFunction(() => document.querySelector('.sr-only[aria-live="polite"]')?.textContent?.startsWith('Navigated to'));
   assert.equal(await page.locator('.sr-only[aria-live="polite"]').innerText(), 'Navigated to Review a keyboard route.');
-  assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${base}/demo`);
-  await page.screenshot({ path: '.factory/evidence/polish-2-live-route-focus.png', fullPage: false });
+  assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${canonicalBase}/demo`);
+  await page.screenshot({ path: '.factory/evidence/polish-3-live-route-focus.png', fullPage: false });
   await page.goBack();
   assert.equal(await page.locator('h1').evaluate((heading) => heading === document.activeElement), true);
   await page.waitForFunction(() => document.querySelector('.sr-only[aria-live="polite"]')?.textContent === 'Navigated to Record the route your keyboard takes.');
   assert.equal(await page.locator('.sr-only[aria-live="polite"]').innerText(), 'Navigated to Record the route your keyboard takes.');
 
   for (const [route, title, canonical] of [
-    ['/privacy', 'Privacy — Keyboard Route Check', `${base}/privacy`],
-    ['/terms', 'Terms — Keyboard Route Check', `${base}/terms`],
-    ['/404', 'Page not found — Keyboard Route Check', `${base}/404`]
+    ['/privacy', 'Privacy — Keyboard Route Check', `${canonicalBase}/privacy`],
+    ['/terms', 'Terms — Keyboard Route Check', `${canonicalBase}/terms`],
+    ['/404', 'Page not found — Keyboard Route Check', `${canonicalBase}/404`]
   ]) {
     await page.goto(`${base}${route}`, { waitUntil: 'networkidle' });
     assert.equal(await page.title(), title);
     assert.equal(await page.locator('h1').count(), 1);
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), canonical);
+    if (route === '/privacy') {
+      assert.equal(await page.getByText('The website keeps a returned checkout token in this tab until the tab closes, so you can copy it into the extension.').count(), 1);
+      assert.equal((await page.locator('body').innerText()).toLowerCase().includes('companion site'), false);
+    }
     await assertNoSeriousAxe(page);
   }
   assert.equal((await context.request.get(`${base}/not-a-real-route-${Date.now()}`)).status(), 404);
@@ -85,7 +114,9 @@ try {
     assert.ok(box && box.y + box.height <= 844, `${selector} must fit in the first viewport`);
   }
   assert.equal(await mobilePage.evaluate(() => document.documentElement.scrollWidth), 390);
-  await mobilePage.screenshot({ path: '.factory/evidence/polish-2-live-home-mobile.png', fullPage: false });
+  const mobileDownload = await mobilePage.getByRole('link', { name: 'Download desktop Chrome extension ZIP' }).boundingBox();
+  assert.ok(mobileDownload && mobileDownload.y + mobileDownload.height <= 844, 'desktop-only download must fit in the first mobile viewport');
+  await mobilePage.screenshot({ path: '.factory/evidence/polish-3-live-home-mobile.png', fullPage: false });
   await mobilePage.getByRole('link', { name: 'Try it with sample data' }).click();
   await mobile.setOffline(true);
   const offlineDownload = mobilePage.waitForEvent('download');

@@ -47,7 +47,7 @@ npm run build
 - `dist/site` — static deployment output, including
   `downloads/keyboard-route-check.zip`
 
-For the companion site locally:
+Run the website locally:
 
 ```sh
 npm run dev:site
@@ -81,7 +81,8 @@ The optional local report archive saves history only in this browser. It does
 not sync or share reports with teammates. New local archive purchases are
 temporarily unavailable.
 
-Existing license holders can still move a license to another browser. Open the
+Existing license holders can still move a license to another browser. The
+website keeps a returned token only in the return tab until it closes. Open the
 checkout return link and copy the displayed token. In the extension, choose
 **Local archive license**, paste the token, and verify it.
 
