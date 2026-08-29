@@ -293,6 +293,32 @@ test('@claim:offline-recording records a loaded page while the browser is offlin
   }
 });
 
+test('@claim:license-check-online explains an offline license-check failure and keeps the archive locked', async () => {
+  const { context, worker, extensionId } = await launchPackagedExtension();
+  try {
+    const page = await context.newPage();
+    await page.goto('http://127.0.0.1:4173/fixtures/route-page.html');
+    const popup = await context.newPage();
+    await popup.goto(`chrome-extension://${extensionId}/popup.html`);
+    await popup.getByRole('button', { name: 'Record this tab' }).click();
+    await page.bringToFront();
+    await page.focus('#license');
+    const tabId = await tabIdFor(worker, '/fixtures/route-page.html');
+    await waitForStops(worker, tabId, 1);
+
+    await popup.getByRole('button', { name: 'Local archive license' }).click();
+    await popup.getByLabel('Paste local archive license').fill('offline-license-token');
+    await context.setOffline(true);
+    await popup.getByRole('button', { name: 'Verify license' }).click();
+
+    await expect(popup.getByRole('alert')).toHaveText('Could not check the license. Connect to the internet and try again.');
+    await expect(popup.getByRole('button', { name: /Save to local archive/ })).toHaveCount(0);
+    expect(await worker.evaluate(async () => (await chrome.storage.local.get('sb_license_verdict:keyboard-route-check'))['sb_license_verdict:keyboard-route-check'])).toBeUndefined();
+  } finally {
+    await context.close();
+  }
+});
+
 test('@claim:focus-cycle-reporting records a forward two-control Tab cycle as loop evidence', async () => {
   const { context, worker, extensionId } = await launchPackagedExtension();
   try {

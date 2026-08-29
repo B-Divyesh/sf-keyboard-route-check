@@ -79,7 +79,7 @@ async function verifyLicense(token: string) {
     } else {
       await chrome.storage.local.set({ [licenseKey]: clean });
       licenseFormOpen = true;
-      licenseFeedback = 'Could not check the license. Keep this token and try again when you are online.';
+      licenseFeedback = 'Could not check the license. Connect to the internet and try again.';
       licenseFeedbackIsError = true;
     }
   }

@@ -11,7 +11,7 @@ sentence exceeds 22 words or contains a banned marketing word.
 | See a route report right away. | 6 | pass |
 | Free report export; no account. | 5 | pass |
 | Route data stays in this browser. | 6 | pass |
-| Recording works offline; license checks need a connection. | 7 | pass |
+| Recording works offline; license checks need a connection. | 7 | pass; `offline-recording`, `license-check-online` |
 | An illustrated cassette tape with abstract focus route markings. | 9 | pass; image alternative text |
 | Press Record in the extension. | 5 | pass |
 | Tab through a real page. | 5 | pass |
@@ -19,7 +19,6 @@ sentence exceeds 22 words or contains a banned marketing word.
 | Next month may not show a visible focus mark. | 9 | pass |
 | Expected a date grid; focus moved to Choose a date. | 10 | pass |
 | Focus returned to Choose a date without moving on. | 9 | pass |
-| Chrome on phones cannot run this extension. | 7 | pass |
 | Download the desktop Chrome extension ZIP. | 6 | pass |
 | Extract the ZIP to a folder. | 6 | pass |
 | Open chrome://extensions on your desktop. | 4 | pass |

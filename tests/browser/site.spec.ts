@@ -92,7 +92,6 @@ test('the landing page explains desktop installation and downloads an unpacked e
   await page.goto('/');
   await expect(page.getByRole('link', { name: 'Download desktop Chrome extension ZIP' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Install in desktop Chrome or Chromium' })).toBeVisible();
-  await expect(page.getByText('Chrome on phones cannot run this extension.')).toBeVisible();
   await expect(page.locator('.install')).toContainText('Extract the ZIP to a folder.');
   await expect(page.locator('.install')).toContainText('chrome://extensions');
   await expect(page.locator('.install')).toContainText('Load unpacked');
@@ -125,7 +124,7 @@ test('header routes and Back focus and announce each destination heading', async
   await expect(page).toHaveURL(/\/demo$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
   await expect(page.locator('[aria-live="polite"]').first()).toHaveText('Navigated to Review a keyboard route.');
-  await page.screenshot({ path: '.factory/evidence/polish-2-route-focus.png', fullPage: false });
+  await page.screenshot({ path: '.factory/evidence/polish-4-route-focus.png', fullPage: false });
   await expect(page).toHaveTitle('Demo — Keyboard Route Check');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://keyboard-route-check.sociobot.in/demo');
 
@@ -273,7 +272,7 @@ test('the complete first-read message fits the initial 390px viewport without ho
     expect(box!.y + box!.height, 'first-read element should fit before the fold').toBeLessThanOrEqual(844);
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
-  await page.screenshot({ path: '.factory/evidence/polish-2-home-mobile.png', fullPage: false });
+  await page.screenshot({ path: '.factory/evidence/polish-4-home-mobile.png', fullPage: false });
   await context.close();
 });
 

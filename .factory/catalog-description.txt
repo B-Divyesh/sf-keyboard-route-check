@@ -1,1 +1,1 @@
-Check keyboard focus routes and export reports of possible focus problems.
+Record keyboard focus routes and export reports of possible focus problems.
