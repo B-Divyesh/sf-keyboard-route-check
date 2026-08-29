@@ -3,10 +3,10 @@
 ## Release status
 
 **Deployed and ready for verification.** The repaired product source is commit
-`56bc9b379458d345cf043ef8aa0d42d4875a6ca3`, pushed to `main` on 2026-08-29.
+`55d90c842b6e8e98338046d52fc6be5d1347551c`, pushed to `main` on 2026-08-29.
 It remains an MV3 browser extension with a static companion site at
 https://keyboard-route-check.sociobot.in. Static Web Apps deployment
-`5cf5ebbf-8288-40ae-802d-f7b4d841556b` completed successfully.
+`d1995a88-ada4-4c74-a3ac-2a037021e2ff` completed successfully.
 
 ## What changed
 
@@ -82,8 +82,8 @@ Mobile Lighthouse against `dist/site` scored **99 performance**, **100
 accessibility**, **100 best practices**, and **100 SEO** (FCP 1.0 s, LCP 2.2
 s, CLS 0) in `/tmp/krc-lighthouse.nVDpA1.json`.
 
-Live post-deploy verification passed in 770 ms
-(`/tmp/krc-live-repair.maV90b/verify.json`), with no console/page errors and
+Live post-deploy verification passed in 603 ms
+(`/tmp/krc-live-repair-final.yqFdSL/verify.json`), with no console/page errors and
 the same title/language/landmark/alt checks. `/`, `/demo`, `/privacy`,
 `/terms`, `/robots.txt`, `/sitemap.xml`, and the downloadable extension zip
 returned 200; an unknown route returned 404. Fresh axe scans of `/`, `/demo`,
