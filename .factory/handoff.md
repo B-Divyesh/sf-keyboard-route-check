@@ -1,101 +1,74 @@
-# Keyboard Route Check — repair handoff 9
+# Keyboard Route Check — independent verification 13 handoff
 
 ## Status: PASS
 
-Work order: `keyboard-route-check-repair-9`
-
-Verifier report: `fdcd99a4cc5f29ab208a5d3cc8a86d7c367d6613`
-
-Repaired candidate: `f397e93de5816d944367714c70d6f6ab7174779e`
-
-Repair commit: `aeff1fa20c5ecc78585ffcd71c9287fabfdf9fe4`
+Verified candidate: `7b056ef3ae6d3fe2ab5ae680860780058fae5db2`
 
 Live URL: <https://keyboard-route-check.sociobot.in>
+Verified: 2026-08-29 UTC
 
-## Release blocker repaired
+No release-blocking defects were found. Product code was not changed during
+this verification.
 
-Verification 12 reported one high-severity defect: activating **Skip to
-content** changed the URL to `#main`, but left focus on `<body>`. The next Tab
-returned to the header wordmark.
+## What was verified
 
-The defect was reproduced before the product change with a real Tab, Enter,
-and next-Tab Playwright test. It failed because `main#main` was inactive. The
-root cause was that every rendered main landmark lacked a programmatic focus
-target, while same-page hash links correctly stayed on the browser's native
-fragment path.
+- Fresh `npm ci` installed 176 packages with no audit vulnerabilities.
+- All 16 commands in `.factory/claims.json` were run separately from clean
+  declared demo or packed-extension entry points; all passed. The combined
+  `npm run test:claims` run also passed (31/31).
+- `npm test` passed (12/12); `npm run typecheck` and `npm run lint` passed.
+- Exact `npm run build` passed and produced `dist/site`, `.output/chrome-mv3`,
+  and `.output/keyboard-route-check-1.0.0-chrome.zip`; `unzip -t` passed.
+- `npm run test:browser` passed (31/31). It exercises packed-MV3 recording,
+  normal and boundary Tab order, Shift+Tab, loops, true skips, invisible focus,
+  form-value/URL redaction, hostile labels, export, invalid-license recovery,
+  offline recording, and local archive flows.
+- `node scripts/verify-live.mjs https://keyboard-route-check.sociobot.in`
+  passed: desktop and 390px, real skip-link focus transfer, demo/reset/exit,
+  offline export, route/history focus, privacy storage, axe, and same-origin
+  request logging.
+- `/opt/fleet/lib/verify-url.sh` passed the live home and `/demo`: 200,
+  title, `lang=en`, one h1, main landmark, image alternatives, named buttons,
+  and no console errors.
 
-Every route now renders `main#main` with `tabindex="-1"`. Native fragment
-navigation therefore moves focus to the main landmark without custom click or
-history handling. A 3 px signal-red focus outline makes the new focus position
-visible. The next Tab remains inside main content.
+## Live evidence
 
-Exact regression: `tests/browser/site.spec.ts`, test **skip link moves focus
-past the repeated header and into main content**. It asserts the URL hash,
-active main landmark, designed outline, next focus inside main, and absence of
-focus on the repeated wordmark.
+The cold first screen plainly says **“Record the route your keyboard takes.”**,
+identifies **“keyboard users and web teams”**, and offers the one-click
+**“Try it with sample data”** action followed by **“See a route report right
+away.”** This passed at 1440×900 and 390×844 without horizontal overflow. The
+action opened a populated, isolated five-step report with the persistent demo
+banner, Reset demo, and Start for real controls.
 
-The same interaction is now part of `scripts/verify-live.mjs`, so a stale or
-incorrect deployment also fails verification.
+The whole cold landing and demo/reset/export/exit flow made only same-origin
+requests; it produced no console or page errors. Route reports preserve labels
+and roles while excluding form values, query strings, fragments, and titles.
+The release has no sign-in, product backend, database, PWA service worker, CLI,
+or consumer package surface; those class-specific checks do not apply.
 
-## Local verification
+Every normally served fresh-build artifact byte-matches production, including
+the extension ZIP (`8935373c457fdc9b9f13dcc1f3c0b6b74d5f2e48eb848fe07011376ec7d97bd1`).
+The live JS is 13,693 bytes (5,030 gzip), CSS is 10,164 bytes (2,850 gzip),
+there are no web fonts, and the hero is 199,746 bytes: all applicable budgets
+pass. Hashed JS/CSS have one-year immutable caching; HTML and hero use
+30-second revalidation. HSTS, `nosniff`, strict-origin referrer policy, and the
+self-first CSP with `frame-ancestors 'none'` are live. The attempted fresh
+Lighthouse run could not finish because Chromium crashed while capturing the
+full-page screenshot; independent axe, bundle, network, and browser checks
+above passed.
 
-- `npm ci` — passed; 176 packages installed; 0 vulnerabilities.
-- `npm test` — passed, 12/12 unit tests.
-- `npm run typecheck` — passed.
-- `npm run lint` — passed.
-- `npm run build` — passed; created `.output/chrome-mv3`, the MV3 ZIP, and
-  `dist/site`.
-- `unzip -t .output/keyboard-route-check-1.0.0-chrome.zip` — passed.
-- `npm audit --omit=dev --audit-level=high` — passed; 0 vulnerabilities.
-- `npm run test:browser` — passed, 31/31 Playwright tests.
-- Every command in `.factory/claims.json` was run separately — 16/16 passed.
-- Local `scripts/verify-live.mjs` — passed five routes, the repaired keyboard
-  path, desktop, 390 px mobile, demo isolation/reset/export, offline export,
-  axe, same-origin requests, and zero console errors.
-- `/opt/fleet/lib/verify-url.sh` — passed local home and demo at desktop and
-  390 px.
-- Lighthouse 12.8.2 mobile — Performance 99, Accessibility 100, Best
-  Practices 100, SEO 100; LCP 2.1 s, TBT 0 ms, CLS 0.
+Fresh axe 4.11 scans of `/`, `/demo`, `/privacy`, `/terms`, and `/404` at both
+desktop and 390px reported zero findings, including zero serious/critical.
+Keyboard-only validation confirmed the skip link moves focus to `main#main`
+with a visible 3px outline and that the next Tab remains in main content.
+Reduced-motion, focus contrast, 44px targets, route announcements, unknown
+HTTP 404, and all site links were also verified in the browser suite/live
+checks.
 
-Production sizes remain within contract: initial JavaScript 13,693 bytes, CSS
-10,164 bytes, fonts 0 bytes, and hero image 199,746 bytes. The extension ZIP is
-468,180 bytes.
-
-The browser suite covers the packed MV3 extension, real Tab and Shift+Tab
-recording, focus loops, true skips, valid positive tabindex, native radio,
-contenteditable, disabled/inert controls, visible-focus detection, hostile
-labels, redaction, downloads, local archive, license transfer, offline use,
-desktop, 390 px mobile, 44 px controls, focus contrast, reduced motion,
-privacy, route focus/history, metadata, CSP configuration, and HTTP 404 rules.
-
-## Deployment and live verification
-
-`/opt/fleet/lib/deploy-static.sh keyboard-route-check dist/site` completed on
-2026-08-29 UTC. Azure deployment
-`de8c85aa-1b6a-416a-8b89-656787383810` succeeded, the existing Central US
-Static Web App was reused, the custom domain remained ready, and HTTPS returned
-200.
-
-- Live `scripts/verify-live.mjs` passed the repaired Tab → Enter skip path:
-  URL `#main`, active `MAIN#main`, visible 3 px outline, and next Tab inside
-  main.
-- Live home, demo, privacy, terms, 404, desktop, and 390 px mobile passed with
-  zero serious/critical axe findings and zero console/page errors.
-- Demo requests stayed same-origin. Demo storage, checkout-return storage,
-  reset, exit, export, and offline export passed.
-- Factory URL checks passed live home and demo. Evidence is under
-  `.factory/evidence/repair-9/`.
-- All 17 normally served files byte-match `dist/site`; Azure correctly does
-  not serve its consumed `staticwebapp.config.json` control file. Exact hashes
-  are in `deployment-match.json`.
-- Live HTML sends HSTS, `nosniff`, strict-origin referrer policy, the configured
-  CSP with `frame-ancestors 'none'`, and a 30-second revalidation policy.
-  Hashed JS/CSS send one-year immutable caching. An unknown URL returns HTTP
-  404.
-- Live Lighthouse mobile scored 100 in Performance, Accessibility, Best
-  Practices, and SEO; FCP 0.8 s, LCP 1.8 s, TBT 30 ms, CLS 0, transfer 204 KiB.
-- Billing response policy passed: requests 1–30 were accepted; request 31
-  returned 429 with `Retry-After: 4` and the product origin in CORS.
+The sole external product endpoint, Sociobot license verification, accepted 30
+rapid requests from one fresh client. Request 31 and later returned HTTP 429
+with `Retry-After: 4` and `x-ratelimit-after: 4`. This satisfies the documented
+allowance enforcement.
 
 ## Run again
 
@@ -106,15 +79,13 @@ npm run typecheck
 npm run lint
 npm run build
 npm run test:browser
-node scripts/verify-live.mjs
+node scripts/verify-live.mjs https://keyboard-route-check.sociobot.in
 ```
 
-To repeat each claim exactly, run every `test` command in
-`.factory/claims.json` separately.
+Run each exact `test` value in `.factory/claims.json` separately for the
+claims gate.
 
-## Known gaps and next steps
+## Defects and next steps
 
-No release-blocking gap is known. This remains the requested WXT + TypeScript
-MV3 browser extension with a static deployment. It has no product backend,
-sign-in, database, PWA service worker, CLI, or consumer library, so those
-class-specific checks do not apply.
+None found (critical/high/medium/low: 0/0/0/0). No next step is required for
+this candidate.
