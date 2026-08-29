@@ -106,6 +106,25 @@ test('every route has complete route-specific metadata and clear external link t
   }
 });
 
+test('review copy uses useful section labels, plain terms, and an honest local archive name', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByText('Keyboard route recorder')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Sample keyboard route report' })).toBeVisible();
+  await expect(page.getByText('SAMPLE REPORT', { exact: true }).first()).toBeVisible();
+  await expect(page.getByText('Records each control’s name and type')).toBeVisible();
+  await expect(page.getByText('Warns when Tab returns to an earlier control')).toBeVisible();
+  await expect(page.getByText('It cannot confirm that a page meets accessibility requirements.')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Local report archive for existing licenses' })).toBeVisible();
+  await expect(page.getByText('It does not sync or share them with teammates.')).toBeVisible();
+  await expect(page.getByText('Record and export manual keyboard routes.')).toBeVisible();
+  await expect(page.locator('body')).not.toContainText(/FIELD RECORDER|ROUTE TAPE|team route archive|Tab loops|WCAG compliance/i);
+
+  await page.goto('/404');
+  await expect(page.getByText('Page not found', { exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('We could not find that page.');
+  await expect(page.locator('body')).not.toContainText('TAPE ENDS HERE');
+});
+
 test('all landing and demo controls meet the 44px touch target baseline at 390px', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
