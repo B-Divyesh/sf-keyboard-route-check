@@ -135,6 +135,23 @@ test('header routes and Back focus and announce each destination heading', async
   await expect(page.locator('[aria-live="polite"]').first()).toHaveText('Navigated to Record the route your keyboard takes.');
 });
 
+test('skip link moves focus past the repeated header and into main content', async ({ page }) => {
+  await page.goto('/');
+
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
+  await page.keyboard.press('Enter');
+
+  await expect(page).toHaveURL(/\/#main$/);
+  await expect(page.locator('main#main')).toBeFocused();
+  await expect(page.locator('main#main')).toHaveCSS('outline-style', 'solid');
+  await expect(page.locator('main#main')).toHaveCSS('outline-width', '3px');
+
+  await page.keyboard.press('Tab');
+  expect(await page.locator(':focus').evaluate((element) => element.closest('main')?.id)).toBe('main');
+  await expect(page.getByRole('link', { name: 'KRC Keyboard Route Check home' })).not.toBeFocused();
+});
+
 test('every route has complete route-specific metadata and clear external link text', async ({ page }) => {
   const routes = [
     ['/', 'Keyboard Route Check — Record a keyboard route', 'https://keyboard-route-check.sociobot.in/'],

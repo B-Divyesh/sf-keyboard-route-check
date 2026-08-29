@@ -15,6 +15,11 @@ h1[tabindex="-1"]:focus {
   outline-offset: 6px;
 }
 
+main[tabindex="-1"]:focus {
+  outline: 3px solid var(--red);
+  outline-offset: -3px;
+}
+
 /* The report header is tape-dark, so its focus ring uses the 10.38:1 lime. */
 .report-top button:focus-visible {
   outline-color: var(--lime);

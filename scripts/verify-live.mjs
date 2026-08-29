@@ -1,9 +1,12 @@
 import assert from 'node:assert/strict';
+import { mkdir } from 'node:fs/promises';
 import { chromium } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const base = process.env.KRC_LIVE_URL || 'https://keyboard-route-check.sociobot.in';
 const canonicalBase = 'https://keyboard-route-check.sociobot.in';
+const evidenceDir = process.env.KRC_EVIDENCE_DIR || '.factory/evidence/live';
+await mkdir(evidenceDir, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const consoleErrors = [];
 const requests = [];
@@ -35,7 +38,20 @@ try {
   assert.equal(await page.getByText('It does not sync or share them with teammates.').count(), 1);
   assert.equal(await page.getByRole('link', { name: 'Built by Param Factory (external site)' }).count(), 1);
   await assertNoSeriousAxe(page);
-  await page.locator('footer').screenshot({ path: '.factory/evidence/polish-3-live-footer.png' });
+  await page.locator('footer').screenshot({ path: `${evidenceDir}/footer.png` });
+
+  await page.keyboard.press('Tab');
+  assert.equal(await page.getByRole('link', { name: 'Skip to content' }).evaluate((link) => link === document.activeElement), true);
+  await page.keyboard.press('Enter');
+  assert.equal(new URL(page.url()).hash, '#main');
+  assert.equal(await page.locator('main#main').evaluate((main) => main === document.activeElement), true);
+  assert.deepEqual(await page.locator('main#main').evaluate((main) => {
+    const style = getComputedStyle(main);
+    return { outlineStyle: style.outlineStyle, outlineWidth: style.outlineWidth };
+  }), { outlineStyle: 'solid', outlineWidth: '3px' });
+  await page.keyboard.press('Tab');
+  assert.equal(await page.locator(':focus').evaluate((element) => element.closest('main')?.id), 'main');
+  await page.screenshot({ path: `${evidenceDir}/skip-link-focus.png`, fullPage: false });
 
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
   assert.match(page.url(), /\?demo=1$/);
@@ -80,7 +96,7 @@ try {
   await page.waitForFunction(() => document.querySelector('.sr-only[aria-live="polite"]')?.textContent?.startsWith('Navigated to'));
   assert.equal(await page.locator('.sr-only[aria-live="polite"]').innerText(), 'Navigated to Review a keyboard route.');
   assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${canonicalBase}/demo`);
-  await page.screenshot({ path: '.factory/evidence/polish-3-live-route-focus.png', fullPage: false });
+  await page.screenshot({ path: `${evidenceDir}/route-focus.png`, fullPage: false });
   await page.goBack();
   assert.equal(await page.locator('h1').evaluate((heading) => heading === document.activeElement), true);
   await page.waitForFunction(() => document.querySelector('.sr-only[aria-live="polite"]')?.textContent === 'Navigated to Record the route your keyboard takes.');
@@ -116,7 +132,7 @@ try {
   assert.equal(await mobilePage.evaluate(() => document.documentElement.scrollWidth), 390);
   const mobileDownload = await mobilePage.getByRole('link', { name: 'Download desktop Chrome extension ZIP' }).boundingBox();
   assert.ok(mobileDownload && mobileDownload.y + mobileDownload.height <= 844, 'desktop-only download must fit in the first mobile viewport');
-  await mobilePage.screenshot({ path: '.factory/evidence/polish-3-live-home-mobile.png', fullPage: false });
+  await mobilePage.screenshot({ path: `${evidenceDir}/home-mobile.png`, fullPage: false });
   await mobilePage.getByRole('link', { name: 'Try it with sample data' }).click();
   await mobile.setOffline(true);
   const offlineDownload = mobilePage.waitForEvent('download');
