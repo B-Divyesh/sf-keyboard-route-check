@@ -293,24 +293,40 @@ test('@claim:focus-cycle-reporting records a forward two-control Tab cycle as lo
   }
 });
 
-test('@claim:browser-tab-order records valid positive tabindex order without false skips', async () => {
-  const { context, worker, extensionId } = await launchPackagedExtension();
-  try {
-    const page = await context.newPage();
-    await page.goto('http://127.0.0.1:4173/fixtures/positive-tabindex-page.html');
-    await page.reload();
-    const popup = await context.newPage();
-    await popup.goto(`chrome-extension://${extensionId}/popup.html`);
-    await popup.getByRole('button', { name: 'Record this tab' }).click();
-    await page.bringToFront();
-    for (let index = 0; index < 3; index += 1) await page.keyboard.press('Tab');
-    const tabId = await tabIdFor(worker, '/fixtures/positive-tabindex-page.html');
-    const report = await waitForStops(worker, tabId, 3) as { steps: Array<{ label: string }>; findings: Array<{ kind: string }> };
-    expect(report.steps.map((step) => step.label)).toEqual(['Beta', 'Alpha', 'Gamma']);
-    expect(report.findings.filter((finding) => finding.kind === 'skip')).toEqual([]);
-  } finally {
-    await context.close();
+test('@claim:browser-tab-order records valid native sequential Tab order without false skips', async () => {
+  async function recordFixture(fixture: string, tabs: number) {
+    const { context, worker, extensionId } = await launchPackagedExtension();
+    try {
+      const page = await context.newPage();
+      await page.goto(`http://127.0.0.1:4173/fixtures/${fixture}`);
+      await page.reload();
+      const popup = await context.newPage();
+      await popup.goto(`chrome-extension://${extensionId}/popup.html`);
+      await popup.getByRole('button', { name: 'Record this tab' }).click();
+      await page.bringToFront();
+      for (let index = 0; index < tabs; index += 1) await page.keyboard.press('Tab');
+      const tabId = await tabIdFor(worker, `/fixtures/${fixture}`);
+      return await waitForStops(worker, tabId, tabs) as { steps: Array<{ label: string }>; findings: Array<{ kind: string }> };
+    } finally {
+      await context.close();
+    }
   }
+
+  const positiveTabindex = await recordFixture('positive-tabindex-page.html', 3);
+  expect(positiveTabindex.steps.map((step) => step.label)).toEqual(['Beta', 'Alpha', 'Gamma']);
+  expect(positiveTabindex.findings.filter((finding) => finding.kind === 'skip')).toEqual([]);
+
+  const radioGroup = await recordFixture('radio-group-page.html', 3);
+  expect(radioGroup.steps.map((step) => step.label)).toEqual(['Before', 'One', 'After']);
+  expect(radioGroup.findings.filter((finding) => finding.kind === 'skip')).toEqual([]);
+
+  const editable = await recordFixture('contenteditable-page.html', 3);
+  expect(editable.steps.map((step) => step.label)).toEqual(['Before', 'Editor', 'After']);
+  expect(editable.findings.filter((finding) => finding.kind === 'skip')).toEqual([]);
+
+  const disabledAndInert = await recordFixture('disabled-inert-page.html', 2);
+  expect(disabledAndInert.steps.map((step) => step.label)).toEqual(['Before', 'After']);
+  expect(disabledAndInert.findings.filter((finding) => finding.kind === 'skip')).toEqual([]);
 });
 
 test('@claim:skipped-control-reporting names the expected and actual controls after a true Tab skip', async () => {

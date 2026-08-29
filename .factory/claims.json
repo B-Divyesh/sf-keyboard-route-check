@@ -60,7 +60,7 @@
     "claim": "Records the browser's Tab order, including valid positive tabindex values.",
     "where": "landing page, README",
     "test": "npm run test:claims -- --grep @claim:browser-tab-order",
-    "sandbox": "packed MV3 extension in a fresh browser profile; Tab through tabindex=1, tabindex=2, and ordinary controls and assert the route is Beta, Alpha, Gamma with no skip finding"
+    "sandbox": "packed MV3 extension in fresh browser profiles; Tab through tabindex=1, tabindex=2, and ordinary controls, then a checked native radio group, an implicit contenteditable control, and disabled/inert controls; assert each browser route has no skip finding"
   },
   {
     "id": "skipped-control-reporting",
