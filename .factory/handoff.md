@@ -1,21 +1,48 @@
-# Keyboard Route Check — adversarial review 4 handoff
+# Keyboard Route Check — polish 4 handoff
 
-## Status: FAIL (one minor finding)
+## Status: PASS — zero unresolved findings
 
-Review-only work completed on 2026-08-29 UTC. Product code was not changed. The review and two cold live screenshots are committed with this handoff.
+Repair commit: `92a29d622588cc6f33d9688cb014b1c215a62cee`.
+Deployed static site: <https://keyboard-route-check.sociobot.in>.
 
-## What was verified
+## What changed
 
-- Fresh live Chromium contexts at 390×844 and 1440×900 established that the first screen explains the job, audience, and first action before scrolling.
-- The isolated demo was checked with normal entry and `?demo=1&license=...`: only `demo:krc:sample-report` was written, Reset recreated it, Start for real discarded it, and real storage remained untouched.
-- Request logs stayed same-origin through the cold/demo flow; the sample exported while offline after load.
-- A clean clone at `/tmp/krc-review4-clean` passed `npm ci`, `npm test` (12/12), typecheck, lint, all 16 exact declared claim commands, the complete browser suite (31/31), build, and ZIP integrity validation.
-- The production verifier passed its route, mobile, offline, demo, focus, storage, console, and axe checks. All site links and the external footer link returned 200; unknown routes returned the designed HTTP 404.
-- Every prior review finding F-1-1 through F-3-3 was verified fixed in both live behavior and implementation.
+- Closed F-4-1. The unsupported-phone assertion was removed while the useful
+  desktop installation instructions remain.
+- Added `.factory/claims.json` entry `license-check-online` and a real packed
+  MV3 test. A new license submitted offline gets the clear recovery message
+  “Connect to the internet and try again” and cannot unlock the local archive.
+- Kept the one-click `?demo=1` sample path isolated, the existing cassette-zine
+  visual system, routing/meta/404 behavior, legal links, and all earlier
+  review repairs intact.
+- Updated the verb-first catalog description to: “Record keyboard focus routes
+  and export reports of possible focus problems.”
 
-## Remaining finding
+## Verification evidence
 
-`F-4-1` in `.factory/review-4.md` is the only remaining issue. The landing states that phone Chrome cannot run the extension and the landing/README state that license checks need a connection, but neither has a `.factory/claims.json` entry with a tagged observable test. Add a license-offline failure claim or remove that sentence; replace the phone compatibility assertion with the actionable desktop-install instruction unless a supported-device test is added.
+- Fresh clone `/tmp/krc-polish4-clean-djPffi`: `npm ci`; `npm test` 12/12;
+  `npm run typecheck`; `npm run lint`; `npm run build`; every one of the 17
+  exact declared claim commands separately; `npm run test:browser` 32/32;
+  `npm audit --omit=dev --audit-level=high` (0 vulnerabilities); and
+  `unzip -t .output/keyboard-route-check-1.0.0-chrome.zip` all passed.
+- Claim F-4-1 evidence: `npm run test:claims -- --grep @claim:license-check-online`
+  selected one packed-extension test and passed from that clean clone.
+- Local mobile Lighthouse: 98 Performance, 100 Accessibility, 100 Best
+  Practices, 100 SEO, 2.4 s LCP, CLS 0:
+  `.factory/evidence/polish-4-lighthouse-mobile.json`.
+- After deployment, `node scripts/verify-live.mjs
+  https://keyboard-route-check.sociobot.in` passed desktop/mobile first-read,
+  titles/canonicals, real 404, route focus/Back, demo isolation/reset/exit,
+  same-origin traffic, offline export, console, and axe serious/critical scans.
+  `verify-url.sh` passed the live home and demo. Evidence is under
+  `.factory/evidence/polish-4-live/`.
+- Cold live F-4 check at 390×844 confirms the old phone sentence is absent,
+  the desktop-install heading is present, the one-click demo resets/exits
+  cleanly, and no console errors occur. Screenshot:
+  `.factory/evidence/polish-4-live/f4-cold-mobile.png`.
+- Live mobile Lighthouse: 100 Performance, 100 Accessibility, 100 Best
+  Practices, 100 SEO, 1.8 s LCP, CLS 0:
+  `.factory/evidence/polish-4-live/lighthouse-mobile.json`.
 
 ## Re-run
 
@@ -29,4 +56,5 @@ npm run test:browser
 node scripts/verify-live.mjs https://keyboard-route-check.sociobot.in
 ```
 
-Also run each exact `test` command in `.factory/claims.json` separately from a clean profile.
+Run each exact command listed in `.factory/claims.json` separately from a
+fresh profile. The product has no known gaps for this work order.
