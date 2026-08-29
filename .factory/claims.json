@@ -28,6 +28,13 @@
     "sandbox": "fresh browser context; enter /demo from the landing action and assert a sample report download without authentication"
   },
   {
+    "id": "offline-recording",
+    "claim": "Recording works offline after the page and extension are loaded.",
+    "where": "landing page, README",
+    "test": "npm run test:claims -- --grep @claim:offline-recording",
+    "sandbox": "packed MV3 extension in a fresh browser profile; load the extension and a test page, set the browser offline, record a focused control, and assert the stored route"
+  },
+  {
     "id": "team-archive-local",
     "claim": "The optional local report archive saves history only in this browser and does not sync or share reports.",
     "where": "landing page, README, terms page",

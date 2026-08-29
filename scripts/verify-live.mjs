@@ -24,13 +24,16 @@ try {
   assert.equal(await page.locator('h1').count(), 1);
   assert.equal(await page.locator('main').count(), 1);
   assert.match(await page.getByRole('heading', { level: 1 }).innerText(), /Record the route/);
-  assert.equal(await page.getByText('Records each control’s name and type').count(), 1);
-  assert.equal(await page.getByText('Warns when Tab returns to an earlier control').count(), 1);
+  assert.equal(await page.getByText('Free report export; no account').count(), 1);
+  assert.equal(await page.getByText('Route data stays in this browser').count(), 1);
+  assert.equal(await page.getByText('Recording works offline; license checks need a connection').count(), 1);
+  assert.equal(await page.getByRole('heading', { name: 'Install in desktop Chrome or Chromium' }).count(), 1);
+  assert.equal(await page.locator('.install').getByText('Load unpacked').count(), 1);
   assert.equal(await page.getByRole('heading', { name: 'Local report archive for existing licenses' }).count(), 1);
   assert.equal(await page.getByText('It does not sync or share them with teammates.').count(), 1);
   assert.equal(await page.getByRole('link', { name: 'Built by Param Factory (external site)' }).count(), 1);
   await assertNoSeriousAxe(page);
-  await page.locator('footer').screenshot({ path: '.factory/evidence/live-footer.png' });
+  await page.locator('footer').screenshot({ path: '.factory/evidence/polish-2-live-footer.png' });
 
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
   assert.match(page.url(), /\?demo=1$/);
@@ -52,7 +55,7 @@ try {
   await page.waitForFunction(() => document.querySelector('.sr-only[aria-live="polite"]')?.textContent?.startsWith('Navigated to'));
   assert.equal(await page.locator('.sr-only[aria-live="polite"]').innerText(), 'Navigated to Review a keyboard route.');
   assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${base}/demo`);
-  await page.screenshot({ path: '.factory/evidence/live-route-focus.png', fullPage: false });
+  await page.screenshot({ path: '.factory/evidence/polish-2-live-route-focus.png', fullPage: false });
   await page.goBack();
   assert.equal(await page.locator('h1').evaluate((heading) => heading === document.activeElement), true);
   await page.waitForFunction(() => document.querySelector('.sr-only[aria-live="polite"]')?.textContent === 'Navigated to Record the route your keyboard takes.');
@@ -82,7 +85,7 @@ try {
     assert.ok(box && box.y + box.height <= 844, `${selector} must fit in the first viewport`);
   }
   assert.equal(await mobilePage.evaluate(() => document.documentElement.scrollWidth), 390);
-  await mobilePage.screenshot({ path: '.factory/evidence/live-home-mobile.png', fullPage: false });
+  await mobilePage.screenshot({ path: '.factory/evidence/polish-2-live-home-mobile.png', fullPage: false });
   await mobilePage.getByRole('link', { name: 'Try it with sample data' }).click();
   await mobile.setOffline(true);
   const offlineDownload = mobilePage.waitForEvent('download');

@@ -1,7 +1,11 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
+import { execFile as execFileCallback } from 'node:child_process';
+import { promisify } from 'node:util';
 import { contrastRatio, parseCssColor } from '../../src/focus-indicator';
+
+const execFile = promisify(execFileCallback);
 
 async function exportedSample(page: import('@playwright/test').Page) {
   const downloadPromise = page.waitForEvent('download');
@@ -57,6 +61,21 @@ test('@claim:free-report-export downloads the sample report without an account',
   expect(report.title).toBe('Sample booking page');
 });
 
+test('the landing page explains desktop installation and downloads an unpacked extension ZIP', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('link', { name: 'Download Chrome extension ZIP' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Install in desktop Chrome or Chromium' })).toBeVisible();
+  await expect(page.getByText('Chrome on phones cannot run this extension.')).toBeVisible();
+  await expect(page.locator('.install')).toContainText('Extract the ZIP to a folder.');
+  await expect(page.locator('.install')).toContainText('chrome://extensions');
+  await expect(page.locator('.install')).toContainText('Load unpacked');
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('link', { name: 'Download Chrome extension ZIP' }).click();
+  const download = await downloadPromise;
+  const { stdout } = await execFile('unzip', ['-Z1', await download.path()!]);
+  expect(stdout.split(/\r?\n/)).toContain('manifest.json');
+});
+
 test('@claim:team-archive-unavailable states the local archive purchase status and does not show a dead checkout', async ({ page }) => {
   for (const route of ['/', '/terms']) {
     await page.goto(route);
@@ -79,7 +98,7 @@ test('header routes and Back focus and announce each destination heading', async
   await expect(page).toHaveURL(/\/demo$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
   await expect(page.locator('[aria-live="polite"]').first()).toHaveText('Navigated to Review a keyboard route.');
-  await page.screenshot({ path: '.factory/evidence/polish-1-route-focus.png', fullPage: false });
+  await page.screenshot({ path: '.factory/evidence/polish-2-route-focus.png', fullPage: false });
   await expect(page).toHaveTitle('Demo — Keyboard Route Check');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://keyboard-route-check.sociobot.in/demo');
 
@@ -112,13 +131,17 @@ test('review copy uses useful section labels, plain terms, and an honest local a
   await expect(page.getByText('Keyboard route recorder')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Sample keyboard route report' })).toBeVisible();
   await expect(page.getByText('SAMPLE REPORT', { exact: true }).first()).toBeVisible();
-  await expect(page.getByText('Records each control’s name and type')).toBeVisible();
-  await expect(page.getByText('Warns when Tab returns to an earlier control')).toBeVisible();
+  await expect(page.getByText('Free report export; no account')).toBeVisible();
+  await expect(page.getByText('Route data stays in this browser')).toBeVisible();
+  await expect(page.getByText('Recording works offline; license checks need a connection')).toBeVisible();
+  await expect(page.locator('.lede')).toHaveText('For keyboard users and web teams checking how focus moves through a page.');
   await expect(page.getByText('It cannot confirm that a page meets accessibility requirements.')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Local report archive for existing licenses' })).toBeVisible();
   await expect(page.getByText('It does not sync or share them with teammates.')).toBeVisible();
   await expect(page.getByText('Record and export manual keyboard routes.')).toBeVisible();
-  await expect(page.locator('body')).not.toContainText(/FIELD RECORDER|ROUTE TAPE|team route archive|Tab loops|WCAG compliance/i);
+  await expect(page.getByRole('heading', { name: 'Route findings' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Export the report' })).toBeVisible();
+  await expect(page.locator('body')).not.toContainText(/FIELD RECORDER|ROUTE TAPE|team route archive|Tab loops|WCAG compliance|Generated artwork|Share the report/i);
 
   await page.goto('/404');
   await expect(page.getByText('Page not found', { exact: true })).toBeVisible();
@@ -201,7 +224,7 @@ test('the complete first-read message fits the initial 390px viewport without ho
     expect(box!.y + box!.height, 'first-read element should fit before the fold').toBeLessThanOrEqual(844);
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
-  await page.screenshot({ path: '.factory/evidence/polish-1-home-mobile.png', fullPage: false });
+  await page.screenshot({ path: '.factory/evidence/polish-2-home-mobile.png', fullPage: false });
   await context.close();
 });
 

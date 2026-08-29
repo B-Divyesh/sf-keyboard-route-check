@@ -1,1 +1,1 @@
-Record keyboard focus routes and export likely defects before release.
+Record keyboard focus routes and export reports of possible focus problems.

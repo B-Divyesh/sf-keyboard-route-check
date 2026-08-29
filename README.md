@@ -11,7 +11,10 @@ It warns when forward Tab returns to an earlier control. It records the
 browser’s actual Tab order. Page labels appear as text in the popup. It also
 warns when a control lacks a visible focus mark.
 
-The static companion site includes a one-click sample report. Try the isolated
+Recording works offline after the page and extension are loaded. License checks
+need a connection.
+
+The website includes a one-click sample report. Try the isolated
 sample at `/?demo=1` after running the site.
 
 ## Use the extension
@@ -56,7 +59,7 @@ Start for real clears it.
 
 ## Deploy
 
-The factory deploys the static companion site from `dist/site`. The build puts
+The factory deploys the website from `dist/site`. The build puts
 the packaged extension in its `downloads/` directory.
 
 ```sh
