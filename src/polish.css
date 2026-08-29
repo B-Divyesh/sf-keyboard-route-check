@@ -1,0 +1,44 @@
+/* Round-one polish: readable utility copy and a visible route-focus state. */
+.eyebrow {
+  text-transform: uppercase;
+}
+
+.hero-actions,
+.facts,
+.button,
+button {
+  font-size: 16px;
+}
+
+h1[tabindex="-1"]:focus {
+  outline: 3px solid var(--red);
+  outline-offset: 6px;
+}
+
+.product-preview > div > p:not(.eyebrow),
+.paid > p:not(.eyebrow) {
+  max-width: 540px;
+}
+
+footer nav a {
+  max-width: 100%;
+  white-space: normal;
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding-top: 24px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero-actions {
+    gap: 8px 12px;
+  }
+
+  .facts {
+    margin-top: 20px;
+  }
+}

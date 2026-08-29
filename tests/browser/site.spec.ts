@@ -34,7 +34,8 @@ test('demo exports a route report with labels, roles, order, and findings', asyn
 });
 
 test('@claim:demo-isolated stores only sample data separately, resets it, and discards it on exit', async ({ page }) => {
-  await page.goto('/demo');
+  await page.goto('/?demo=1');
+  await expect(page.getByLabel('Demo controls')).toContainText('sample data, nothing is saved to your real data');
   expect(await page.evaluate(() => Object.keys(localStorage))).toEqual(['demo:krc:sample-report']);
   await page.getByRole('button', { name: 'Reset demo' }).click();
   await expect(page.getByLabel('Demo controls')).toContainText('sample data, nothing is saved to your real data');
@@ -47,16 +48,16 @@ test('@claim:demo-isolated stores only sample data separately, resets it, and di
 test('@claim:free-report-export downloads the sample report without an account', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
-  await expect(page).toHaveURL(/\/demo$/);
+  await expect(page).toHaveURL(/\?demo=1$/);
   const report = await exportedSample(page);
   expect(report.title).toBe('Sample booking page');
 });
 
-test('@claim:team-archive-unavailable states the archive purchase status and does not show a dead checkout', async ({ page }) => {
+test('@claim:team-archive-unavailable states the local archive purchase status and does not show a dead checkout', async ({ page }) => {
   for (const route of ['/', '/terms']) {
     await page.goto(route);
-    await expect(page.getByText('New team archive purchases are temporarily unavailable.')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Buy team archive' })).toHaveCount(0);
+    await expect(page.getByText('New local archive purchases are temporarily unavailable.')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Buy local archive' })).toHaveCount(0);
   }
 });
 
@@ -65,7 +66,41 @@ test('serves a styled unknown route with a real 404 status', async ({ page, requ
   expect(response.status()).toBe(404);
   await page.goto('/no-such-route');
   await expect(page).toHaveTitle('Page not found — Keyboard Route Check');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('That page is not on this tape.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('We could not find that page.');
+});
+
+test('header routes and Back focus and announce each destination heading', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Demo', exact: true }).click();
+  await expect(page).toHaveURL(/\/demo$/);
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  await expect(page.locator('[aria-live="polite"]').first()).toHaveText('Navigated to Review a keyboard route.');
+  await page.screenshot({ path: '.factory/evidence/polish-1-route-focus.png', fullPage: false });
+  await expect(page).toHaveTitle('Demo — Keyboard Route Check');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://keyboard-route-check.sociobot.in/demo');
+
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toBeFocused();
+  await expect(page.locator('[aria-live="polite"]').first()).toHaveText('Navigated to Record the route your keyboard takes.');
+});
+
+test('every route has complete route-specific metadata and clear external link text', async ({ page }) => {
+  const routes = [
+    ['/', 'Keyboard Route Check — Record a keyboard route', 'https://keyboard-route-check.sociobot.in/'],
+    ['/demo', 'Demo — Keyboard Route Check', 'https://keyboard-route-check.sociobot.in/demo'],
+    ['/privacy', 'Privacy — Keyboard Route Check', 'https://keyboard-route-check.sociobot.in/privacy'],
+    ['/terms', 'Terms — Keyboard Route Check', 'https://keyboard-route-check.sociobot.in/terms'],
+    ['/404', 'Page not found — Keyboard Route Check', 'https://keyboard-route-check.sociobot.in/404']
+  ] as const;
+  for (const [route, title, canonical] of routes) {
+    await page.goto(route);
+    await expect(page).toHaveTitle(title);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', canonical);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /.+/);
+    await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute('content', title);
+    await expect(page.getByRole('link', { name: 'Built by Param Factory (external site)' })).toBeVisible();
+  }
 });
 
 test('all landing and demo controls meet the 44px touch target baseline at 390px', async ({ browser }) => {
@@ -82,6 +117,26 @@ test('all landing and demo controls meet the 44px touch target baseline at 390px
       .map((control) => ({ text: (control.textContent || (control as HTMLInputElement).value || '').trim(), box: control.getBoundingClientRect().toJSON() })));
     expect(undersized, `${route} has undersized touch controls`).toEqual([]);
   }
+  await context.close();
+});
+
+test('the complete first-read message fits the initial 390px viewport without horizontal overflow', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await page.goto('/');
+  for (const target of [
+    page.getByRole('heading', { level: 1 }),
+    page.locator('.lede'),
+    page.getByRole('link', { name: 'Try it with sample data' }),
+    page.getByText('See a route report right away.'),
+    page.locator('.facts')
+  ]) {
+    const box = await target.boundingBox();
+    expect(box, 'first-read element should be visible').not.toBeNull();
+    expect(box!.y + box!.height, 'first-read element should fit before the fold').toBeLessThanOrEqual(844);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
+  await page.screenshot({ path: '.factory/evidence/polish-1-home-mobile.png', fullPage: false });
   await context.close();
 });
 

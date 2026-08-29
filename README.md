@@ -4,16 +4,15 @@ Record the route your keyboard takes.
 
 Keyboard Route Check is for keyboard-only users and small web teams. Its Chrome
 extension records a manual Tab and Shift+Tab route through one page. It records
-control labels, roles, order, and likely focus-route defects. It never records
-form values.
+each focused control’s name, type, and order, then flags likely focus problems.
+It never records form values.
 
-It warns when a repeated forward Tab route returns to an earlier control. It
-records the browser's Tab order, including valid positive `tabindex` values.
-Page labels appear as text in the popup.
-It warns when a control lacks a visible focus indicator.
+It warns when forward Tab returns to an earlier control. It records the
+browser’s actual Tab order. Page labels appear as text in the popup. It also
+warns when a control lacks a visible focus mark.
 
-The static site is a companion landing page and one-click sample report. Try
-the sample at `/demo` after running the site.
+The static companion site includes a one-click sample report. Try the isolated
+sample at `/?demo=1` after running the site.
 
 ## Use the extension
 
@@ -24,13 +23,17 @@ the sample at `/demo` after running the site.
 4. Use Tab and Shift+Tab on the page, then stop recording.
 5. Export the JSON route report for a review or issue.
 
-The recorder is manual evidence, not WCAG certification or automated testing.
+The recorder provides manual evidence. It cannot confirm that a page meets
+accessibility requirements or replace human review.
+
+Developer detail: the recorder respects valid positive `tabindex` values.
 
 ## Develop, test, and build
 
 ```sh
 npm install
 npm test
+npm run test:browser
 npm run build
 ```
 
@@ -47,34 +50,37 @@ For the companion site locally:
 npm run dev:site
 ```
 
-Open `http://localhost:5173/demo` for the isolated sample route. Demo storage
+Open `http://localhost:5173/?demo=1` for the isolated sample route. Demo storage
 uses the `demo:krc:sample-report` localStorage key. Reset demo recreates it;
 Start for real clears it.
 
 ## Deploy
 
-The factory deploys the static companion site from `dist/site`; the packaged
-extension is copied into its `downloads/` directory during the build.
+The factory deploys the static companion site from `dist/site`. The build puts
+the packaged extension in its `downloads/` directory.
 
 ```sh
 /opt/fleet/lib/deploy-static.sh keyboard-route-check dist/site
 ```
 
-Do not deploy the extension separately or change DNS, billing, or checkout
+Do not deploy the extension separately. Do not change DNS, billing, or checkout
 configuration from this repository.
 
-## Privacy and the optional team archive
+## Privacy and the local report archive
 
-Route reports stay in browser extension storage. The extension records labels,
-roles, directions, timestamps, stable control identifiers, and a page origin
-and path. It never records form values or page titles. It removes URL
+Route reports stay in browser extension storage. The extension records control
+names, types, directions, timestamps, stable identifiers, and a safe page
+address. It never records form values or page titles. It removes URL
 credentials, query values, and fragments before export. It makes no analytics
 or route-report requests.
 
-The optional team archive saves report history in the extension browser
-profile. New archive purchases are temporarily unavailable. If an existing
-purchase returns to the companion site, copy its displayed token into
-**Team archive license** in the extension and verify it there.
+The optional local report archive saves history only in this browser. It does
+not sync or share reports with teammates. New local archive purchases are
+temporarily unavailable.
+
+Existing license holders can still move a license to another browser. Open the
+checkout return link and copy the displayed token. In the extension, choose
+**Local archive license**, paste the token, and verify it.
 
 See the deployed `/privacy` and `/terms` pages for the current legal text.
 

@@ -1,14 +1,14 @@
 [
   {
     "id": "route-data-local",
-    "claim": "Route reports contain control labels and roles, never form values, and are not sent to our servers.",
+    "claim": "Route reports contain control names and types, never form values, and are not sent to our servers.",
     "where": "extension footer, privacy page, README",
     "test": "npm run test:claims -- --grep @claim:route-data-local",
     "sandbox": "packed MV3 extension in a fresh profile; record a real input route on a URL with a query token, export it, and assert stored/exported data retains labels and roles but no input value, query token, fragment, title, or external report request"
   },
   {
     "id": "report-export",
-    "claim": "Exports a route report with labels, roles, order, and findings.",
+    "claim": "Exports a route report with control names, types, order, and findings.",
     "where": "landing page, extension export button, README",
     "test": "npm run test:claims -- --grep @claim:report-export",
     "sandbox": "packed MV3 extension in a fresh profile; record real focused controls, start an observable JSON download, and assert labels, roles, browser order, and report data"
@@ -29,14 +29,14 @@
   },
   {
     "id": "team-archive-local",
-    "claim": "The optional team archive saves report history in this browser.",
+    "claim": "The optional local report archive saves history only in this browser and does not sync or share reports.",
     "where": "landing page, README, terms page",
     "test": "npm run test:claims -- --grep @claim:team-archive-local",
     "sandbox": "packed MV3 extension in a fresh browser profile; record a route, unlock the archive locally, save it, and assert one local archive record"
   },
   {
     "id": "team-archive-unavailable",
-    "claim": "New team archive purchases are temporarily unavailable.",
+    "claim": "New local archive purchases are temporarily unavailable.",
     "where": "landing page, terms page, README",
     "test": "npm run test:claims -- --grep @claim:team-archive-unavailable",
     "sandbox": "fresh browser context; load the landing page and assert the availability notice is visible and no team archive checkout link is offered"
@@ -71,7 +71,7 @@
   },
   {
     "id": "license-transfer-handoff",
-    "claim": "A returned team-archive license can be copied into the extension for verification.",
+    "claim": "A returned local-archive license can be copied into the extension for verification.",
     "where": "landing page, privacy page",
     "test": "npm run test:claims -- --grep @claim:license-transfer-handoff",
     "sandbox": "fresh browser profile; open the companion site with a checkout-return license, assert the token is shown after URL cleanup, paste it into the packed extension, stub the documented verification response, and assert local archive access"

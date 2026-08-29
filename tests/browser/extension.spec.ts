@@ -14,6 +14,7 @@ async function launchPackagedExtension() {
   const context = await chromium.launchPersistentContext(profile, {
     channel: 'chromium',
     headless: true,
+    downloadsPath: resolve(profile, 'downloads'),
     args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
   });
   const worker = await workerFor(context);
@@ -135,7 +136,7 @@ test('packed popup keyboard focus has a three-to-one focus ring on each reported
     await page.focus('#license');
     const tabId = await tabIdFor(worker, '/fixtures/route-page.html');
     await waitForStops(worker, tabId, 1);
-    for (const name of ['Team archive license', 'Clear route']) {
+    for (const name of ['Local archive license', 'Clear route']) {
       const control = popup.getByRole('button', { name });
       await control.focus();
       await popup.keyboard.press('Tab');
@@ -163,12 +164,14 @@ test('packed popup keyboard focus has a three-to-one focus ring on each reported
 test('@claim:team-archive-local @claim:license-transfer-handoff exposes a checkout-return token and unlocks the extension after paste-and-verify', async () => {
   const { context, worker, extensionId } = await launchPackagedExtension();
   try {
+    const requests: string[] = [];
+    context.on('request', (request) => requests.push(request.url()));
     const returnPage = await context.newPage();
     await returnPage.goto('http://127.0.0.1:4173/?license=verification-transfer-token');
     await expect(returnPage).toHaveURL('http://127.0.0.1:4173/');
     await expect(returnPage.getByRole('heading', { name: 'Move your license to the extension' })).toBeVisible();
     await expect(returnPage.getByLabel('Returned license token')).toHaveValue('verification-transfer-token');
-    await expect(returnPage.getByText('Copy it, open the extension, choose Team archive license, paste it, and verify it.')).toBeVisible();
+    await expect(returnPage.getByText('Copy it, open the extension, choose Local archive license, paste it, and verify it.')).toBeVisible();
     await returnPage.close();
 
     await context.route(/https:\/\/api\.sociobot\.in\/api\/v1\/products\/keyboard-route-check\/verify\?license=/, async (route) => {
@@ -183,14 +186,16 @@ test('@claim:team-archive-local @claim:license-transfer-handoff exposes a checko
     await page.focus('#license');
     const tabId = await tabIdFor(worker, '/fixtures/route-page.html');
     await waitForStops(worker, tabId, 1);
-    await popup.getByRole('button', { name: 'Team archive license' }).click();
-    await popup.getByLabel('Paste team archive license').fill('verification-transfer-token');
+    await popup.getByRole('button', { name: 'Local archive license' }).click();
+    await popup.getByLabel('Paste local archive license').fill('verification-transfer-token');
     await popup.getByRole('button', { name: 'Verify license' }).click();
-    await expect(popup.getByRole('button', { name: /Save to team archive/ })).toBeVisible();
+    await expect(popup.getByRole('button', { name: /Save to local archive/ })).toBeVisible();
     expect(await worker.evaluate(async () => (await chrome.storage.local.get('sb_license:keyboard-route-check'))['sb_license:keyboard-route-check'])).toBe('verification-transfer-token');
-    await popup.getByRole('button', { name: /Save to team archive/ }).click();
+    await popup.getByRole('button', { name: /Save to local archive/ }).click();
     const archive = await worker.evaluate(async () => (await chrome.storage.local.get('krc:team-archive'))['krc:team-archive']) as unknown[];
     expect(archive).toHaveLength(1);
+    expect(requests.filter((url) => url.startsWith('https://api.sociobot.in/'))).toHaveLength(1);
+    expect(requests.some((url) => /sync|share|archive/.test(new URL(url).pathname))).toBe(false);
   } finally {
     await context.close();
   }
@@ -209,16 +214,16 @@ test('keeps a proven archive verdict while offline and announces invalid or miss
     const tabId = await tabIdFor(worker, '/fixtures/route-page.html');
     await waitForStops(worker, tabId, 1);
 
-    await popup.getByRole('button', { name: 'Team archive license' }).click();
+    await popup.getByRole('button', { name: 'Local archive license' }).click();
     await popup.getByRole('button', { name: 'Verify license' }).click();
     await expect(popup.getByRole('alert')).toHaveText('Paste your license token first.');
     await context.route(/https:\/\/api\.sociobot\.in\/api\/v1\/products\/keyboard-route-check\/verify\?license=/, async (route) => {
       await route.fulfill({ contentType: 'application/json', body: JSON.stringify({ valid: false, reason: 'invalid' }) });
     });
-    await popup.getByLabel('Paste team archive license').fill('not-a-license');
+    await popup.getByLabel('Paste local archive license').fill('not-a-license');
     await popup.getByRole('button', { name: 'Verify license' }).click();
     await expect(popup.getByRole('alert')).toHaveText('This license is not active. Check the token and try again.');
-    await expect(popup.getByLabel('Paste team archive license')).toBeVisible();
+    await expect(popup.getByLabel('Paste local archive license')).toBeVisible();
 
     await context.unrouteAll();
     await worker.evaluate(() => chrome.storage.local.set({
@@ -227,7 +232,7 @@ test('keeps a proven archive verdict while offline and announces invalid or miss
     }));
     await context.setOffline(true);
     await popup.reload();
-    await expect(popup.getByRole('button', { name: /Save to team archive/ })).toBeVisible();
+    await expect(popup.getByRole('button', { name: /Save to local archive/ })).toBeVisible();
     await expect.poll(async () => worker.evaluate(async () => (await chrome.storage.local.get('sb_license_verdict:keyboard-route-check'))['sb_license_verdict:keyboard-route-check'])).toMatchObject({ valid: true });
   } finally {
     await context.close();
