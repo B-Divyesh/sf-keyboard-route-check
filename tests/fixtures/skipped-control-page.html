@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Skipped control fixture</title>
+    <style>
+      button:focus-visible { outline: 3px solid #b42a35; outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <button id="alpha" type="button">Alpha</button>
+      <button id="beta" type="button">Beta</button>
+      <button id="gamma" type="button">Gamma</button>
+    </main>
+    <script>
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Tab' && !event.shiftKey && document.activeElement?.id === 'alpha') {
+          event.preventDefault();
+          document.querySelector('#gamma').focus();
+        }
+      });
+    </script>
+  </body>
+</html>

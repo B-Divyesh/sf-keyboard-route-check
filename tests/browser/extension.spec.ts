@@ -313,6 +313,65 @@ test('@claim:browser-tab-order records valid positive tabindex order without fal
   }
 });
 
+test('@claim:skipped-control-reporting names the expected and actual controls after a true Tab skip', async () => {
+  const { context, worker, extensionId } = await launchPackagedExtension();
+  try {
+    const page = await context.newPage();
+    await page.goto('http://127.0.0.1:4173/fixtures/skipped-control-page.html');
+    await page.reload();
+    const popup = await context.newPage();
+    await popup.goto(`chrome-extension://${extensionId}/popup.html`);
+    await popup.getByRole('button', { name: 'Record this tab' }).click();
+    await page.bringToFront();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    const tabId = await tabIdFor(worker, '/fixtures/skipped-control-page.html');
+    const report = await waitForStops(worker, tabId, 2) as {
+      steps: Array<{ label: string }>;
+      findings: Array<{ kind: string; message: string }>;
+    };
+    expect(report.steps.map((step) => step.label)).toEqual(['Alpha', 'Gamma']);
+    expect(report.findings).toContainEqual({
+      kind: 'skip',
+      at: 1,
+      message: 'Expected Beta; focus moved to Gamma.'
+    });
+  } finally {
+    await context.close();
+  }
+});
+
+test('@claim:reverse-tab-recording records a real Shift+Tab recovery as reverse without a false loop', async () => {
+  const { context, worker, extensionId } = await launchPackagedExtension();
+  try {
+    const page = await context.newPage();
+    await page.goto('http://127.0.0.1:4173/fixtures/skipped-control-page.html');
+    await page.reload();
+    const popup = await context.newPage();
+    await popup.goto(`chrome-extension://${extensionId}/popup.html`);
+    await popup.getByRole('button', { name: 'Record this tab' }).click();
+    await page.bringToFront();
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Shift+Tab');
+    const tabId = await tabIdFor(worker, '/fixtures/skipped-control-page.html');
+    const report = await waitForStops(worker, tabId, 4) as {
+      steps: Array<{ label: string; direction: string }>;
+      findings: Array<{ kind: string }>;
+    };
+    expect(report.steps.map((step) => ({ label: step.label, direction: step.direction }))).toEqual([
+      { label: 'Alpha', direction: 'forward' },
+      { label: 'Gamma', direction: 'forward' },
+      { label: 'Beta', direction: 'reverse' },
+      { label: 'Alpha', direction: 'reverse' }
+    ]);
+    expect(report.findings.filter((finding) => finding.kind === 'loop')).toEqual([]);
+  } finally {
+    await context.close();
+  }
+});
+
 test('@claim:popup-label-safety renders markup-like page labels as text, never popup controls', async () => {
   const { context, worker, extensionId } = await launchPackagedExtension();
   try {

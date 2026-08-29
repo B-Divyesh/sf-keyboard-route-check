@@ -63,6 +63,20 @@
     "sandbox": "packed MV3 extension in a fresh browser profile; Tab through tabindex=1, tabindex=2, and ordinary controls and assert the route is Beta, Alpha, Gamma with no skip finding"
   },
   {
+    "id": "skipped-control-reporting",
+    "claim": "Warns when a Tab move skips the next control in the browser's route.",
+    "where": "sample report, README",
+    "test": "npm run test:claims -- --grep @claim:skipped-control-reporting",
+    "sandbox": "packed MV3 extension in a fresh browser profile; force Tab from Alpha to Gamma and assert a skip finding names expected Beta and actual Gamma"
+  },
+  {
+    "id": "reverse-tab-recording",
+    "claim": "Records real Shift+Tab moves in the reverse direction without treating ordinary backtracking as a loop.",
+    "where": "extension instructions, README",
+    "test": "npm run test:claims -- --grep @claim:reverse-tab-recording",
+    "sandbox": "packed MV3 extension in a fresh browser profile; force Alpha to Gamma, press Shift+Tab through Beta to Alpha, and assert both moves are reverse with no loop finding"
+  },
+  {
     "id": "popup-label-safety",
     "claim": "Shows page labels as text in the extension popup.",
     "where": "privacy page, README",
