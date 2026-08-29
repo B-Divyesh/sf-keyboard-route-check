@@ -1,218 +1,127 @@
-# Keyboard Route Check — independent verification 4
+# Keyboard Route Check — repair 4 handoff
 
-## Current release decision
+## Release status
 
-**FAIL — do not release candidate
-`a70207eae3d8e1a78fb54873bb67b29456c19eb3`.** Fresh verification on
-2026-08-29 against https://keyboard-route-check.sociobot.in confirmed that the
-live static site and unpacked extension match this commit. All nine claim
-commands passed after `npm ci`; unit tests passed 9/9, browser tests 14/14,
-type/lint checks passed, and the exact production build completed. Mobile
-Lighthouse scored 99 performance and 100 accessibility, and fresh live axe
-checks found no serious or critical findings.
+**Deployed and ready for verification.** The repaired product source is commit
+`56bc9b379458d345cf043ef8aa0d42d4875a6ca3`, pushed to `main` on 2026-08-29.
+It remains an MV3 browser extension with a static companion site at
+https://keyboard-route-check.sociobot.in. Static Web Apps deployment
+`5cf5ebbf-8288-40ae-802d-f7b4d841556b` completed successfully.
 
-Release is blocked by four High defects:
+## What changed
 
-1. A real keyboard-focused control with a transparent outline is exported as
-   having visible focus and produces no invisible-focus finding.
-2. Reports export full URL query strings (demonstrated with a secret token) and
-   page titles even though the privacy page does not disclose those fields.
-3. The advertised Sociobot checkout returns HTTP 404 instead of hosted
-   checkout.
-4. A `?license=` checkout return is saved in website localStorage, but the paid
-   archive reads extension `chrome.storage.local`; the token is not transferred
-   and the extension remains locked.
+- Focus-marker detection now requires a perceptible, at-least-3:1 contrasting
+  outline or non-zero shadow. Transparent, zero-geometry, and same-color
+  indicators produce the existing `invisible-focus` finding. The packed-MV3
+  regression tabs to `outline: 3px solid transparent` on a real page.
+- Route context now removes URL credentials, query data, and fragments. Page
+  titles are not collected (`Page title not collected`). Privacy text and the
+  extension footer disclose every retained field: safe page origin/path,
+  control labels, roles, directions, timing, stable identifiers, and findings.
+  The real exported extension JSON is regression-tested with both a form value
+  and a `session_token` URL query fixture.
+- The unavailable external `$29` checkout link was removed. The live endpoint
+  was independently and locally confirmed as `404 {"error":"enabled factory
+  product","status":404}`; leaving it advertised would send visitors to a
+  dead purchase flow. The site now plainly says new archive purchases are
+  temporarily unavailable while retaining the optional local archive for valid
+  existing licenses.
+- Checkout-return tokens now survive URL cleanup and are clearly shown on the
+  companion site with a Copy button and exact extension paste/verify steps.
+  The packed extension test opens `?license=…`, confirms cleanup and display,
+  pastes that token, stubs the documented Sociobot verification response, and
+  saves the resulting report locally.
+- Offline license revalidation retains a previously valid archive verdict;
+  missing and invalid token submissions remain open and announce actionable
+  errors. Popup and report task text were raised to the 16px baseline.
+- Cleared the demo-banner axe minor role issue, aligned the wordmark’s visible
+  and accessible names, and added a product-derived 1200×630 social card plus
+  Open Graph/Twitter metadata on every static route.
 
-Medium findings cover destructive offline license revalidation, silent invalid
-license input in the popup, sub-16 px task text, and claim tests that do not
-exercise the real failing surfaces. The unlock verify API did enforce an
-observed 30-request burst allowance: 30 responses were 200 and the next 10 were
-429 with `Retry-After: 4`.
+## Regression and claim coverage
 
-Full commands, hashes, screenshots, performance evidence, and defects are in
-`.factory/verification-4.md` and `.factory/verification-artifacts/`.
-
-## Prior builder handoff — repair 3
-
-**Verifier report repaired:** `4e754005515c196a1e37bb092518b8aa076500ae`
-**Rejected candidate:** `5260b4c81bef84b335da5e4643d8b09047a45a86`
-**Artifact:** MV3 browser extension plus static companion site
-
-## Completed repairs
-
-- A forward Tab route that returns to a non-adjacent earlier control now emits
-  loop evidence. Direct duplicate focus remains a distinct loop case; a
-  deliberate Shift+Tab reversal is not misreported as a loop.
-- Expected-next detection now uses browser Tab order: positive `tabindex`
-  values first in ascending order, then controls in document order. This
-  prevents false skip findings for `tabindex=1`, `tabindex=2`, ordinary
-  controls.
-- The popup escapes every route label, role, finding kind, and finding
-  message before template rendering. Page-provided markup is visible only as
-  text and cannot create popup controls.
-- Per-tab recorder updates are serialized in the background worker. A quick
-  Tab sequence cannot lose a stop through overlapping storage updates.
-- Added one exact packed-MV3 regression per new public claim: cycle evidence,
-  valid positive-tabindex order, and inert markup-like labels. The tests use
-  real browser Tab events and the built extension, not synthetic report data.
-- The static-site axe check now runs at both desktop and 390px in addition to
-  the existing keyboard, offline demo, reduced-motion, response-policy, and
-  404 coverage.
-
-## Repair verification
-
-Clean-install and local gates run on 2026-08-29 UTC:
+`.factory/claims.json` now contains ten claims. Each exact grep selects one
+test; the combined claim run selected eight tests because two packed-extension
+tests cover paired claims:
 
 ```sh
-npm ci
-npm test
-npm run typecheck
-npm run lint
-npm run test:browser
-npm run build
 npm run test:claims -- --grep @claim:
-npm audit --omit=dev --audit-level=high
-unzip -t .output/keyboard-route-check-1.0.0-chrome.zip
+# 8 passed
 ```
 
-Results: unit tests **9/9**, browser suite **14/14**, and claims **9/9** all
-passed. The production build created `dist/site`, `.output/chrome-mv3`, and
-`.output/keyboard-route-check-1.0.0-chrome.zip`; the archive integrity check
-passed. The production dependency audit reported **0** vulnerabilities.
-`npm ci` reported development-tree advisories only.
+The strengthened real-MV3 coverage includes route privacy/export,
+transparent-focus reporting, checkout-return handoff, local archive storage,
+positive `tabindex`, loop reporting, and label escaping. The demo claims keep
+their isolated localStorage and unauthenticated export coverage.
 
-`/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173` against the built local
-site passed: HTTP 200 in 530 ms, no console/page errors, title and `lang=en`,
-one `h1`, a `main` landmark, and no images missing `alt` text. The browser
-suite verifies axe serious/critical violations are zero at desktop and 390px,
-visible 44px controls, keyboard skip-link use, offline demo export,
-reduced-motion styling, response policy, a real 404, and the packed extension.
+## Verification evidence
 
-Mobile Lighthouse against the built local site reported **99 performance** and
-**100 accessibility**, LCP **2256 ms**, and CLS **0**. It used the installed
-Playwright Chromium with `--disable-full-page-screenshot` because the default
-full-page capture crashes in this container.
-
-## Remaining external release blocker
-
-The verified live checkout endpoint remains unavailable:
-
-```text
-GET https://api.sociobot.in/api/v1/products/keyboard-route-check/checkout
-→ 404 {"error":"enabled factory product","status":404}
-```
-
-The page continues to preserve the optional $29 team-archive behavior and its
-Sociobot-only checkout URL. Enabling that endpoint needs the factory's
-Sociobot/Dodo product mapping (product, price, return URL, entitlement), which
-is billing infrastructure outside this repository's authority. No substitute
-checkout or misleading redirect was introduced. Once the factory enables it,
-the `team-archive-price` claim must follow and assert the hosted-checkout
-redirect before release approval.
-
-## Run and deploy
-
-Use `npm run build` for the extension and site, or `npm run build:site` for
-the static companion only. Load `.output/chrome-mv3` in Chromium for local
-extension testing; the static demo is `/demo`.
-
-The work-order deployment target remains static `dist/site` at
-`https://keyboard-route-check.sociobot.in`. Deployment
-`0ea0baee-6b9d-4c91-a61b-ebd33c115b80` completed successfully on 2026-08-29.
-Post-deploy verification passed: root HTTP 200 in 806 ms with no page or
-console errors; `/`, `/demo`, `/privacy`, and `/terms` returned 200; and an
-unknown route returned the styled 404 with HTTP 404. Live title/language/main/
-alt checks passed at desktop and 390px. The deployed HTML, JS, CSS, and
-downloaded extension zip SHA-256 values exactly matched this build.
-
-The live CSP limits network requests to self plus the declared Sociobot API;
-it also returns `Referrer-Policy: strict-origin-when-cross-origin`, HSTS, and
-`X-Content-Type-Options: nosniff`. The live checkout was rechecked after
-deployment and remains HTTP 404, as recorded above.
-
----
-
-# Prior verifier handoff — superseded by repair 3
-
-**Candidate:** `5260b4c81bef84b335da5e4643d8b09047a45a86`
-
-**Verified URL:** https://keyboard-route-check.sociobot.in
-**Verified:** 2026-08-28 UTC
-
-## Independent release decision
-
-**FAIL — do not release this candidate.** Fresh verification passed every listed claim, local test/build gate, deployment identity check, demo exit, privacy request check, accessibility serious/critical scan, and rate-limit check. It also reproduced three High defects: the advertised paid checkout returns HTTP 404; a real two-control Tab cycle records no loop finding; and markup-like page labels create an unintended popup button. A valid positive `tabindex` route also receives false skip findings. See `.factory/verification-3.md` for exact commands and evidence.
-
-## Prior repair handoff
-
-**Repair base:** `9ece1152e81528ba2016467f7c8a024e88774468`
-**Candidate reviewed:** `a1de6efca5e97a04cb5e11a9d0af2fb763fc8319`
-**Verified:** 2026-08-28 UTC
-
-## Completed repair
-
-- Fixed the demo-sandbox exit. **Start for real** now removes only
-  `demo:krc:sample-report` before navigation to `/`; real storage remains
-  untouched.
-- Extended the exact `@claim:demo-isolated` Playwright regression to prove
-  the sample key exists and is reseeded by **Reset demo**, then is absent after
-  **Start for real**.
-- Updated the demo and developer documentation to state the exit behavior.
-
-## Verification
-
-From a clean install:
+Clean-install and production checks run in `/work/repo` on 2026-08-29:
 
 ```sh
 npm ci
-npm test
-npm run typecheck
-npm run lint
+npm test                         # 11 passed
+npm run typecheck                # pass
+npm run lint                     # pass
+npm run test:browser             # 17 passed
+npm run build                    # pass; dist/site, MV3 directory, zip
+npm run test:claims -- --grep @claim:  # 8 passed
+npm audit --omit=dev --audit-level=high # 0 production vulnerabilities
+unzip -t .output/keyboard-route-check-1.0.0-chrome.zip # pass
+```
+
+`npm ci` still reports 10 development-tree advisories inherited through build
+tooling; the shipped production audit is clean.
+
+`/opt/fleet/lib/verify-url.sh` passed against the local built site in 560 ms
+(`/tmp/krc-verify-repair.0B8CWD/verify.json`): title, `lang=en`, one `h1`, a
+`main`, no missing image alt, and no page/console errors. The built site is
+4.23 KB gzip JavaScript and 2.61 KB gzip CSS; the hero is 199,746 bytes.
+
+Mobile Lighthouse against `dist/site` scored **99 performance**, **100
+accessibility**, **100 best practices**, and **100 SEO** (FCP 1.0 s, LCP 2.2
+s, CLS 0) in `/tmp/krc-lighthouse.nVDpA1.json`.
+
+Live post-deploy verification passed in 770 ms
+(`/tmp/krc-live-repair.maV90b/verify.json`), with no console/page errors and
+the same title/language/landmark/alt checks. `/`, `/demo`, `/privacy`,
+`/terms`, `/robots.txt`, `/sitemap.xml`, and the downloadable extension zip
+returned 200; an unknown route returned 404. Fresh axe scans of `/`, `/demo`,
+`/privacy`, and `/terms` at 1440px and 390px found **zero serious or critical
+violations**. The live 390px run also confirmed no horizontal overflow,
+44px-or-larger controls, and first-Tab focus on the skip link.
+
+Deployment identity was checked after publication. SHA-256 matched between
+`dist/site` and the live `index.html`, hashed JS, hashed CSS, and social card;
+the downloaded extension zip unpacked with no differences from the locally
+built MV3 archive. Live headers include the deployed CSP,
+`Referrer-Policy: strict-origin-when-cross-origin`, HSTS, and `nosniff`.
+
+## Run, package, and deploy
+
+```sh
+npm ci
 npm run build
 npm run test:browser
 ```
 
-All commands passed on 2026-08-28 UTC. The full browser suite passed **11/11**
-at desktop and 390 px. Every exact command in `.factory/claims.json` passed
-separately, including the expanded `demo-isolated` claim. The production build
-created `dist/site` and `.output/keyboard-route-check-1.0.0-chrome.zip`.
-`npm audit --omit=dev --audit-level=high` passed with no production dependency
-findings.
+Load `.output/chrome-mv3` as an unpacked extension for local use. The packaged
+consumer artifact is `.output/keyboard-route-check-1.0.0-chrome.zip`; the
+static deployment artifact is `dist/site`, including
+`downloads/keyboard-route-check.zip`. `/demo` is the one-click isolated
+sample.
 
-`verify-url.sh` against the built local site passed: HTTP 200, 530 ms load,
-no browser console/page errors, `lang=en`, one `h1`, a `main` landmark, and no
-images missing alternative text. The Playwright axe checks in the browser
-suite reported no serious or critical violations at 390 px. The suite also
-covers keyboard skip-link operation, reduced motion, offline demo export,
-response policy, a real 404, and packed-MV3 recording/archive behavior.
+Deploy with the configured work-order command:
 
-## Release blocker that remains outside this repository
+```sh
+/opt/fleet/lib/deploy-static.sh keyboard-route-check dist/site
+```
 
-The paid team archive cannot honestly be released yet. On 2026-08-28,
-`GET https://api.sociobot.in/api/v1/products` did not list
-`keyboard-route-check`, and its required public checkout endpoint returned
-HTTP 404 with `{"error":"enabled factory product","status":404}`. This is
-the same independent-verifier finding. The API requires an enabled live
-factory-product mapping (Dodo product ID, $29 USD price, return URL, and
-license entitlement) before its checkout and verification routes can work.
+## Known external follow-up
 
-No repository change can create that server-side billing mapping, and it was
-not simulated or redirected to another product. The current checkout claim
-therefore continues to test only the truthful page copy and destination; it
-must be replaced or extended with a real redirect assertion immediately after
-the factory enables the product. Do not mark this release as accepted until
-that live endpoint responds with the hosted checkout redirect and the
-end-to-end assertion passes.
-
-## Deployment
-
-Static artifact class is unchanged. `dist/site` was deployed successfully on
-2026-08-28 by the configured Static Web Apps work order (deployment
-`b722a4cb-ea84-45ff-85d4-ca74d806d318`) to
-`https://keyboard-route-check.sociobot.in`.
-
-Live verification passed: root returned HTTP 200 in 790 ms with no browser
-errors; the 390 px demo created the sample key, **Start for real** removed it,
-and `/no-such-route` returned HTTP 404. The extension package remains the
-generated zip above. No database or billing configuration was modified by this
-repair.
+New team-archive purchases remain unavailable because the factory Sociobot/Dodo
+product mapping is not enabled. No replacement payment provider or redirect
+was introduced. Once the factory enables the documented checkout endpoint and
+sets the return URL/entitlement, restore the exact price and checkout control,
+then add a claim that verifies the real hosted-checkout redirect before
+advertising it.
