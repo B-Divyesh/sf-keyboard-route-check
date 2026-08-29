@@ -1,4 +1,38 @@
-# Keyboard Route Check — repair 3
+# Keyboard Route Check — independent verification 4
+
+## Current release decision
+
+**FAIL — do not release candidate
+`a70207eae3d8e1a78fb54873bb67b29456c19eb3`.** Fresh verification on
+2026-08-29 against https://keyboard-route-check.sociobot.in confirmed that the
+live static site and unpacked extension match this commit. All nine claim
+commands passed after `npm ci`; unit tests passed 9/9, browser tests 14/14,
+type/lint checks passed, and the exact production build completed. Mobile
+Lighthouse scored 99 performance and 100 accessibility, and fresh live axe
+checks found no serious or critical findings.
+
+Release is blocked by four High defects:
+
+1. A real keyboard-focused control with a transparent outline is exported as
+   having visible focus and produces no invisible-focus finding.
+2. Reports export full URL query strings (demonstrated with a secret token) and
+   page titles even though the privacy page does not disclose those fields.
+3. The advertised Sociobot checkout returns HTTP 404 instead of hosted
+   checkout.
+4. A `?license=` checkout return is saved in website localStorage, but the paid
+   archive reads extension `chrome.storage.local`; the token is not transferred
+   and the extension remains locked.
+
+Medium findings cover destructive offline license revalidation, silent invalid
+license input in the popup, sub-16 px task text, and claim tests that do not
+exercise the real failing surfaces. The unlock verify API did enforce an
+observed 30-request burst allowance: 30 responses were 200 and the next 10 were
+429 with `Retry-After: 4`.
+
+Full commands, hashes, screenshots, performance evidence, and defects are in
+`.factory/verification-4.md` and `.factory/verification-artifacts/`.
+
+## Prior builder handoff — repair 3
 
 **Verifier report repaired:** `4e754005515c196a1e37bb092518b8aa076500ae`
 **Rejected candidate:** `5260b4c81bef84b335da5e4643d8b09047a45a86`
