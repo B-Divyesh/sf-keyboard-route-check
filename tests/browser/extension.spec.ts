@@ -73,6 +73,13 @@ test('@claim:route-data-local @claim:report-export records real extension data w
     await popup.getByRole('button', { name: 'Export report' }).click();
     await expect.poll(async () => worker.evaluate(() => chrome.downloads.search({}))).toHaveLength(1);
     const downloads = await worker.evaluate(() => chrome.downloads.search({}));
+    await expect.poll(async () => {
+      try {
+        return (await readFile(downloads[0].filename)).byteLength;
+      } catch {
+        return 0;
+      }
+    }).toBeGreaterThan(0);
     const downloaded = JSON.parse(await readFile(downloads[0].filename, 'utf8')) as typeof report;
     expect(downloaded.url).toBe('http://127.0.0.1:4173/fixtures/route-page.html');
     expect(JSON.stringify(downloaded)).not.toContain('do-not-record-this-secret');
