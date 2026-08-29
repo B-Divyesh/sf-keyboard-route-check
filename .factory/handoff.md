@@ -1,60 +1,34 @@
-# Keyboard Route Check — verification 6 handoff
+# Keyboard Route Check — review 1 handoff
 
-## Release status
+## Status
 
-**PASS — candidate `45f701611a6cacffbb3f2c82374ad85c92d2d409` is verified for
-release at https://keyboard-route-check.sociobot.in.** No product source code
-changed during this verification.
+**FAIL.** This was a read-only adversarial review at
+`b4b3f35ab995a2d0ad36cd38594c66a8bede4012`; no product source was changed.
+The complete report is `.factory/review-1.md`.
 
-## What was verified
+## Verified
 
-- Every one of the 11 exact `.factory/claims.json` commands passed from a
-  clean `npm ci` checkout. The complete packed-extension/site Playwright suite
-  also passed 19 tests.
-- `npm test` (12 tests), typecheck, lint, production build, extension ZIP
-  integrity, and the production dependency audit passed. The build produces
-  `dist/site`, `.output/chrome-mv3`, and the distributable ZIP.
-- The production site and the unzipped live extension are the same as the
-  fresh candidate build. The one-click demo exports five route stops and three
-  findings, uses only `demo:krc:sample-report`, resets safely, and removes that
-  key on real-mode exit.
-- Live desktop and 390px checks found zero axe serious/critical issues, no
-  normal-route console/page errors, no horizontal overflow, and no undersized
-  visible controls. Keyboard focus is visible and reduced motion is instant.
-  Mobile Lighthouse: 100 performance, accessibility, best practices, and SEO
-  (FCP 0.8 s, LCP 1.8 s, TBT 0 ms, CLS 0).
-- The live demo made same-origin requests only. Response headers provide HSTS,
-  nosniff, strict-origin referrer policy, and an appropriate response CSP. The
-  license API allowed 30 requests per client window then returned 429 with
-  `Retry-After: 3`.
+- Live cold checks at 390px and desktop confirm the first screen explains the
+  job, audience, and sample-demo action.
+- The one-click `/demo` route shows a populated five-control report; request
+  logging showed only same-origin traffic. Reset retained only
+  `demo:krc:sample-report`; Start for real removed it.
+- A new temp clone received `npm ci`; `npm test` passed 12 tests and
+  `npm run test:browser` passed 19 tests. The 11 declared claim commands were
+  run and passed. `npm run build` succeeds and produces `dist/site`.
+- Live axe scans at mobile and desktop found no serious/critical violations.
+  Internal/external links tested returned successfully; metadata, visual
+  identity, and basic offline/privacy behavior were inspected.
 
-## Run and verify
+## Remaining work
 
-```sh
-npm ci
-npm test
-npm run typecheck
-npm run lint
-npm run test:claims -- --grep @claim:<claim-id>
-npm run test:browser
-npm run build
-unzip -t .output/keyboard-route-check-1.0.0-chrome.zip
-npm audit --omit=dev --audit-level=high
-```
+1. Blocking: focus the destination `<h1>` and announce every route change;
+   Back has the same defect.
+2. Replace decorative cassette/metaphor labels and specialist accessibility
+   jargon with the exact plain-language alternatives in review F-1-2/F-1-3.
+3. Rename or implement the misleading local-only “team archive.”
+4. Add a canonical link on the 404 and make the footer’s external destination
+   clear.
 
-Use `/demo` for the isolated sample report. Load `.output/chrome-mv3` as an
-unpacked Chromium extension for the actual recorder. The distributable ZIP is
-`dist/site/downloads/keyboard-route-check.zip`.
-
-## Known gaps / next steps
-
-- `npm ci` reports ten advisories in development-only tooling; production
-  dependencies report zero vulnerabilities. Upgrade the development toolchain
-  when compatible.
-- New team archive purchases intentionally remain unavailable. Existing
-  returned licenses can be copied to the extension and verified; this behavior
-  and the lack of a dead checkout are claim-tested.
-
-See `.factory/verification-6.md` for exact claim commands, live/deployment
-comparison, privacy request evidence, rate-limit observation, and severity
-assessment.
+After repairs, rerun the entire cold live review rather than treating this as a
+diff-only check.
