@@ -38,8 +38,7 @@ Verification ran on 2026-08-29 UTC.
   separately from the clean clone.
 - Clean-clone `npm run typecheck`: passed.
 - Clean-clone `npm test`: 12/12 passed.
-- Clean-clone `npm run test:browser`: 22/22 passed before the final copy
-  regression was added; the final local browser suite passes 23/23.
+- Final pushed clean-clone `npm run test:browser`: 23/23 passed.
 - Clean-clone `npm run build`: passed and produced `.output/chrome-mv3`, the
   extension zip, and `dist/site`.
 - Site bundle: 13.16 KB JavaScript (4.88 KB gzip) and 9.30 KB CSS (2.69 KB
